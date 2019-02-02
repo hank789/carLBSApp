@@ -1,0 +1,101 @@
+{
+    "pages" : [
+        //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/tabBar/index/index",
+			"style": {
+				"navigationBarTitleText": "可拖动顶部选项卡",
+				"app-plus": {
+					"titleNView": {
+						"titleText": "可拖动顶部选项卡（原生）"
+					}
+				},
+		        "h5": {
+		            "titleNView": {
+		                "titleText": "可拖动顶部选项卡"
+						
+		            }
+		        }
+			}
+		},
+        {
+            "path" : "pages/tabBar/index/index",
+            "style" : {
+                "enablePullDownRefresh" : false
+      
+            }
+        },
+        {
+            "path" : "pages/tabBar/home/home",
+            "style" : {}
+        },
+        {
+            "path" : "pages/login/loginIndex/loginIndex",
+            "style" : {
+                "app-plus" : {
+                    "titleNView" : false //禁用原生导航栏
+                }
+            }
+        },
+        {
+            "path" : "pages/login/registe/registe",
+            "style" : {
+                "app-plus" : {
+                    "titleNView" : false //禁用原生导航栏
+                }
+            }
+        },
+        {
+            "path" : "pages/login/forget/forget",
+            "style" : {
+                "app-plus" : {
+                    "titleNView" : false //禁用原生导航栏
+                }
+            }
+        },
+        {
+            "path" : "pages/tabBar/home/userCenter/userCenter",
+            "style" : {}
+        },
+        {
+            "path" : "pages/upload/upload",
+            "style" : {}
+        }
+    ],
+    "globalStyle" : {
+        "navigationBarTextStyle" : "white",
+        "navigationBarTitleText" : "八宝饭",
+        "navigationBarBackgroundColor" : "#0F6DD2",
+        "backgroundColor" : "#F8F8F8"
+    },
+    "tabBar" : {
+        "color" : "#7A7E83",
+        "selectedColor" : "#007AFF",
+        "borderStyle" : "black",
+        "backgroundColor" : "#ffffff",
+        "list" : [
+            {
+                "pagePath" : "pages/tabBar/index/index",
+                "iconPath" : "static/index.png",
+                "selectedIconPath" : "static/index-active.png",
+                "text" : "首页"
+            },
+            {
+                "pagePath" : "pages/tabBar/home/home",
+                "iconPath" : "static/home.png",
+                "selectedIconPath" : "static/home-active.png",
+                "text" : "我的"
+            }
+        ]
+    },
+	"condition" : { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [
+			{
+				"name": "", //模式名称
+				"path": "", //启动页面，必选
+				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
+	}
+}
