@@ -7,9 +7,9 @@
 			<image src="../../../static/loginLogo.png" mode="widthFix" style="position: absolute;top: 120upx;width: 270upx;height: 89upx;left: 50%;transform: translate(-50%, -50%);"></image>
 		</view>
 		<view class="" style="position: absolute;top: 260upx;left:5%;width: 90%;box-shadow:0 0 0.16rem rgba(7, 138, 255, 0.5);background: #FFFFFF;border-radius: 16upx;padding: 60upx 0">
-			<view class="titleName">注册</view>
-			<view class="content" style="padding: 0 3%;">
-				<view class="grace-form" style="margin-top:50upx;">
+			<view class="titleName">手机登陆</view>
+			<view class="content">
+				<view class="grace-form" style="margin-top:50upx;width: 90%;">
 					<form @submit="loginNow">
 						<view class="grace-items grace-items-wbg" style="border-bottom: 1px solid #F1F1F1!important;border-radius: 0;">
 							<input type="number" name="name" class="input" placeholder="请输入手机号" style="margin-left: 0;line-height: 40upx;"></input>
@@ -22,17 +22,10 @@
 								<button type="primary" class="thisBtn" style="background: #FFFFFF;color: #076cD4;border: #FFFFFF;">获取验证码</button>
 							</view>
 						</view>
-						<view class="grace-items grace-items-wbg" style="border-bottom: 1px solid #F1F1F1!important;border-radius: 0;">
-							<input type="number" name="name" class="input" placeholder="请输入密码" style="margin-left: 0;line-height: 40upx;"></input>
-						</view>
-						<view class="grace-items grace-items-wbg" style="border-bottom: 1px solid #F1F1F1!important;border-radius: 0;">
-							<input type="number" name="name" class="input" placeholder="请再次输入密码 " style="margin-left: 0;line-height: 40upx;"></input>
-						</view>
-						<view class="memo noCount">注册即表示同意<span class="registeText agreement">《八宝饭注册协议》</span></view>
+						<view class="memo noCount">验证即可登录，未注册用户将根据手机号自动创建账号</view>
 						<button form-type='submit' type='primary' style='background:#076cD4; margin-top:20px;border-radius: 88upx;'>
-							登录 </text>
+							登录
 						</button>
-						<view class="memo noCount">已有八宝饭账号 <span class="registeText" @click="login()"> 立即登录 </span></view>
 					</form>
 				</view>
 			</view>
@@ -41,54 +34,14 @@
 </template>
 
 <script>
-	import uniSegmentedControl from '../../../components/uni-segmented-control.vue';
-
 	export default {
 		data() {
 			return {
-				styles: [{
-					value: 'button',
-					text: '按钮',
-					checked: true
-				}, {
-					value: 'text',
-					text: '文字'
-				}],
-				colors: [
-					'#007aff',
-					'#4cd964',
-					'#dd524d'
-				],
-				current: 0,
-				activeColor: '#007aff',
-				styleType: 'button'
+
 			}
-		},
-		components: {
-			uniSegmentedControl
 		},
 		methods: {
-			onClickItem(index) {
-				if (this.current !== index) {
-					this.current = index;
-				}
-			},
-			styleChange(evt) {
-				if (this.styleType !== evt.target.value) {
-					this.styleType = evt.target.value;
-				}
-			},
-			colorChange(evt) {
-				if (this.styleType !== evt.target.value) {
-					this.activeColor = evt.target.value;
-				}
-			},
-			login:function(){
-				uni.navigateTo({
-					url: '../loginIndex/loginIndex',
-				});
-			}
-			
+
 		}
 	}
 </script>

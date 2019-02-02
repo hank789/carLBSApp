@@ -1,7 +1,15 @@
 {
     "pages" : [
         //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
+        {
+          "path" : "pages/login/registe/registe",
+          "style" : {
+            "app-plus" : {
+              "titleNView" : false //禁用原生导航栏
+            }
+          }
+        },
+        {
 			"path": "pages/tabBar/index/index",
 			"style": {
 				"navigationBarTitleText": "可拖动顶部选项卡"
@@ -17,30 +25,6 @@
         {
             "path" : "pages/tabBar/home/home",
             "style" : {}
-        },
-        {
-            "path" : "pages/login/loginIndex/loginIndex",
-            "style" : {
-                "app-plus" : {
-                    "titleNView" : false //禁用原生导航栏
-                }
-            }
-        },
-        {
-            "path" : "pages/login/registe/registe",
-            "style" : {
-                "app-plus" : {
-                    "titleNView" : false //禁用原生导航栏
-                }
-            }
-        },
-        {
-            "path" : "pages/login/forget/forget",
-            "style" : {
-                "app-plus" : {
-                    "titleNView" : false //禁用原生导航栏
-                }
-            }
         },
         {
             "path" : "pages/tabBar/home/userCenter/userCenter",
