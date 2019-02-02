@@ -4,18 +4,7 @@
 		{
 			"path": "pages/tabBar/index/index",
 			"style": {
-				"navigationBarTitleText": "可拖动顶部选项卡",
-				"app-plus": {
-					"titleNView": {
-						"titleText": "可拖动顶部选项卡（原生）"
-					}
-				},
-		        "h5": {
-		            "titleNView": {
-		                "titleText": "可拖动顶部选项卡"
-						
-		            }
-		        }
+				"navigationBarTitleText": "可拖动顶部选项卡"
 			}
 		},
         {
@@ -64,7 +53,7 @@
     ],
     "globalStyle" : {
         "navigationBarTextStyle" : "white",
-        "navigationBarTitleText" : "八宝饭",
+        "navigationBarTitleText" : "车辆管理",
         "navigationBarBackgroundColor" : "#0F6DD2",
         "backgroundColor" : "#F8F8F8"
     },
