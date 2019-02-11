@@ -19,7 +19,7 @@
 								<input type="number" class="input" v-model="yzm" placeholder="请输入验证码" style="margin-left: 0;"></input>
 							</view>
 							<view style="width: 36%;">
-								<button type="primary" class="thisBtn" @tap.stop.prevent="entryYzm">{{get_msg_btn}}</button>
+								<button class="thisBtn" @tap.stop.prevent="entryYzm">{{get_msg_btn}}</button>
 							</view>
 						</view>
 						<view class="memo noCount">验证即可登录，未注册用户将根据手机号自动创建账号</view>
@@ -45,6 +45,14 @@
 			  yzm: '',
 			  get_msg_btn: '获取验证码',
 			  can_send_msg: true,
+			}
+		},
+		created() {
+			console.log(this.$ls.get('token'))
+			if (this.$ls.get('token')) {
+				uni.reLaunch({
+					url: '/pages/tabBar/index/index',
+				})
 			}
 		},
 		methods: {
@@ -94,9 +102,7 @@
 					mobile: this.phone,
 					phoneCode: this.yzm
 				}
-				
 				console.log(params);
-				
 				if (!this.phone) {
 					uni.showToast({
 						title: '请填写手机号',
@@ -116,6 +122,8 @@
 					if(res.code==1000){
 						this.login(res.data)
 						this.setToken(res.data.token)
+						this.$ls.set('user', res.data)
+						this.$ls.set('token',res.data.token)
 						uni.reLaunch({
 							url: '/pages/tabBar/index/index',
 						})
