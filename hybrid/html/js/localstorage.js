@@ -15,24 +15,27 @@ export default {
 		} else if (typeof v == 'undefined') {
 			alert("数据值-->undefined")
 		}
-		try {
-			uni.setStorageSync(pre_name + k, v);
-		} catch (e) {
-			console.log(e)
-			if (window && window.localStorage) {
-				window.localStorage.setItem(pre_name + k, v)
+		if (window && window.localStorage) {
+			window.localStorage.setItem(pre_name + k, v)
+
+		} else {
+			try {
+				uni.setStorageSync(pre_name + k, v);
+			} catch (e) {
+				console.log(e)
 			}
 		}
 
 	},
 	get: function(k) {
 		let str;
-		try {
-			str = uni.getStorageSync(pre_name + k);
-		} catch (e) {
-			console.log(e)
-			if (window && window.localStorage) {
-				str = window.localStorage.getItem(pre_name + k)
+		if (window && window.localStorage) {
+			str = window.localStorage.getItem(pre_name + k)
+		} else {
+			try {
+				str = uni.getStorageSync(pre_name + k);
+			} catch (e) {
+				console.log(e)
 			}
 		}
 		try {

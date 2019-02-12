@@ -1,6 +1,8 @@
 <template>
 	<view>
-		首页
+		<!-- #ifdef APP-PLUS -->
+		<web-view src="/hybrid/html/MarkPoints.html"></web-view>
+		<!--  #endif -->
 	</view>
 
 
@@ -25,8 +27,11 @@
 			}
 		},
 		created() {
-
-
+			//#ifdef APP-PLUS
+			plus.geolocation.getCurrentPosition((p) => {
+				console.log(p)
+			})
+			//#endif
 		},
 	 
 		onShow() {
