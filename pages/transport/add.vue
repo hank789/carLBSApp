@@ -25,7 +25,7 @@
 					</view>
 					<view class="grace-items">
 					    <view class="grace-label">目的地</view>
-					    <input type="text" class="input" v-model.trim="transport_end_place" placeholder="本次行程的目的地"></input>
+					    <input type="text" class="input" @focus="chooseLocation" v-model.trim="transport_end_place" placeholder="本次行程的目的地"></input>
 					</view>
                     <view class="grace-items grace-noborder">
                         
@@ -69,6 +69,13 @@ export default {
 		}
 	},
     methods:{
+		chooseLocation: function () {
+			uni.chooseLocation({
+				success: (res) => {
+					this.transport_end_place = res.address
+				}
+			})
+		},
 		bindDateChange: function(e) {
 			this.transport_start_date = e.target.value
 		},

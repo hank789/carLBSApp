@@ -121,7 +121,7 @@
 						this.$ls.set('user', res.data)
 						this.$ls.set('token',res.data.token)
 						uni.reLaunch({
-							url: '/pages/tabBar/index/index',
+							url: '/pages/tabBar/index',
 						})
 					}else{
 						uni.showToast({
