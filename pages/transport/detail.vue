@@ -81,6 +81,10 @@
 				</view>
 			</view>
 			<view class="" style="height: 100upx;"></view>
+			<view class="uni-padding-wrap uni-common-mt">
+				<button type="default" @tap.stop.prevent='editTransport'>修改行程</button>
+				<button type="primary" @tap.stop.prevent='startTransport'>开始行程</button>
+			</view>
 		</view>
 	</view>
 </template>
@@ -99,6 +103,12 @@ export default {
         this.get_data();
     },
     methods: {
+		editTransport() {
+			
+		},
+		startTransport() {
+			
+		},
         get_data() {
             this.$ajax
                 .get('car/transport/subDetail/'+this.id)
@@ -136,6 +146,10 @@ export default {
 </script>
 
 <style>
+	button {
+		margin-top: 30upx;
+		margin-bottom: 30upx;
+	}
 .container {
 	background-color: #F8F8F8;
     background: #f5f5f5;

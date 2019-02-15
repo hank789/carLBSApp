@@ -51,7 +51,7 @@
 			console.log(this.$ls.get('token'))
 			if (this.$ls.get('token')) {
 				uni.reLaunch({
-					url: '/pages/tabBar/index/index',
+					url: '/pages/tabBar/index',
 				})
 			}
 		},
