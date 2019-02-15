@@ -35,7 +35,7 @@
                         
                     </view>
                     <view style="padding:22upx 0;">
-                        <button formType="submit" type="primary" style="width:100%;">提交</button>
+                        <button formType="submit" type="primary" style="width:100%;">提交修改</button>
                     </view>
                 </form>
             </view>
@@ -51,6 +51,8 @@ export default {
 		});
 		const currentTime = this.getDate('time');
         return {
+			id: '',
+			transport_sub_id: '',
 			transport_number: '',
 			transport_number_ok: false,
 			car_number: '',
@@ -60,6 +62,11 @@ export default {
             transport_goods: ''
         }
     },
+	onLoad: function(option) {
+	    //option为object类型，会序列化上个页面传递的参数,
+	    this.id = option.id;
+	    this.get_data();
+	},
 	computed: {
 		startDate() {
 			return this.getDate('start');
@@ -81,6 +88,30 @@ export default {
 		},
 		bindTimeChange: function(e) {
 			this.transport_start_time = e.target.value
+		},
+		get_data() {
+		    this.$ajax
+		        .get('car/transport/subDetail/'+this.id)
+		        .then(res => {
+		            console.log(JSON.stringify(res));
+		            if (res.code == 1000) {
+		                this.transport_number = res.data.transport_number;
+						this.transport_number_ok = true;
+						this.car_number = res.data.car_number;
+						let transport_start_date  = res.data.transport_start_time.split(' ');
+						this.transport_start_date = transport_start_date[0]
+						this.transport_start_time = transport_start_date[1]
+						this.transport_number = res.data.transport_number;
+						this.transport_end_place = res.data.transport_end_place;
+						this.transport_goods = res.data.transport_goods;
+						this.transport_sub_id = res.data.id
+		            } else {
+		                uni.showToast({
+		                    title: res.msg,
+		                    icon: 'none'
+		                });
+		            }
+		        });
 		},
 		getDate(type) {
 			const date = new Date();
@@ -112,7 +143,8 @@ export default {
 				return;
 			}
 			util.getGeoPosition((position) => {
-				this.$ajax.post('car/transport/add',{
+				this.$ajax.post('car/transport/update',{
+					transport_sub_id: this.transport_sub_id,
 					transport_number: this.transport_number,
 					car_number: this.car_number,
 					transport_start_time: this.transport_start_date + ' ' + this.transport_start_time,
@@ -123,7 +155,7 @@ export default {
 					console.log(res);
 					if (res.code == 1000) {
 						uni.showToast({
-							title: '行程创建成功',
+							title: '行程修改成功',
 							icon: 'none'
 						})
 						uni.navigateTo({

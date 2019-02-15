@@ -82,14 +82,21 @@
 			</view>
 			<view class="" style="height: 100upx;"></view>
 			<view class="uni-padding-wrap uni-common-mt">
+				<view v-if="detail.transport_status == 0">
 				<button type="default" @tap.stop.prevent='editTransport'>修改行程</button>
 				<button type="primary" @tap.stop.prevent='startTransport'>开始行程</button>
+				</view>
+				<view v-if="detail.transport_status == 1">
+				<button type="warn" @tap.stop.prevent='eventReport'>突发事件</button>
+				<button type="primary" @tap.stop.prevent='finishTransport'>结束行程</button>
+				</view>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+import util from '../../lib/util.js'	
 export default {
     data() {
         return {
@@ -104,9 +111,33 @@ export default {
     },
     methods: {
 		editTransport() {
-			
+			uni.navigateTo({
+				url: '/pages/transport/edit?id=' + this.id
+			});
 		},
 		startTransport() {
+			util.getGeoPosition((position) => {
+				this.$ajax.post('car/transport/start', {transport_sub_id: this.id, position: position}).then(res => {
+					console.log(JSON.stringify(res));
+					if (res.code == 1000) {
+					    this.detail.transport_status = 1
+						uni.showToast({
+						    title: '行程已开始',
+						    icon: 'none'
+						});
+					} else {
+					    uni.showToast({
+					        title: res.msg,
+					        icon: 'none'
+					    });
+					}
+				})
+			})
+		},
+		eventReport() {
+			
+		},
+		finishTransport() {
 			
 		},
         get_data() {

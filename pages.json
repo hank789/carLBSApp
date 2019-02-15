@@ -25,6 +25,13 @@
 		    }
 		},
 		{
+		    "path" : "pages/transport/edit",
+		    "style" : {
+		        "enablePullDownRefresh" : false,
+		        "navigationBarTitleText" : "修改行程"
+		    }
+		},
+		{
 		    "path" : "pages/transport/detail",
 		    "style" : {
 		        "enablePullDownRefresh" : false,
