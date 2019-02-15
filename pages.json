@@ -23,6 +23,13 @@
 		        "enablePullDownRefresh" : false,
 		        "navigationBarTitleText" : "添加行程"
 		    }
+		},
+		{
+		    "path" : "pages/transport/detail",
+		    "style" : {
+		        "enablePullDownRefresh" : false,
+		        "navigationBarTitleText" : "行程详情"
+		    }
 		}
     ],
     "globalStyle" : {

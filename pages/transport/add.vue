@@ -30,7 +30,7 @@
                     <view class="grace-items grace-noborder">
                         
 						<view class="uni-textarea">
-							<textarea v-model.trim="transport_goods" placeholder="本次行程运输的货物描述" auto-height />
+							<textarea maxlength=-1 v-model.trim="transport_goods" placeholder="本次行程运输的货物描述" auto-height />
 						</view>
                         
                     </view>
@@ -120,7 +120,13 @@ export default {
 			}).then(res => {
 				console.log(res);
 				if (res.code == 1000) {
-					
+					uni.showToast({
+						title: '行程创建成功',
+						icon: 'none'
+					})
+					uni.navigateTo({
+						url: '/pages/transport/detail?id=' + res.data.id
+					});
 				} else {
 					this.transport_number_ok = false;
 					uni.showToast({
