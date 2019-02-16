@@ -2,15 +2,11 @@
 	<view>
 		<view class='container'>
 			<view class='all_ads'>
-				<view class='all_ads_top'>
-					<text>{{detail.deliver_district}}</text>
-					<image src='../../static/images/roaddeil_01.png'></image>
-					<text class='color'>{{detail.accept_districe}}</text>
+				<view v-if="detail.transport_status == 0" style="padding:50upx 0;">
+					<uni-countdown :timer="countTimerDown" :label="'距行程开始还剩：'" :show-colon="false" color="#FFFFFF" background-color="#00B26A" border-color="#00B26A" ></uni-countdown>
 				</view>
-				<view class='all_ads_city'>
-					<text>{{detail.deliver_province}} {{detail.deliver_city}}</text>
-
-					<text class='city'>{{detail.accept_province}} {{detail.accept_city}}</text>
+				<view v-if="detail.transport_status == 1" style="padding:50upx 0;">
+					<uni-countup :timer="countTimerUp" :label="'行程已开始：'" :show-colon="false" color="#FFFFFF" background-color="#00B26A" border-color="#00B26A" ></uni-countup>
 				</view>
 				<view class='ditu_all' @tap.stop.prevent="go_map">
 					<image src='../../static/images/ditu.png'></image>
@@ -18,7 +14,7 @@
 					</view>
 					<view class='bg_zi'>
 						<view class='lc_num'>里程约
-							<text>{{detail.distance}}</text></view>
+							<text>{{distance}}</text></view>
 						<view class='button_di'>
 							<text>查看地图
 								<text class='iconfont icon-you'></text>
@@ -29,14 +25,14 @@
 				<view class='ads_fa'>
 					<view class='ads_fa_left'>
 						<image src='../../static/images/options_05.png'></image>
-						<text>发货</text>
+						<text>出发地</text>
 					</view>
 					<text class='ads_xx'>{{detail.transport_start_place}}</text>
 				</view>
 				<view class='ads_fa ads_shou'>
 					<view class='ads_fa_left ads_shou_left'>
 						<image src='../../static/images/options_03.png'></image>
-						<text>收货</text>
+						<text>目的地</text>
 					</view>
 					<text class='ads_xx'>{{detail.transport_end_place}}</text>
 				</view>
@@ -72,23 +68,27 @@
 				</view>
 
 			</view>
-			<view class='all_goods'>
+			<view class='all_goods' style="margin-bottom: 20upx;">
 				<text class='roaddeil_title huo_title'>货物信息</text>
 				<view class='huowu_ul'>
 					<view class='huowu_ul_li'>
-						<text class='huo_color'>{{detail.transport_goods.transport_goods}}</text>
+						<text class='huo_color'>{{detail.transport_goods?detail.transport_goods.transport_goods:''}}</text>
 					</view>
 				</view>
 			</view>
-			<view class="" style="height: 100upx;"></view>
-			<view class="uni-padding-wrap uni-common-mt">
-				<view v-if="detail.transport_status == 0">
-				<button type="default" @tap.stop.prevent='editTransport'>修改行程</button>
-				<button type="primary" @tap.stop.prevent='startTransport'>开始行程</button>
+			<view style="height: 100upx;"></view>
+			
+			<view class="grace-footer">
+				<view v-if="detail.transport_status == 0" class="detail-footer-btn" style="background-color: #f8f8f8;color: #000000;width: 30%;" @tap.stop.prevent='editTransport'>
+					修改
 				</view>
-				<view v-if="detail.transport_status == 1">
-				<button type="warn" @tap.stop.prevent='eventReport'>突发事件</button>
-				<button type="primary" @tap.stop.prevent='finishTransport'>结束行程</button>
+				<view v-if="detail.transport_status == 0" class="detail-footer-btn" style="background-color: #09BB07;width: 70%;" @tap.stop.prevent='startTransport'>
+					<uni-icon :type="'navigate'"></uni-icon>  开始行程
+				</view>
+				
+				<view v-if="detail.transport_status == 1" class="detail-footer-btn" style="background-color: #FF4343;width: 40%;" @tap.stop.prevent='eventReport'>事件上报</view>
+				<view v-if="detail.transport_status == 1" class="detail-footer-btn" style="background-color: #09BB07;width: 60%;" @tap.stop.prevent='finishTransport'>
+					<uni-icon :type="'flag'"></uni-icon> 卸货
 				</view>
 			</view>
 		</view>
@@ -96,19 +96,42 @@
 </template>
 
 <script>
-import util from '../../lib/util.js'	
+import util from '../../lib/util.js'
+import uniCountdown from "../../components/uni-countdown.vue"
+import uniCountup from "../../components/uni-countup.vue"
+import uniIcon from '../../components/uni-icon.vue'
 export default {
     data() {
         return {
             id: '',
+			countTimerDown: '0',
+			countTimerUp: '0',
             detail: {}
         };
     },
+	components: {
+		uniCountdown,
+		uniCountup,
+		uniIcon
+	},
     onLoad: function(option) {
         //option为object类型，会序列化上个页面传递的参数,
         this.id = option.id;
         this.get_data();
     },
+	computed: {
+		distance() {
+			var distance = 0
+			if (this.detail.transport_start_place) {
+				distance = util.getDistance(this.detail.transport_goods.transport_start_place_latitude,
+				this.detail.transport_goods.transport_start_place_longitude,
+				this.detail.transport_goods.transport_end_place_latitude,
+				this.detail.transport_goods.transport_end_place_longitude)
+				distance = distance + '千米'
+			}
+			return distance
+		}
+	},
     methods: {
 		editTransport() {
 			uni.navigateTo({
@@ -131,11 +154,14 @@ export default {
 								this.detail.transport_goods.transport_start_place_longitude = position.coords.longitude
 								this.detail.transport_goods.transport_start_place_latitude = position.coords.latitude
 								if (res.code == 1000) {
+									var currentTime = (new Date()).getTime()
+									this.countTimerUp = util.formatDateTime((currentTime + 1000*1))
 								    this.detail.transport_status = 1
 									uni.showToast({
 									    title: '行程已开始',
 									    icon: 'none'
 									});
+									this.$ajax.watchGeoPositionAndSave(this.id)
 								} else {
 								    uni.showToast({
 								        title: res.msg,
@@ -163,6 +189,7 @@ export default {
                     console.log(JSON.stringify(res));
                     if (res.code == 1000) {
                         this.detail = res.data;
+						this.countTimerDown = res.data.transport_start_time + ':00';
 						if (this.detail.transport_status == 0) {
 							//#ifdef APP-PLUS
 							util.getGeoPosition((position) => {
@@ -171,6 +198,8 @@ export default {
 								this.detail.transport_goods.transport_start_place_latitude = position.coords.latitude
 							})
 							//#endif
+						} else {
+							this.countTimerUp = res.data.transport_goods.transport_start_real_time
 						}
                     } else {
                         uni.showToast({
@@ -185,7 +214,6 @@ export default {
                 phoneNumber: phone
             });
         },
-
         go_map() {
             let latitude = this.detail.detail.transport_goods.transport_end_place_latitude;
             let longitude = this.detail.detail.transport_goods.transport_end_place_longitude;
@@ -206,6 +234,16 @@ export default {
 		margin-top: 30upx;
 		margin-bottom: 30upx;
 	}
+	
+.detail-footer-btn {
+    width: 50%;
+    height: 45px;
+    line-height: 45px;
+    font-size: 15px;
+    color: #FFF;
+    text-align: center;
+    background: #FF7900;
+}
 .container {
 	background-color: #F8F8F8;
     background: #f5f5f5;
