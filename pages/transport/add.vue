@@ -57,7 +57,9 @@ export default {
 			transport_start_date: currentDate,
 			transport_start_time: currentTime,
 			transport_end_place: '',
-            transport_goods: ''
+            transport_goods: '',
+			transport_end_place_longitude: '',
+			transport_end_place_latitude: ''
         }
     },
 	computed: {
@@ -73,6 +75,8 @@ export default {
 			uni.chooseLocation({
 				success: (res) => {
 					this.transport_end_place = res.address
+					this.transport_end_place_latitude = res.latitude
+					this.transport_end_place_longitude = res.longitude
 				}
 			})
 		},
@@ -111,6 +115,22 @@ export default {
 				uni.showToast({title:"车牌号有误", icon:"none"});
 				return;
 			}
+			if (!this.transport_end_place) {
+				uni.showToast({title:"目的地有误", icon:"none"});
+				return;
+			}
+			if (!this.transport_start_date) {
+				uni.showToast({title:"出发日期有误", icon:"none"});
+				return;
+			}
+			if (!this.transport_start_time) {
+				uni.showToast({title:"出发时间有误", icon:"none"});
+				return;
+			}
+			if (!this.transport_goods) {
+				uni.showToast({title:"请填写本次运输的货物", icon:"none"});
+				return;
+			}
 			util.getGeoPosition((position) => {
 				this.$ajax.post('car/transport/add',{
 					transport_number: this.transport_number,
@@ -118,7 +138,11 @@ export default {
 					transport_start_time: this.transport_start_date + ' ' + this.transport_start_time,
 					transport_goods: this.transport_goods,
 					transport_start_place: position.address.city + position.address.district + position.address.street + position.address.streetNum,
-					transport_end_place: this.transport_end_place
+					transport_start_place_longitude: position.coords.longitude,
+					transport_start_place_latitude: position.coords.latitude,
+					transport_end_place: this.transport_end_place,
+					transport_end_place_longitude: this.transport_end_place_longitude,
+					transport_end_place_latitude: this.transport_end_place_latitude
 				}).then(res => {
 					console.log(res);
 					if (res.code == 1000) {
@@ -144,12 +168,14 @@ export default {
 			this.$ajax.post('car/transport/detail',{transport_number: this.transport_number}).then(res => {
 				console.log(res)
 				if (res.code == 1000) {
-					this.transport_goods = res.data.transport_goods;
+					this.transport_goods = res.data.transport_goods.transport_goods;
 					let transport_start_date  = res.data.transport_start_time.split(' ');
 					this.transport_start_date = transport_start_date[0]
 					this.transport_start_time = transport_start_date[1]
 					this.transport_end_place = res.data.transport_end_place
 					this.transport_number_ok = true;
+					this.transport_end_place_latitude = res.data.transport_goods.transport_end_place_latitude
+					this.transport_end_place_longitude = res.data.transport_goods.transport_end_place_longitude
 				} else {
 					this.transport_number_ok = false;
 					uni.showToast({

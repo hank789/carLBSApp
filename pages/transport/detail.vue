@@ -76,7 +76,7 @@
 				<text class='roaddeil_title huo_title'>货物信息</text>
 				<view class='huowu_ul'>
 					<view class='huowu_ul_li'>
-						<text class='huo_color'>{{detail.transport_goods}}</text>
+						<text class='huo_color'>{{detail.transport_goods.transport_goods}}</text>
 					</view>
 				</view>
 			</view>
@@ -116,23 +116,39 @@ export default {
 			});
 		},
 		startTransport() {
-			util.getGeoPosition((position) => {
-				this.$ajax.post('car/transport/start', {transport_sub_id: this.id, position: position}).then(res => {
-					console.log(JSON.stringify(res));
-					if (res.code == 1000) {
-					    this.detail.transport_status = 1
-						uni.showToast({
-						    title: '行程已开始',
-						    icon: 'none'
-						});
-					} else {
-					    uni.showToast({
-					        title: res.msg,
-					        icon: 'none'
-					    });
+			uni.showModal({
+				content: '确定开始此行程？',
+				confirmText: "确定",
+				cancelText: "取消",
+				showCancel: true,
+				success: (res) => {
+					if (res.confirm) {
+						console.log('用户点击确定');
+						util.getGeoPosition((position) => {
+							this.$ajax.post('car/transport/start', {transport_sub_id: this.id, position: position}).then(res => {
+								console.log(JSON.stringify(res));
+								this.detail.transport_start_place = position.address.city + position.address.district + position.address.street + position.address.streetNum
+								this.detail.transport_goods.transport_start_place_longitude = position.coords.longitude
+								this.detail.transport_goods.transport_start_place_latitude = position.coords.latitude
+								if (res.code == 1000) {
+								    this.detail.transport_status = 1
+									uni.showToast({
+									    title: '行程已开始',
+									    icon: 'none'
+									});
+								} else {
+								    uni.showToast({
+								        title: res.msg,
+								        icon: 'none'
+								    });
+								}
+							})
+						})
+					} else if (res.cancel) {
+						console.log('用户点击取消');
 					}
-				})
-			})
+				}
+			});
 		},
 		eventReport() {
 			
@@ -147,6 +163,15 @@ export default {
                     console.log(JSON.stringify(res));
                     if (res.code == 1000) {
                         this.detail = res.data;
+						if (this.detail.transport_status == 0) {
+							//#ifdef APP-PLUS
+							util.getGeoPosition((position) => {
+								this.detail.transport_start_place = position.address.city + position.address.district + position.address.street + position.address.streetNum
+								this.detail.transport_goods.transport_start_place_longitude = position.coords.longitude
+								this.detail.transport_goods.transport_start_place_latitude = position.coords.latitude
+							})
+							//#endif
+						}
                     } else {
                         uni.showToast({
                             title: res.msg,
@@ -157,13 +182,13 @@ export default {
         },
         take_phone(phone) {
             uni.makePhoneCall({
-                phoneNumber: phone //仅为示例
+                phoneNumber: phone
             });
         },
 
         go_map() {
-            let latitude = this.detail.destination.lat;
-            let longitude = this.detail.destination.lng;
+            let latitude = this.detail.detail.transport_goods.transport_end_place_latitude;
+            let longitude = this.detail.detail.transport_goods.transport_end_place_longitude;
             uni.openLocation({
                 latitude: latitude,
                 longitude: longitude,
