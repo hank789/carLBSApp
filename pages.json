@@ -37,6 +37,13 @@
 		        "enablePullDownRefresh" : false,
 		        "navigationBarTitleText" : "行程详情"
 		    }
+		},
+		{
+		    "path" : "pages/transport/eventReport",
+		    "style" : {
+		        "enablePullDownRefresh" : false,
+		        "navigationBarTitleText" : "事件上报"
+		    }
 		}
     ],
     "globalStyle" : {

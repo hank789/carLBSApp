@@ -30,7 +30,7 @@
                     <view class="grace-items grace-noborder">
                         
 						<view class="uni-textarea">
-							<textarea maxlength=-1 v-model.trim="transport_goods" placeholder="本次行程运输的货物描述" auto-height />
+							<textarea style="height: 460upx;" maxlength=-1 v-model.trim="transport_goods" placeholder="本次行程运输的货物描述" />
 						</view>
                         
                     </view>

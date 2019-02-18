@@ -25,7 +25,7 @@
 				<view class='ads_fa'>
 					<view class='ads_fa_left'>
 						<image src='../../static/images/options_05.png'></image>
-						<text>出发地</text>
+						<text>当前位置</text>
 					</view>
 					<text class='ads_xx'>{{detail.transport_start_place}}</text>
 				</view>
@@ -177,7 +177,9 @@ export default {
 			});
 		},
 		eventReport() {
-			
+			uni.navigateTo({
+				url: '/pages/transport/eventReport?id=' + this.id
+			});
 		},
 		finishTransport() {
 			
@@ -215,8 +217,8 @@ export default {
             });
         },
         go_map() {
-            let latitude = this.detail.detail.transport_goods.transport_end_place_latitude;
-            let longitude = this.detail.detail.transport_goods.transport_end_place_longitude;
+            let latitude = this.detail.transport_goods.transport_end_place_latitude;
+            let longitude = this.detail.transport_goods.transport_end_place_longitude;
             uni.openLocation({
                 latitude: latitude,
                 longitude: longitude,

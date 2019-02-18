@@ -63,7 +63,13 @@
 		onLoad() {
 			let that = this;
 			if (this.$ls.get('token')) {
-				
+				this.$ajax.get('profile/info').then(res => {
+					if (res.data.transport_sub_id) {
+						uni.redirectTo({
+							url: '/pages/transport/detail?id=' + res.data.transport_sub_id
+						});
+					}
+				})
 			} else {
 				uni.navigateTo({
 					url: '/pages/login/login'
