@@ -64,7 +64,11 @@
 			let that = this;
 			if (this.$ls.get('token')) {
 				this.$ajax.get('profile/info').then(res => {
-					if (res.data.transport_sub_id) {
+					if (!res.data.name) {
+						uni.redirectTo({
+							url: '/pages/login/updateInfo'
+						});
+					} else if (res.data.transport_sub_id) {
 						uni.redirectTo({
 							url: '/pages/transport/detail?id=' + res.data.transport_sub_id
 						});

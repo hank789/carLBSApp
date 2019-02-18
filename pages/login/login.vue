@@ -12,7 +12,7 @@
 				<view class="grace-form" style="margin-top:50upx;width: 90%;">
 					<form @submit="submitLogin">
 						<view class="grace-items grace-items-wbg" style="border-bottom: 1px solid #F1F1F1!important;border-radius: 0;">
-							<input type="number" class="input" v-model.trim="phone" placeholder="请输入手机号" style="margin-left: 0;line-height: 40upx;"></input>
+							<input type="number" focus=true class="input" v-model.trim="phone" placeholder="请输入手机号" style="margin-left: 0;line-height: 40upx;"></input>
 						</view>
 						<view class="grace-space-between" style="margin-top:28upx;border-bottom: 2upx solid #f1f1f1;">
 							<view class="grace-items grace-items-wbg" style="width:66%;">
@@ -120,8 +120,12 @@
 						this.setToken(res.data.token)
 						this.$ls.set('user', res.data)
 						this.$ls.set('token',res.data.token)
+						let url = '/pages/tabBar/index'
+						if (res.data.name) {
+							url = '/pages/login/updateInfo'
+						}
 						uni.reLaunch({
-							url: '/pages/tabBar/index',
+							url: url
 						})
 					}else{
 						uni.showToast({

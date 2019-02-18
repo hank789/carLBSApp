@@ -182,7 +182,9 @@ export default {
 			});
 		},
 		finishTransport() {
-			
+			uni.navigateTo({
+				url: '/pages/transport/xiehuo?id=' + this.id
+			});
 		},
         get_data() {
             this.$ajax

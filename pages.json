@@ -18,6 +18,12 @@
             }
         },
 		{
+		    "path" : "pages/login/updateInfo",
+		    "style" : {
+		        "navigationBarTitleText" : "完善个人信息"
+		    }
+		},
+		{
 		    "path" : "pages/transport/add",
 		    "style" : {
 		        "enablePullDownRefresh" : false,
@@ -43,6 +49,13 @@
 		    "style" : {
 		        "enablePullDownRefresh" : false,
 		        "navigationBarTitleText" : "事件上报"
+		    }
+		},
+		{
+		    "path" : "pages/transport/xiehuo",
+		    "style" : {
+		        "enablePullDownRefresh" : false,
+		        "navigationBarTitleText" : "卸货"
 		    }
 		}
     ],
