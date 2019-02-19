@@ -25,7 +25,7 @@
 				<view class='ads_fa'>
 					<view class='ads_fa_left'>
 						<image src='../../static/images/options_05.png'></image>
-						<text>当前位置</text>
+						<text>出发地</text>
 					</view>
 					<text class='ads_xx'>{{detail.transport_start_place}}</text>
 				</view>
