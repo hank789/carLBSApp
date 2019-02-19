@@ -11,6 +11,10 @@
 				<view class="uni-input">{{ msgContents[eventTypeIndex].value }}</view>
 			</picker>
 		</view>
+		<view class="feedback-title"><text>事件地点</text></view>
+		<view class="feedback-body">
+			<input type="text" class="feedback-input" @focus="chooseLocation" v-model.trim="sendDate.event_place" placeholder="事件发生地"></input>
+		</view>
 		<view class="feedback-title">
 			<button type="primary" @tap="startRecognize">
 				<uni-icon :type="'mic'"></uni-icon>
@@ -70,7 +74,10 @@ export default {
 			sendDate: {
 				transport_sub_id: 0,
 				event_type: 1,
-				event_detail: ''
+				event_detail: '',
+				event_place: '',
+				event_place_latitude: '',
+				event_place_longitude: ''
 			}
 		};
 	},
@@ -92,9 +99,23 @@ export default {
 			net: '' + plus.networkinfo.getCurrentType()
 		};
 		this.sendDate = Object.assign(deviceInfo, this.sendDate);
+		util.getGeoPosition((position) => {
+			this.sendDate.event_place = position.address.city + position.address.district + position.address.street + position.address.streetNum
+			this.sendDate.event_place_longitude = position.coords.longitude
+			this.sendDate.event_place_latitude = position.coords.latitude
+		})
 		//#endif
 	},
 	methods: {
+		chooseLocation: function () {
+			uni.chooseLocation({
+				success: (res) => {
+					this.sendDate.event_place = res.address,
+					this.sendDate.event_place_latitude = res.latitude
+					this.sendDate.event_place_longitude = res.longitude
+				}
+			})
+		},
 		getEventType() {
 			this.$ajax.get('car/transport/getEventType').then(res => {
 				console.log(JSON.stringify(res));
@@ -159,22 +180,41 @@ export default {
 				};
 			});
 			util.getGeoPosition(position => {
-				this.sendDate.position = JSON.stringify(position);
-				this.$ajax
-					.upload_file('car/transport/eventReport', imgs, this.sendDate)
-					.then(res => {
-						console.log(JSON.stringify(res));
-						if (res.code === 1000) {
-							uni.showToast({
-								title: '事件提交成功!'
-							});
-							this.imageList = [];
-							this.sendDate.event_detail = '';
-							uni.navigateTo({
-								url: '/pages/transport/detail?id=' + this.sendDate.transport_sub_id
-							});
-						}
-					});
+				if (this.imageList.length > 0) {
+					this.sendDate.position = JSON.stringify(position);
+					this.$ajax
+						.upload_file('car/transport/eventReport', imgs, this.sendDate)
+						.then(res => {
+							console.log(JSON.stringify(res));
+							if (res.code === 1000) {
+								uni.showToast({
+									title: '事件提交成功!'
+								});
+								this.imageList = [];
+								this.sendDate.event_detail = '';
+								uni.navigateTo({
+									url: '/pages/transport/detail?id=' + this.sendDate.transport_sub_id
+								});
+							}
+						});
+				} else {
+					this.sendDate.position = position;
+					this.$ajax
+						.post('car/transport/eventReport', this.sendDate)
+						.then(res => {
+							console.log(JSON.stringify(res));
+							if (res.code === 1000) {
+								uni.showToast({
+									title: '事件提交成功!'
+								});
+								this.imageList = [];
+								this.sendDate.event_detail = '';
+								uni.navigateTo({
+									url: '/pages/transport/detail?id=' + this.sendDate.transport_sub_id
+								});
+							}
+						});
+				}
 			});
 		}
 	}

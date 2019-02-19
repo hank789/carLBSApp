@@ -124,6 +124,13 @@ export default {
 						this.transport_goods = res.data.transport_goods.transport_goods;
 						this.transport_contact_phone = res.data.transport_contact_phone
 						this.transport_contact_people = res.data.transport_contact_people
+						//#ifdef APP-PLUS
+						util.getGeoPosition((position) => {
+							this.transport_end_place = position.address.city + position.address.district + position.address.street + position.address.streetNum
+							this.transport_end_place_longitude = position.coords.longitude
+							this.transport_end_place_latitude = position.coords.latitude
+						})
+						//#endif
 		            } else {
 		                uni.showToast({
 		                    title: res.msg,
@@ -187,7 +194,9 @@ export default {
 												title: '卸货成功!'
 											});
 											this.imageList = [];
-											
+											if (type == 1) {
+												this.$ajax.stopWatchGeoPosition('', this.transport_sub_id)
+											}
 											uni.navigateTo({
 												url: '/pages/transport/detail?id=' + this.transport_sub_id
 											});
@@ -202,6 +211,9 @@ export default {
 											title: '卸货成功',
 											icon: 'none'
 										})
+										if (type == 1) {
+											this.$ajax.stopWatchGeoPosition('', this.transport_sub_id)
+										}
 										uni.navigateTo({
 											url: '/pages/transport/detail?id=' + this.transport_sub_id
 										});

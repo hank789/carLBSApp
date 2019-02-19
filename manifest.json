@@ -1,6 +1,6 @@
 {
     "name" : "carlbs",
-    "appid" : "__UNI__1A3460C",
+    "appid" : "__UNI__F14E6D5",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -9,8 +9,7 @@
         /* 5+App特有相关 */
         "modules" : {
             "Maps" : {},
-            "Speech" : {},
-            "Push" : {}
+            "Speech" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -44,11 +43,31 @@
                     "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
                 ]
             },
-            "ios" : {},
+            "ios" : {
+                "UIBackgroundModes" : [ "location", "audio" ],
+                "devices" : "iphone",
+                "privacyDescription" : {
+                    "NSLocationWhenInUseUsageDescription" : "我们需要通过您的地理位置信息让管理员了解车辆驾驶情况",
+                    "NSLocationAlwaysUsageDescription" : "我们需要通过您的地理位置信息让管理员了解车辆驾驶情况",
+                    "NSLocationAlwaysAndWhenInUseUsageDescription" : "我们需要通过您的地理位置信息让管理员了解车辆驾驶情况",
+                    "NSSpeechRecognitionUsageDescription" : "用来快速输入文字内容",
+                    "NSPhotoLibraryUsageDescription" : "我们需要使用您的相册上传图片",
+                    "NSPhotoLibraryAddUsageDescription" : "我们需要使用您的相册上传图片",
+                    "NSCameraUsageDescription" : "我们需要使用照相机拍照上传图片",
+                    "NSMicrophoneUsageDescription" : "录制音频文件/语音识别"
+                }
+            },
             /* ios打包配置 */
             "sdkConfigs" : {
                 "speech" : {
                     "ifly" : {}
+                },
+                "maps" : {
+                    // 地图只能选一个，这里选的是百度。
+                    "baidu" : {
+                        "appkey_ios" : "HEMNYUQlPrkilhpzGcL5fkiDqW156eFQ",
+                        "appkey_android" : "KO1zE1KRCdt32qbRjYycyoYhFI3uaGvT"
+                    }
                 }
             }
         }
@@ -64,3 +83,5 @@
         }
     }
 }
+/* ios打包配置 */
+

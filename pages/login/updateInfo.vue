@@ -28,7 +28,7 @@ export default {
     methods:{
         formSubmit : function(e){
             console.log('formSubmit');
-			if (!this.name || this.transport_number.length < 2) {
+			if (!this.name || this.name.length < 2) {
 				uni.showToast({title:"姓名有误", icon:"none"});
 				return;
 			}
@@ -41,7 +41,6 @@ export default {
 						url: '/pages/tabBar/index'
 					})
 				} else {
-					this.transport_number_ok = false;
 					uni.showToast({
 						title: res.message,
 						icon: 'none'

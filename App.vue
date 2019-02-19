@@ -35,6 +35,15 @@
 		},
 		onShow: function () {
 			console.log('App Show')
+			if (this.$ls.get('token')) {
+				this.$ajax.get('profile/info').then(res => {
+					let geoWatchId = this.$ls.get('geoWatchId')
+					console.log('geoWatchId: '+geoWatchId)
+					if ((res.data.transport_sub_id && res.data.need_upload_positions) || !geoWatchId) {
+						this.$ajax.watchGeoPositionAndSave(res.data.transport_sub_id)
+					}
+				})
+			}
 		},
 		onHide: function () {
 			console.log('App Hide')

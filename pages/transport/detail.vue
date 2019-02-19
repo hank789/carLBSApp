@@ -202,8 +202,18 @@ export default {
 								this.detail.transport_goods.transport_start_place_latitude = position.coords.latitude
 							})
 							//#endif
-						} else {
+						} else if (this.detail.transport_status == 1) {
+							//进行中
 							this.countTimerUp = res.data.transport_goods.transport_start_real_time
+							//检测到1分钟没有位置信息上传
+							if (this.detail.need_upload_positions) {
+								this.$ajax.watchGeoPositionAndSave(this.id)
+							}
+						} else if (this.detail.transport_status == 2) {
+							//已结束
+							uni.redirectTo({
+								url: '/pages/tabBar/index'
+							})
 						}
                     } else {
                         uni.showToast({
