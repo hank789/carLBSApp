@@ -35,8 +35,10 @@
 		},
 		onShow: function () {
 			console.log('App Show')
+			this.$ls.remove('geoPositionsUploading')
 			if (this.$ls.get('token')) {
 				this.$ajax.get('profile/info').then(res => {
+					this.$ls.set('user',res.data)
 					let geoWatchId = this.$ls.get('geoWatchId')
 					console.log('geoWatchId: '+geoWatchId)
 					if ((res.data.transport_sub_id && res.data.need_upload_positions) || !geoWatchId) {

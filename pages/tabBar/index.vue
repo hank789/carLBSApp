@@ -64,6 +64,7 @@
 			let that = this;
 			if (this.$ls.get('token')) {
 				this.$ajax.get('profile/info').then(res => {
+					this.$ls.set('user',res.data)
 					if (!res.data.name) {
 						uni.redirectTo({
 							url: '/pages/login/updateInfo'

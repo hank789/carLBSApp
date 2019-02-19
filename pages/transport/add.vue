@@ -150,7 +150,7 @@ export default {
 							title: '行程创建成功',
 							icon: 'none'
 						})
-						uni.navigateTo({
+						uni.redirectTo({
 							url: '/pages/transport/detail?id=' + res.data.id
 						});
 					} else {

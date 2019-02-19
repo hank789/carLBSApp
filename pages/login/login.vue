@@ -50,7 +50,7 @@
 		created() {
 			console.log(this.$ls.get('token'))
 			if (this.$ls.get('token')) {
-				uni.reLaunch({
+				uni.redirectTo({
 					url: '/pages/tabBar/index',
 				})
 			}
@@ -118,13 +118,12 @@
 					if(res.code==1000){
 						this.login(res.data)
 						this.setToken(res.data.token)
-						this.$ls.set('user', res.data)
 						this.$ls.set('token',res.data.token)
 						let url = '/pages/tabBar/index'
 						if (res.data.name) {
 							url = '/pages/login/updateInfo'
 						}
-						uni.reLaunch({
+						uni.redirectTo({
 							url: url
 						})
 					}else{

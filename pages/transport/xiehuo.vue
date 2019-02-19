@@ -167,7 +167,7 @@ export default {
 				success: (res) => {
 					if (res.confirm) {
 						console.log('用户点击确定');
-									util.getGeoPosition((position) => {
+						util.getGeoPosition((position) => {
 							var formData = {
 								transport_sub_id: this.transport_sub_id,
 								xiehuo_type: type,
@@ -197,7 +197,7 @@ export default {
 											if (type == 1) {
 												this.$ajax.stopWatchGeoPosition('', this.transport_sub_id)
 											}
-											uni.navigateTo({
+											uni.redirectTo({
 												url: '/pages/transport/detail?id=' + this.transport_sub_id
 											});
 										}
@@ -214,7 +214,7 @@ export default {
 										if (type == 1) {
 											this.$ajax.stopWatchGeoPosition('', this.transport_sub_id)
 										}
-										uni.navigateTo({
+										uni.redirectTo({
 											url: '/pages/transport/detail?id=' + this.transport_sub_id
 										});
 									} else {

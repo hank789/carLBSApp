@@ -192,7 +192,7 @@ export default {
 								});
 								this.imageList = [];
 								this.sendDate.event_detail = '';
-								uni.navigateTo({
+								uni.redirectTo({
 									url: '/pages/transport/detail?id=' + this.sendDate.transport_sub_id
 								});
 							}
@@ -209,7 +209,7 @@ export default {
 								});
 								this.imageList = [];
 								this.sendDate.event_detail = '';
-								uni.navigateTo({
+								uni.redirectTo({
 									url: '/pages/transport/detail?id=' + this.sendDate.transport_sub_id
 								});
 							}
