@@ -34,7 +34,7 @@ export default {
 			}
 			this.$ajax.post('profile/updateName',{
 				name: this.name
-			}).then(res => {
+			}, true).then(res => {
 				console.log(res);
 				if (res.code == 1000) {
 					uni.redirectTo({

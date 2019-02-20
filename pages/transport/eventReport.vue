@@ -183,7 +183,7 @@ export default {
 				if (this.imageList.length > 0) {
 					this.sendDate.position = JSON.stringify(position);
 					this.$ajax
-						.upload_file('car/transport/eventReport', imgs, this.sendDate)
+						.upload_file('car/transport/eventReport', imgs, this.sendDate, true)
 						.then(res => {
 							console.log(JSON.stringify(res));
 							if (res.code === 1000) {
@@ -200,7 +200,7 @@ export default {
 				} else {
 					this.sendDate.position = position;
 					this.$ajax
-						.post('car/transport/eventReport', this.sendDate)
+						.post('car/transport/eventReport', this.sendDate, true)
 						.then(res => {
 							console.log(JSON.stringify(res));
 							if (res.code === 1000) {

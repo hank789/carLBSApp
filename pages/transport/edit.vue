@@ -174,7 +174,7 @@ export default {
 					transport_end_place: this.transport_end_place,
 					transport_end_place_longitude: this.transport_end_place_longitude,
 					transport_end_place_latitude: this.transport_end_place_latitude
-				}).then(res => {
+				}, true).then(res => {
 					console.log(res);
 					if (res.code == 1000) {
 						uni.showToast({
@@ -196,6 +196,7 @@ export default {
         },
 		blurTransportNumber() {
 			console.log(this.transport_number)
+			if (!this.transport_number) return;
 			this.$ajax.post('car/transport/detail',{transport_number: this.transport_number}).then(res => {
 				console.log(res)
 				if (res.code == 1000) {

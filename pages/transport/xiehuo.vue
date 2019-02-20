@@ -156,8 +156,10 @@ export default {
 				return;
 			}
 			var xiehuo_type = '行程结束'
+			var redirectUrl = '/pages/tabBar/index'
 			if (type == 2) {
 				xiehuo_type = '中途卸货'
+				redirectUrl = '/pages/transport/detail?id=' + this.transport_sub_id
 			}
 			uni.showModal({
 				content: '确定' + xiehuo_type +'？',
@@ -186,7 +188,7 @@ export default {
 								});
 								formData.position = JSON.stringify(position)
 								this.$ajax
-									.upload_file('car/transport/finish', imgs, formData)
+									.upload_file('car/transport/finish', imgs, formData, true)
 									.then(res => {
 										console.log(JSON.stringify(res));
 										if (res.code === 1000) {
@@ -198,13 +200,13 @@ export default {
 												this.$ajax.stopWatchGeoPosition('', this.transport_sub_id)
 											}
 											uni.redirectTo({
-												url: '/pages/transport/detail?id=' + this.transport_sub_id
+												url: redirectUrl
 											});
 										}
 									});
 							} else {
 								formData.position = position
-								this.$ajax.post('car/transport/finish', formData).then(res => {
+								this.$ajax.post('car/transport/finish', formData, true).then(res => {
 									console.log(res);
 									if (res.code == 1000) {
 										uni.showToast({
@@ -215,7 +217,7 @@ export default {
 											this.$ajax.stopWatchGeoPosition('', this.transport_sub_id)
 										}
 										uni.redirectTo({
-											url: '/pages/transport/detail?id=' + this.transport_sub_id
+											url: redirectUrl
 										});
 									} else {
 										this.transport_number_ok = false;

@@ -143,14 +143,14 @@ export default {
 					transport_end_place: this.transport_end_place,
 					transport_end_place_longitude: this.transport_end_place_longitude,
 					transport_end_place_latitude: this.transport_end_place_latitude
-				}).then(res => {
+				}, true).then(res => {
 					console.log(res);
 					if (res.code == 1000) {
 						uni.showToast({
 							title: '行程创建成功',
 							icon: 'none'
 						})
-						uni.redirectTo({
+						uni.reLaunch({
 							url: '/pages/transport/detail?id=' + res.data.id
 						});
 					} else {
@@ -165,6 +165,7 @@ export default {
         },
 		blurTransportNumber() {
 			console.log(this.transport_number)
+			if (!this.transport_number) return;
 			this.$ajax.post('car/transport/detail',{transport_number: this.transport_number}).then(res => {
 				console.log(res)
 				if (res.code == 1000) {

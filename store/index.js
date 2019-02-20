@@ -8,7 +8,8 @@ const store = new Vuex.Store({
         hasLogin: false,
         user: "",
 		baseApiUrl: "",
-		token: ""
+		token: "",
+		geoWatchId: ""
     },
     mutations: {
         login(state, user) {
@@ -25,6 +26,9 @@ const store = new Vuex.Store({
         },
 		setBaseApiUrl(state, url) {
 			state.baseApiUrl = url
+		},
+		setGeoWatchId(state, geoWatchId) {
+			state.geoWatchId = geoWatchId
 		}
     }
 })
