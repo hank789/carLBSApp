@@ -120,7 +120,7 @@
 						this.setToken(res.data.token)
 						this.$ls.set('token',res.data.token)
 						let url = '/pages/tabBar/index'
-						if (res.data.name) {
+						if (!res.data.name) {
 							url = '/pages/login/updateInfo'
 						}
 						uni.redirectTo({

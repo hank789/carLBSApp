@@ -14,6 +14,7 @@
 
 <script>
 	import uniIcon from '../../components/uni-icon.vue'
+	import util from '../../lib/util.js'
 	import {
 		mapState
 	} from 'vuex';
@@ -35,7 +36,7 @@
 					iconPath: '../../static/images/location.png'
 				}],
 				btnLabel: '添加行程',
-				btnIcon: 'navigate',
+				btnIcon: 'plus',
 				mapHeight: '600px',
 				mapWidth: '100%'
 			}
@@ -65,6 +66,7 @@
 				success: (res) => {
 					console.log(JSON.stringify(res));
 					this.mapHeight = (res.windowHeight-15) + 'px'
+					this.mapWidth = res.windowWidth + 'px'
 				}
 			});
 			let that = this;
@@ -97,8 +99,7 @@
 					this.btnIcon = 'info'
 				}
 			}
-			//#ifdef APP-PLUS
-			plus.geolocation.getCurrentPosition((p) => {
+			util.getGeoPosition((p) => {
 				this.position = p
 				this.covers[0] = {
 					latitude: this.position.coords.latitude,
@@ -106,13 +107,7 @@
 					iconPath: '../../static/images/location.png'
 				}
 				console.log(JSON.stringify(this.position))
-			},(e) => {
-			  console.log('获取位置信息失败: ' + JSON.stringify(e))
-			  if (failCallback) {
-				failCallback(e.message)
-			  }
-			}, {geocode: true, provider: 'baidu', coordsType: 'gcj02'})
-			//#endif	
+			})
 		}
 	}
 </script>
