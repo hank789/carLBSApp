@@ -106,7 +106,8 @@ export default {
             id: '',
 			countTimerDown: '0',
 			countTimerUp: '0',
-            detail: {}
+            detail: {},
+			btnDisabled: false
         };
     },
 	components: {
@@ -117,8 +118,10 @@ export default {
     onLoad: function(option) {
         //option为object类型，会序列化上个页面传递的参数,
         this.id = option.id;
-        this.get_data();
     },
+	onShow() {
+		this.get_data();
+	},
 	computed: {
 		distance() {
 			var distance = 0
@@ -205,10 +208,6 @@ export default {
 						} else if (this.detail.transport_status == 1) {
 							//进行中
 							this.countTimerUp = res.data.transport_goods.transport_start_real_time
-							//检测到1分钟没有位置信息上传
-							if (this.detail.need_upload_positions) {
-								this.$ajax.watchGeoPositionAndSave(this.id)
-							}
 						} else if (this.detail.transport_status == 2) {
 							//已结束
 							uni.redirectTo({
@@ -251,9 +250,9 @@ export default {
 	
 .detail-footer-btn {
     width: 50%;
-    height: 45px;
-    line-height: 45px;
-    font-size: 15px;
+    height: 90upx;
+    line-height: 90upx;
+    font-size: 30upx;
     color: #FFF;
     text-align: center;
     background: #FF7900;
@@ -432,8 +431,9 @@ export default {
 }
 
 .huowu_ul_li {
-    width: 33.33%;
-    text-align: center;
+    width: 100%;
+    text-align: left;
+	margin: 0 30upx;
     display: flex;
     flex-direction: column;
     padding-bottom: 20upx;

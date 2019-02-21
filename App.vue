@@ -38,14 +38,13 @@
 			console.log('App Show')
 			this.$ls.remove('geoPositionsUploading')
 			if (this.$ls.get('token')) {
-				this.$ajax.get('profile/info').then(res => {
-					this.$ls.set('user',res.data)
-					let geoWatchId = this.$store.state.geoWatchId
-					console.log('geoWatchId: '+geoWatchId)
-					if (res.data.transport_sub_id && (res.data.need_upload_positions || !geoWatchId)) {
-						this.$ajax.watchGeoPositionAndSave(res.data.transport_sub_id)
-					}
-				})
+				var user = this.$store.state.user
+				let geoWatchId = this.$store.state.geoWatchId
+				console.log('geoWatchId: '+geoWatchId)
+				if (user && user.transport_sub_status == 1 && !geoWatchId) {
+					console.log('App Show and watch position')
+					this.$ajax.watchGeoPositionAndSave(user.transport_sub_id)
+				}
 			}
 		},
 		onHide: function () {

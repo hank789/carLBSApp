@@ -58,10 +58,10 @@
 						</view>
 					</view>
                     <view style="padding:22upx 0;">
-                        <button type="primary" style="width:100%;" @tap.stop.prevent="transPortXiehuoEnd(2)">中途卸货</button>
+                        <button :disabled="btnDisabled" type="primary" style="width:100%;" @tap.stop.prevent="transPortXiehuoEnd(2)">中途卸货</button>
                     </view>
 					<view style="padding:22upx 0;">
-						<button type="warn" style="width:100%;" @tap.stop.prevent="transPortXiehuoEnd(1)">行程结束</button>
+						<button :disabled="btnDisabled" type="warn" style="width:100%;" @tap.stop.prevent="transPortXiehuoEnd(1)">行程结束</button>
 					</view>
                 </form>
             </view>
@@ -84,7 +84,8 @@ export default {
 			transport_end_place_latitude: '',
 			transport_contact_people: '',
 			transport_contact_phone: '',
-			imageList: []
+			imageList: [],
+			btnDisabled: false
         }
     },
 	onLoad: function(option) {
@@ -161,6 +162,7 @@ export default {
 				xiehuo_type = '中途卸货'
 				redirectUrl = '/pages/transport/detail?id=' + this.transport_sub_id
 			}
+			this.btnDisabled = true
 			uni.showModal({
 				content: '确定' + xiehuo_type +'？',
 				confirmText: "确定",
@@ -190,6 +192,7 @@ export default {
 								this.$ajax
 									.upload_file('car/transport/finish', imgs, formData, true)
 									.then(res => {
+										this.btnDisabled = false
 										console.log(JSON.stringify(res));
 										if (res.code === 1000) {
 											uni.showToast({
@@ -198,16 +201,24 @@ export default {
 											this.imageList = [];
 											if (type == 1) {
 												this.$ajax.stopWatchGeoPosition('', this.transport_sub_id)
+												this.$ajax.getUserInfo().then(res => {
+													uni.reLaunch({
+														url: redirectUrl
+													});
+												})
+											} else {
+												uni.navigateBack({
+													delta: 1
+												});
 											}
-											uni.redirectTo({
-												url: redirectUrl
-											});
+											
 										}
 									});
 							} else {
 								formData.position = position
 								this.$ajax.post('car/transport/finish', formData, true).then(res => {
 									console.log(res);
+									this.btnDisabled = false
 									if (res.code == 1000) {
 										uni.showToast({
 											title: '卸货成功',
@@ -215,10 +226,16 @@ export default {
 										})
 										if (type == 1) {
 											this.$ajax.stopWatchGeoPosition('', this.transport_sub_id)
+											this.$ajax.getUserInfo().then(res => {
+												uni.reLaunch({
+													url: redirectUrl
+												});
+											})
+										} else {
+											uni.navigateBack({
+												delta: 1
+											});
 										}
-										uni.redirectTo({
-											url: redirectUrl
-										});
 									} else {
 										this.transport_number_ok = false;
 										uni.showToast({
@@ -231,6 +248,7 @@ export default {
 						})
 						
 					} else if (res.cancel) {
+						this.btnDisabled = false
 						console.log('用户点击取消');
 					}
 				}

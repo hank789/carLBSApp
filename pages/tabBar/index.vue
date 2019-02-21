@@ -16,6 +16,7 @@
 <script>
 	import uniIcon from '../../components/uni-icon.vue'
 	import util from '../../lib/util.js'
+	import gcoord from '../../lib/gcoord.js'
 	import {
 		mapState
 	} from 'vuex';
@@ -40,7 +41,8 @@
 				btnIcon: 'plus',
 				mapHeight: '600upx',
 				mapWidth: '100%',
-				showMap: false
+				showMap: false,
+				isWatched: false
 			}
 		},
 		components: {
@@ -51,7 +53,7 @@
 		},
 		methods: {
 			addTransport() {
-				if (this.transport_sub_id) {
+				if (this.btnIcon == 'info') {
 					uni.navigateTo({
 						url: '/pages/transport/detail?id=' + this.transport_sub_id
 					});
@@ -60,7 +62,38 @@
 						url: '/pages/transport/add'
 					});
 				}
-				
+			},
+			watchPosition() {
+				if (this.transport_sub_id) {
+					this.$ajax.watchGeoPositionAndSave(this.transport_sub_id,true,(p) => {
+						if (p.coordsType != 'gcj02') {
+							var coordsType = gcoord.GCJ02
+							var toCoordsType = gcoord.GCJ02
+							if (p.coordsType == 'wgs84') {
+								coordsType = gcoord.WGS84
+							} else if (p.coordsType == 'bd09ll') {
+								coordsType = gcoord.BD09LL
+							} else if (p.coordsType == 'bd09') {
+								coordsType = gcoord.BD09
+							} else if (p.coordsType == 'gcj02') {
+								coordsType = gcoord.GCJ02
+							}
+							
+							var formatP = gcoord.transform([p.coords.longitude,p.coords.latitude],coordsType,toCoordsType)
+							console.log(formatP)
+							p.coords.longitude = formatP[0]
+							p.coords.latitude = formatP[1]
+							p.coordsType = 'gcj02'
+						}
+						this.position = p
+						this.covers[0] = {
+							latitude: this.position.coords.latitude,
+							longitude: this.position.coords.longitude,
+							iconPath: '../../static/images/location.png'
+						}
+					})
+					this.isWatched = true
+				}
 			}
 		},
 		onLoad() {
@@ -70,47 +103,55 @@
 			console.log('mapHeight:' + this.mapHeight)
 			this.mapWidth = appInfo.windowWidth + 'px'
 			
-			let that = this;
 			if (this.$ls.get('token')) {
-				this.$ajax.get('profile/info').then(res => {
-					this.$ls.set('user',res.data)
+				this.$ajax.getUserInfo().then(res => {
+					this.transport_sub_id = res.data.transport_sub_id
 					if (!res.data.name) {
-						uni.navigateTo({
+						uni.redirectTo({
 							url: '/pages/login/updateInfo'
 						});
-					} else if (res.data.transport_sub_id) {
+					} else if (this.transport_sub_id) {
+						if (res.data.transport_sub_status == 1) {
+							console.log('tabBar index onLoad and watch position')
+							this.watchPosition()
+						}
 						uni.navigateTo({
 							url: '/pages/transport/detail?id=' + res.data.transport_sub_id
 						});
+						this.showMap = true
+					} else {
+						this.showMap = true
 					}
-					this.showMap = true
 				})
 			} else {
-				uni.navigateTo({
+				uni.redirectTo({
 					url: '/pages/login/login'
 				});
-				this.showMap = true
 			}
-			console.log("onLoad")
+			console.log("tabBar index onLoad")
 		},
 		onShow() {
-			var user = this.$ls.get('user')
-			if (user) {
-				this.transport_sub_id = user.transport_sub_id
-				if (user.transport_sub_id) {
-					this.btnLabel = '查看行程'
-					this.btnIcon = 'info'
+			console.log('tabBar index show')
+			var user = this.$store.state.user
+			if (user && user.transport_sub_id) {
+				this.btnLabel = '查看行程'
+				this.btnIcon = 'info'
+				if (!this.isWatched && user.transport_sub_status == 1) {
+					console.log('tabBar index show and watch position')
+					this.watchPosition()
 				}
 			}
-			util.getGeoPosition((p) => {
-				this.position = p
-				this.covers[0] = {
-					latitude: this.position.coords.latitude,
-					longitude: this.position.coords.longitude,
-					iconPath: '../../static/images/location.png'
-				}
-				console.log(JSON.stringify(this.position))
-			})
+			if (!this.transport_sub_id) {
+				util.getGeoPosition((p) => {
+					this.position = p
+					this.covers[0] = {
+						latitude: this.position.coords.latitude,
+						longitude: this.position.coords.longitude,
+						iconPath: '../../static/images/location.png'
+					}
+					console.log(JSON.stringify(this.position))
+				})
+			}
 		}
 	}
 </script>
@@ -118,9 +159,9 @@
 <style>
 	.detail-footer-btn {
 	    width: 50%;
-	    height: 45px;
-	    line-height: 45px;
-	    font-size: 15px;
+	    height: 90upx;
+	    line-height: 90upx;
+	    font-size: 30upx;
 	    color: #FFF;
 	    text-align: center;
 	    background: #FF7900;

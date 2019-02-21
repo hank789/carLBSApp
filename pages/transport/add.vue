@@ -2,7 +2,7 @@
     
         <view class="grace-padding grace-bg-white grace-common-mt grace-common-border">
             <view class="grace-form">
-                <form @submit="formSubmit">
+                <form>
                     <view class="grace-items">
                         <view class="grace-label">行程号</view>
                         <input type="text" class="input" focus v-model.trim="transport_number" @blur="blurTransportNumber" placeholder="由管理员提供"></input>
@@ -35,7 +35,7 @@
                         
                     </view>
                     <view style="padding:22upx 0;">
-                        <button formType="submit" type="primary" style="width:100%;">提交</button>
+                        <button @tap.stop.prevent="formSubmit" :disabled="btnDisabled" type="primary" style="width:100%;">提交</button>
                     </view>
                 </form>
             </view>
@@ -59,7 +59,8 @@ export default {
 			transport_end_place: '',
             transport_goods: '',
 			transport_end_place_longitude: '',
-			transport_end_place_latitude: ''
+			transport_end_place_latitude: '',
+			btnDisabled: false
         }
     },
 	computed: {
@@ -131,6 +132,7 @@ export default {
 				uni.showToast({title:"请填写本次运输的货物", icon:"none"});
 				return;
 			}
+			this.btnDisabled = true
 			util.getGeoPosition((position) => {
 				this.$ajax.post('car/transport/add',{
 					transport_number: this.transport_number,
@@ -145,14 +147,18 @@ export default {
 					transport_end_place_latitude: this.transport_end_place_latitude
 				}, true).then(res => {
 					console.log(res);
+					this.btnDisabled = false
 					if (res.code == 1000) {
 						uni.showToast({
 							title: '行程创建成功',
 							icon: 'none'
 						})
-						uni.reLaunch({
-							url: '/pages/transport/detail?id=' + res.data.id
-						});
+						this.$ajax.getUserInfo().then(user => {
+							uni.redirectTo({
+								url: '/pages/transport/detail?id=' + res.data.id
+							});
+						})
+						
 					} else {
 						this.transport_number_ok = false;
 						uni.showToast({

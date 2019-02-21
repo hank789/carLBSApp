@@ -8,7 +8,7 @@
                         <input type="text" class="input" focus v-model.trim="name" placeholder="您的姓名"></input>
                     </view>
                     <view style="padding:22upx 0;">
-                        <button formType="submit" type="primary" style="width:100%;">提交</button>
+                        <button :disabled="btnDisabled" formType="submit" type="primary" style="width:100%;">提交</button>
                     </view>
                 </form>
             </view>
@@ -19,9 +19,9 @@
 import util from '../../lib/util.js'
 export default {
     data() {
-		
         return {
-			name: ''
+			name: '',
+			btnDisabled: false
         }
     },
 	
@@ -32,10 +32,12 @@ export default {
 				uni.showToast({title:"姓名有误", icon:"none"});
 				return;
 			}
+			this.btnDisabled = true
 			this.$ajax.post('profile/updateName',{
 				name: this.name
 			}, true).then(res => {
 				console.log(res);
+				this.btnDisabled = false
 				if (res.code == 1000) {
 					uni.redirectTo({
 						url: '/pages/tabBar/index'

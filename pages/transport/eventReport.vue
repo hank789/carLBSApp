@@ -57,7 +57,7 @@
 			</view>
 		</view>
 
-		<button type="default" class="feedback-submit" @tap="send">提交</button>
+		<button :disabled="btnDisabled" type="default" class="feedback-submit" @tap.stop.prevent="send">提交</button>
 	</view>
 </template>
 
@@ -71,6 +71,7 @@ export default {
 			eventTypeIndex: 0,
 			msgContents: [{ key: 1, value: '交通拥堵' }],
 			imageList: [],
+			btnDisabled: false,
 			sendDate: {
 				transport_sub_id: 0,
 				event_type: 1,
@@ -179,12 +180,14 @@ export default {
 					uri: value
 				};
 			});
+			this.btnDisabled = true
 			util.getGeoPosition(position => {
 				if (this.imageList.length > 0) {
 					this.sendDate.position = JSON.stringify(position);
 					this.$ajax
 						.upload_file('car/transport/eventReport', imgs, this.sendDate, true)
 						.then(res => {
+							this.btnDisabled = false
 							console.log(JSON.stringify(res));
 							if (res.code === 1000) {
 								uni.showToast({
@@ -202,6 +205,7 @@ export default {
 					this.$ajax
 						.post('car/transport/eventReport', this.sendDate, true)
 						.then(res => {
+							this.btnDisabled = false
 							console.log(JSON.stringify(res));
 							if (res.code === 1000) {
 								uni.showToast({

@@ -23,7 +23,7 @@
 							</view>
 						</view>
 						<view class="memo noCount">验证即可登录，未注册用户将根据手机号自动创建账号</view>
-						<button form-type='submit' type='primary' style='background:#076cD4; margin-top:20px;border-radius: 88upx;'>
+						<button :disabled="btnDisabled" form-type='submit' type='primary' style='background:#076cD4; margin-top:20px;border-radius: 88upx;'>
 							登录
 						</button>
 					</form>
@@ -45,6 +45,7 @@
 			  yzm: '',
 			  get_msg_btn: '获取验证码',
 			  can_send_msg: true,
+			  btnDisabled: false
 			}
 		},
 		created() {
@@ -56,7 +57,7 @@
 			}
 		},
 		methods: {
-			...mapMutations(['login', 'setToken']),
+			...mapMutations(['setUser', 'setToken']),
 			entryYzm() {
 				let phone = this.phone;
 				if (!this.can_send_msg) {
@@ -113,10 +114,12 @@
 					})
 					return;
 				}
+				this.btnDisabled = true
 				this.$ajax.post('auth/login', params).then(res => {
 					console.log(res);
+					this.btnDisabled = false
 					if(res.code==1000){
-						this.login(res.data)
+						this.setUser(res.data)
 						this.setToken(res.data.token)
 						this.$ls.set('token',res.data.token)
 						let url = '/pages/tabBar/index'

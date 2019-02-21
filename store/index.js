@@ -5,23 +5,20 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        hasLogin: false,
         user: "",
 		baseApiUrl: "",
 		token: "",
 		geoWatchId: ""
     },
     mutations: {
-        login(state, user) {
+        setUser(state, user) {
             state.user = user;
-            state.hasLogin = true;
         },
 		setToken(state, token) {
 			state.token = token;
 		},
         logout(state) {
             state.user = "";
-            state.hasLogin = false;
 			state.token = "";
         },
 		setBaseApiUrl(state, url) {
