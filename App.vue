@@ -2,6 +2,7 @@
 	export default {
 		onLaunch: function () {
 			console.log('App Launch');
+			this.$ls.set('appDeviceInfo',uni.getSystemInfoSync())
 			//#ifdef APP-PLUS
 			/* 5+环境锁定屏幕方向 */
 			plus.screen.lockOrientation('portrait-primary'); //锁定

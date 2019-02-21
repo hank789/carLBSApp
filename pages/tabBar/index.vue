@@ -1,8 +1,9 @@
 <template>
 	<view>
-		<view class="page-section page-section-gap">
-                <map :style="{width: mapWidth, height: mapHeight}" :show-location="true" :latitude="position.coords.latitude" :longitude="position.coords.longitude" :markers="covers">
-				</map>
+		<view class="uni-common-mt">
+			<view v-if="showMap">
+				<map :style="{height: mapHeight}" show-location="true" :latitude="position.coords.latitude" :longitude="position.coords.longitude" :markers="covers"></map>
+			</view>
         </view>
 		<view class="grace-footer">
 			<view class="detail-footer-btn" style="background-color: #09BB07;width: 100%;" @tap.stop.prevent='addTransport'>
@@ -37,8 +38,9 @@
 				}],
 				btnLabel: '添加行程',
 				btnIcon: 'plus',
-				mapHeight: '600px',
-				mapWidth: '100%'
+				mapHeight: '600upx',
+				mapWidth: '100%',
+				showMap: false
 			}
 		},
 		components: {
@@ -62,13 +64,12 @@
 			}
 		},
 		onLoad() {
-			uni.getSystemInfo({
-				success: (res) => {
-					console.log(JSON.stringify(res));
-					this.mapHeight = (res.windowHeight-15) + 'px'
-					this.mapWidth = res.windowWidth + 'px'
-				}
-			});
+			var appInfo = this.$ls.get('appDeviceInfo')
+			console.log(JSON.stringify(appInfo));
+			this.mapHeight = (appInfo.windowHeight - appInfo.statusBarHeight - 90) + 'px'
+			console.log('mapHeight:' + this.mapHeight)
+			this.mapWidth = appInfo.windowWidth + 'px'
+			
 			let that = this;
 			if (this.$ls.get('token')) {
 				this.$ajax.get('profile/info').then(res => {
@@ -82,11 +83,13 @@
 							url: '/pages/transport/detail?id=' + res.data.transport_sub_id
 						});
 					}
+					this.showMap = true
 				})
 			} else {
 				uni.navigateTo({
 					url: '/pages/login/login'
 				});
+				this.showMap = true
 			}
 			console.log("onLoad")
 		},
@@ -121,5 +124,8 @@
 	    color: #FFF;
 	    text-align: center;
 	    background: #FF7900;
+	}
+	map {
+		width: 100%;
 	}
 </style>
