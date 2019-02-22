@@ -2,10 +2,10 @@
 	<view>
 		<view class='container'>
 			<view class='all_ads'>
-				<view v-if="detail.transport_status == 0" style="padding:50upx 0;">
+				<view v-if="detail.transport_status == 0" style="padding:40upx 0;">
 					<uni-countdown :timer="countTimerDown" :label="'距行程开始还剩：'" :show-colon="false" color="#FFFFFF" background-color="#00B26A" border-color="#00B26A" ></uni-countdown>
 				</view>
-				<view v-if="detail.transport_status == 1" style="padding:50upx 0;">
+				<view v-if="detail.transport_status == 1" style="padding:40upx 0;">
 					<uni-countup :timer="countTimerUp" :label="'行程已开始：'" :show-colon="false" color="#FFFFFF" background-color="#00B26A" border-color="#00B26A" ></uni-countup>
 				</view>
 				<view class='ditu_all' @tap.stop.prevent="go_map">
@@ -368,7 +368,7 @@ export default {
 .ads_fa {
     display: flex;
     margin: 0 30upx;
-    padding: 40upx 10upx;
+    padding: 20upx 10upx;
     background: #fff;
     border-bottom: 1px solid #ececec;
     align-items: center;
@@ -512,10 +512,8 @@ export default {
     display: flex;
     justify-content: space-between;
     width: 100%;
+	padding: 20upx;
+	box-sizing: border-box;
 }
 
-.all_user_bottom {
-    padding: 30upx;
-    box-sizing: border-box;
-}
 </style>

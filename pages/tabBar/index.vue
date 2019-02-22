@@ -2,7 +2,7 @@
 	<view>
 		<view class="uni-common-mt">
 			<view v-if="showMap">
-				<map :style="{height: mapHeight}" show-location="true" :latitude="position.coords.latitude" :longitude="position.coords.longitude" :markers="covers"></map>
+				<map :style="{height: mapHeight}" show-location="true" @callouttap="getCurrentPosition" :latitude="position.coords.latitude" :longitude="position.coords.longitude" :markers="covers"></map>
 			</view>
         </view>
 		<view class="grace-footer">
@@ -35,8 +35,17 @@
 				covers: [{
 					latitude: 39.909,
 					longitude: 116.39742,
-					iconPath: '../../static/images/location.png'
+					iconPath: '../../static/images/location.png',
 				}],
+				mapLabel: {
+					content: '当前位置'
+				},
+				mapCallout: {
+					content: '您的当前位置'
+				},
+				mapControls: [
+					
+				],
 				btnLabel: '添加行程',
 				btnIcon: 'plus',
 				mapHeight: '600upx',
@@ -52,6 +61,19 @@
 			
 		},
 		methods: {
+			getCurrentPosition() {
+				util.getGeoPosition((p) => {
+					this.position = p
+					this.covers[0] = {
+						latitude: this.position.coords.latitude,
+						longitude: this.position.coords.longitude,
+						iconPath: '../../static/images/location.png',
+						callout: this.mapCallout,
+						label: this.mapLabel
+					}
+					console.log(JSON.stringify(this.position))
+				})
+			},
 			addTransport() {
 				if (this.btnIcon == 'info') {
 					uni.navigateTo({
@@ -89,7 +111,9 @@
 						this.covers[0] = {
 							latitude: this.position.coords.latitude,
 							longitude: this.position.coords.longitude,
-							iconPath: '../../static/images/location.png'
+							iconPath: '../../static/images/location.png',
+							callout: this.mapCallout,
+							label: this.mapLabel
 						}
 					})
 					this.isWatched = true
@@ -142,15 +166,7 @@
 				}
 			}
 			if (!this.transport_sub_id) {
-				util.getGeoPosition((p) => {
-					this.position = p
-					this.covers[0] = {
-						latitude: this.position.coords.latitude,
-						longitude: this.position.coords.longitude,
-						iconPath: '../../static/images/location.png'
-					}
-					console.log(JSON.stringify(this.position))
-				})
+				this.getCurrentPosition()
 			}
 		}
 	}
