@@ -8,7 +8,8 @@ const store = new Vuex.Store({
         user: "",
 		baseApiUrl: "",
 		token: "",
-		geoWatchId: ""
+		geoWatchId: "",
+		lastPositionUploadTime: 0
     },
     mutations: {
         setUser(state, user) {
@@ -26,6 +27,9 @@ const store = new Vuex.Store({
 		},
 		setGeoWatchId(state, geoWatchId) {
 			state.geoWatchId = geoWatchId
+		},
+		setLastPositionUploadTime(state, datetime) {
+			state.lastPositionUploadTime = datetime
 		}
     }
 })
