@@ -82,6 +82,7 @@ export default {
             transport_goods: '',
 			transport_end_place_longitude: '',
 			transport_end_place_latitude: '',
+			transport_end_place_coordsType: '',
 			transport_contact_people: '',
 			transport_contact_phone: '',
 			imageList: [],
@@ -103,6 +104,7 @@ export default {
 			this.transport_end_place = choosePosition.addressName
 			this.transport_end_place_latitude = choosePosition.lat
 			this.transport_end_place_longitude = choosePosition.lng
+			this.transport_end_place_coordsType = choosePosition.coordsType
 			this.$store.commit('setChoosePosition','')
 		}
 	},
@@ -136,6 +138,7 @@ export default {
 							this.transport_end_place = position.address.city + position.address.district + position.address.street + position.address.streetNum
 							this.transport_end_place_longitude = position.coords.longitude
 							this.transport_end_place_latitude = position.coords.latitude
+							this.transport_end_place_coordsType = position.coordsType
 						})
 						//#endif
 		            } else {
@@ -186,6 +189,7 @@ export default {
 								transport_end_place: this.transport_end_place,
 								transport_end_place_longitude: this.transport_end_place_longitude,
 								transport_end_place_latitude: this.transport_end_place_latitude,
+								transport_end_place_coordsType: this.transport_end_place_coordsType
 							}
 							if (this.imageList.length > 0) {
 								let imgs = this.imageList.map((value, index) => {

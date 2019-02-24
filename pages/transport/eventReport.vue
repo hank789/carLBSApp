@@ -78,7 +78,8 @@ export default {
 				event_detail: '',
 				event_place: '',
 				event_place_latitude: '',
-				event_place_longitude: ''
+				event_place_longitude: '',
+				event_place_coordsType: ''
 			}
 		};
 	},
@@ -92,6 +93,7 @@ export default {
 			this.sendDate.event_place = choosePosition.addressName
 			this.sendDate.event_place_latitude = choosePosition.lat
 			this.sendDate.event_place_longitude = choosePosition.lng
+			this.sendDate.event_place_coordsType = choosePosition.coordsType
 			this.$store.commit('setChoosePosition','')
 		}
 	},
@@ -114,6 +116,7 @@ export default {
 			this.sendDate.event_place = position.address.city + position.address.district + position.address.street + position.address.streetNum
 			this.sendDate.event_place_longitude = position.coords.longitude
 			this.sendDate.event_place_latitude = position.coords.latitude
+			this.sendDate.event_place_coordsType = position.coordsType
 		})
 		//#endif
 	},

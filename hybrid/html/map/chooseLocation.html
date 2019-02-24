@@ -92,7 +92,7 @@
             });
 			showCurrentPoi();
         } else {
-            alert("定位失败："+this.getStatus());
+            console.log("定位失败："+this.getStatus());
         }
     },{enableHighAccuracy: true})
  
@@ -176,6 +176,7 @@
 			data: {
 				lng: lng,
 				lat: lat,
+				coordsType: 'bd09ll',
 				addressName: addressName
 			}
 		});

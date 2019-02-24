@@ -60,6 +60,7 @@ export default {
             transport_goods: '',
 			transport_end_place_longitude: '',
 			transport_end_place_latitude: '',
+			transport_end_place_coordsType: '',
 			btnDisabled: false
         }
     },
@@ -78,6 +79,7 @@ export default {
 			this.transport_end_place = choosePosition.addressName
 			this.transport_end_place_latitude = choosePosition.lat
 			this.transport_end_place_longitude = choosePosition.lng
+			this.transport_end_place_coordsType = choosePosition.coordsType
 			this.$store.commit('setChoosePosition','')
 		}
 	},
@@ -148,9 +150,11 @@ export default {
 					transport_start_place: position.address.city + position.address.district + position.address.street + position.address.streetNum,
 					transport_start_place_longitude: position.coords.longitude,
 					transport_start_place_latitude: position.coords.latitude,
+					transport_start_place_coordsType: position.coordsType,
 					transport_end_place: this.transport_end_place,
 					transport_end_place_longitude: this.transport_end_place_longitude,
-					transport_end_place_latitude: this.transport_end_place_latitude
+					transport_end_place_latitude: this.transport_end_place_latitude,
+					transport_end_place_coordsType: this.transport_end_place_coordsType
 				}, true).then(res => {
 					console.log(res);
 					this.btnDisabled = false
@@ -189,6 +193,7 @@ export default {
 					this.transport_number_ok = true;
 					this.transport_end_place_latitude = res.data.transport_goods.transport_end_place_latitude
 					this.transport_end_place_longitude = res.data.transport_goods.transport_end_place_longitude
+					this.transport_end_place_coordsType = res.data.transport_goods.transport_end_place_coordsType
 				} else {
 					this.transport_number_ok = false;
 					uni.showToast({

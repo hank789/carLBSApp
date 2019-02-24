@@ -11,6 +11,7 @@
 				position: {
 					lng: '',
 					lat: '',
+					coordsType: '',
 					addressName: ''
 				}
 			}
