@@ -66,7 +66,7 @@
                     // 地图只能选一个，这里选的是百度。
                     "baidu" : {
                         "appkey_ios" : "HEMNYUQlPrkilhpzGcL5fkiDqW156eFQ",
-                        "appkey_android" : "KO1zE1KRCdt32qbRjYycyoYhFI3uaGvT"
+                        "appkey_android" : "O7U4UT5ouaj6LkZDD5ADtSBSh3CZESkS"
                     }
                 }
             }

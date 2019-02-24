@@ -44,13 +44,13 @@
 								<image
 									class="uni-uploader__img"
 									:src="image"
-									@tap="previewImage"
+									@tap.stop.prevent="previewImage"
 								></image>
-								<view class="close-view" @click="close(index)">x</view>
+								<view class="close-view" @tap.stop.prevent="close(index)">x</view>
 							</view>
 						</block>
 						<view class="uni-uploader__input-box" v-show="imageList.length < 8">
-							<view class="uni-uploader__input" @tap="chooseImg"></view>
+							<view class="uni-uploader__input" @tap.stop.prevent="chooseImg"></view>
 						</view>
 					</view>
 				</view>
@@ -85,6 +85,16 @@ export default {
 	components: {
 		uniIcon
 	},
+	onShow() {
+		var choosePosition = this.$store.state.choosePosition
+		console.log("eventReportShow:"+JSON.stringify(choosePosition))
+		if (choosePosition) {
+			this.sendDate.event_place = choosePosition.addressName
+			this.sendDate.event_place_latitude = choosePosition.lat
+			this.sendDate.event_place_longitude = choosePosition.lng
+			this.$store.commit('setChoosePosition','')
+		}
+	},
 	onLoad(option) {
 		this.sendDate.transport_sub_id = option.id;
 		this.getEventType();
@@ -109,12 +119,8 @@ export default {
 	},
 	methods: {
 		chooseLocation: function () {
-			uni.chooseLocation({
-				success: (res) => {
-					this.sendDate.event_place = res.address,
-					this.sendDate.event_place_latitude = res.latitude
-					this.sendDate.event_place_longitude = res.longitude
-				}
+			uni.navigateTo({
+				url: '/pages/map/chooseLocation'
 			})
 		},
 		getEventType() {
@@ -188,8 +194,10 @@ export default {
 						.upload_file('car/transport/eventReport', imgs, this.sendDate, true)
 						.then(res => {
 							this.btnDisabled = false
-							console.log(JSON.stringify(res));
-							if (res.code === 1000) {
+							console.log(JSON.stringify(res))
+							console.log(res.code)
+							if (res.code == 1000) {
+								console.log('事件提交成功')
 								uni.showToast({
 									title: '事件提交成功!'
 								});

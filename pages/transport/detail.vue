@@ -233,6 +233,7 @@ export default {
             uni.openLocation({
                 latitude: latitude,
                 longitude: longitude,
+				name: this.detail.transport_end_place,
                 success: function() {
                     console.log('success');
                 }

@@ -9,7 +9,9 @@ const store = new Vuex.Store({
 		baseApiUrl: "",
 		token: "",
 		geoWatchId: "",
-		lastPositionUploadTime: 0
+		lastPositionUploadTime: 0,
+		isAppHide: false,
+		choosePosition: ''
     },
     mutations: {
         setUser(state, user) {
@@ -30,6 +32,12 @@ const store = new Vuex.Store({
 		},
 		setLastPositionUploadTime(state, datetime) {
 			state.lastPositionUploadTime = datetime
+		},
+		setAppHide(state, hide) {
+			state.isAppHide = hide
+		},
+		setChoosePosition(state, position) {
+			state.choosePosition = position
 		}
     }
 })

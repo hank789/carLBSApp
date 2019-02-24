@@ -1,3 +1,3 @@
 export default {
-	BASE_API_URL: "https://132.232.54.239:18011"
+	BASE_API_URL: "http://test.ywhub.com/api/"
 }

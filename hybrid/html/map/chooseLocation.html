@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10,user-scalable=yes">
+    <title>选择位置</title>
+    <!-- css样式文件 -->
+	<link rel="stylesheet" href="../css/mui.min.css">
+    <style type="text/css">
+        body, html{width: 100%;height: 100%; margin:0;font-family:"微软雅黑";}
+        #l-map{height:300px;width:100%;}
+        #r-result{width:100%;font-size: 14px;}
+        #flag{
+            width: 3px;
+            height: 3px;
+            border: 0px;
+            position: absolute;
+            top: 206px;
+            left:210px;
+        }
+		h5 {
+            margin: 5px 7px;
+        }
+    </style>
+
+</head>
+
+<body>
+	<div id="search">
+		<form class="mui-input-group">
+			<div class="mui-input-row">
+				<input type="hidden" id="transport_end_place_longitude" name="transport_end_place_longitude" />
+				<input type="hidden" id="transport_end_place_latitude" name="transport_end_place_latitude" />
+				<input type="hidden" id="transport_end_place" name="transport_end_place" />
+				
+				<input id="suggestId" type="text" class="mui-input-clear" placeholder="地址检索" style="text-align: center">
+				<div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+			</div>
+		</form>
+	</div>
+	<div id="l-map"></div>
+	<div id="r-result">
+	 
+	</div>
+	
+    <!-- js文件 -->
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YC6A8W3HV3y6Xox8rFRkdThj8VGKk8Dt"></script>
+	<!-- uni 的 SDK -->
+	<script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.0.2.2.js"></script>
+    <!-- 页面地图js方法 -->
+    <script type="text/javascript">
+		document.addEventListener('UniAppJSBridgeReady', function() {
+			uni.getEnv(function(res) {
+				console.log('当前环境：' + JSON.stringify(res));
+			});
+		});
+		function G(id) {
+            return document.getElementById(id);
+        }
+
+	var title = [];
+    var address = [];
+    var points = [];
+    var searchPoint = "";
+    var searchtAddress = "";
+    var isLocated = false;
+    // 百度地图API功能
+    var map = new BMap.Map("l-map"); // 创建Map实例
+    map.centerAndZoom(new BMap.Point(116.331398,39.897445),14);
+    //map.addEventListener("moveend",showCurrentPoi);
+    //map.setDefaultCursor("crosshair");
+ 
+    //自动定位
+    var geolocation = new BMap.Geolocation();
+    geolocation.getCurrentPosition(function(r){
+        if(this.getStatus() == BMAP_STATUS_SUCCESS){
+            searchPoint = r.point;
+            isLocated = true;
+            map.centerAndZoom(r.point,14);
+            map.panTo(r.point);
+			map.enableScrollWheelZoom(true);
+            // 创建地理编码实例
+            var myGeo = new BMap.Geocoder();
+            // 根据坐标得到地址描述
+            myGeo.getLocation(r.point, function(result){
+                if (result){
+                    searchtAddress = result.address;
+                }
+            });
+			showCurrentPoi();
+        } else {
+            alert("定位失败："+this.getStatus());
+        }
+    },{enableHighAccuracy: true})
+ 
+    //自动完成
+    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+            {"input" : "suggestId",
+                "location" : map
+            });
+    
+    ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+        var _value = e.item.value;
+        searchtAddress = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+		G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + searchtAddress;
+        //alert("1:"+_value.province+"2:"+_value.city+"3:"+_value.district+"4:"+_value.street+"5:"+_value.business);
+        showPoiFromKeyword();
+    });
+ 
+    function showPoiFromKeyword(){
+		map.clearOverlays();    //清除地图上所有覆盖物
+        var local = new BMap.LocalSearch(map, { //智能搜索
+            onSearchComplete: function(results){
+                var point = local.getResults().getPoi(0).point;
+				console.log(JSON.stringify(point));
+                var title = local.getResults().getPoi(0).title;
+                var address = local.getResults().getPoi(0).address;
+				console.log('showPoiFromKeyword:'+title+';'+address)
+				map.centerAndZoom(point, 18);
+                map.addOverlay(new BMap.Marker(point));    //添加标注
+				searchPoint = point;
+				showCurrentPoi();
+            }
+        });
+        local.search(searchtAddress);
+    }
+ 
+    function showCurrentPoi()
+    {
+        var center = map.getCenter();
+        var local = new BMap.LocalSearch(map, {
+            renderOptions: {selectFirstResult:true},
+            onSearchComplete:function(results){
+                if (local.getStatus() == BMAP_STATUS_SUCCESS){
+                    var s = [];
+                    var content = "";
+                    content = " <ul class='mui-table-view'> ";
+					//加上搜索的地址
+					content = content +
+					        " <li lng='"+searchPoint.lng+"' lat='"+searchPoint.lat+"' addressName='"+searchtAddress+"' onclick='selectMap(this);' class='mui-table-view-cell mui-media'> <div class='mui-media-body'>" +
+					        searchtAddress +
+					        "</div> </li>";
+                    for (var i = 0; i < results.getCurrentNumPois(); i++) {
+                        title[i] = results.getPoi(i).title;
+                        address[i] = results.getPoi(i).address;
+                        points[i] = results.getPoi(i).point;
+                        var addressName = address[i]+title[i];
+                        content = content +
+                                " <li lng='"+points[i].lng+"' lat='"+points[i].lat+"' addressName='"+addressName+"' onclick='selectMap(this);' class='mui-table-view-cell mui-media'> <div class='mui-media-body'>" +
+                                title[i] +
+                                address[i] + "</div> </li>";
+                    }
+                    content = content + " </ul>";
+                    document.getElementById("r-result").innerHTML = content;
+                }
+            }
+        });
+        var myGeo = new BMap.Geocoder();
+        myGeo.getLocation(center, function (result) {
+            if (result) {
+                local.search(result.address);
+            }
+        });
+    }
+ 
+    function selectMap(obj){
+        var lng = (obj).getAttribute("lng");
+        var lat = (obj).getAttribute("lat");
+        var addressName = (obj).getAttribute("addressName");
+        var href = "lng="+lng+"&lat="+lat+"&addressName="+addressName;
+		console.log(href);
+		uni.postMessage({
+			data: {
+				lng: lng,
+				lat: lat,
+				addressName: addressName
+			}
+		});
+		uni.navigateBack({
+			delta: 1
+		});
+    }
+    </script>
+</body>
+
+</html>

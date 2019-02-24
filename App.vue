@@ -36,6 +36,7 @@
 		},
 		onShow: function () {
 			console.log('App Show')
+			this.$store.commit('setAppHide', false)
 			this.$ls.remove('geoPositionsUploading')
 			if (this.$ls.get('token')) {
 				var user = this.$store.state.user
@@ -49,6 +50,7 @@
 		},
 		onHide: function () {
 			console.log('App Hide')
+			this.$store.commit('setAppHide', true)
 		}
 	}
 </script>

@@ -78,14 +78,20 @@ export default {
 			return this.getDate('end');
 		}
 	},
+	onShow() {
+		var choosePosition = this.$store.state.choosePosition
+		console.log("xiehuoShow:"+JSON.stringify(choosePosition))
+		if (choosePosition) {
+			this.transport_end_place = choosePosition.addressName
+			this.transport_end_place_latitude = choosePosition.lat
+			this.transport_end_place_longitude = choosePosition.lng
+			this.$store.commit('setChoosePosition','')
+		}
+	},
     methods:{
 		chooseLocation: function () {
-			uni.chooseLocation({
-				success: (res) => {
-					this.transport_end_place = res.address,
-					this.transport_end_place_latitude = res.latitude
-					this.transport_end_place_longitude = res.longitude
-				}
+			uni.navigateTo({
+				url: '/pages/map/chooseLocation'
 			})
 		},
 		bindDateChange: function(e) {

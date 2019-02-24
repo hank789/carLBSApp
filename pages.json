@@ -57,6 +57,13 @@
 		        "enablePullDownRefresh" : false,
 		        "navigationBarTitleText" : "卸货"
 		    }
+		},
+		{
+		    "path" : "pages/map/chooseLocation",
+		    "style" : {
+		        "enablePullDownRefresh" : false,
+		        "navigationBarTitleText" : "位置选择"
+		    }
 		}
     ],
     "globalStyle" : {
