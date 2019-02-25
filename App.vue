@@ -1,4 +1,5 @@
 <script>
+	import util from './lib/util.js'
 	export default {
 		onLaunch: function () {
 			console.log('App Launch');
@@ -38,6 +39,7 @@
 			console.log('App Show')
 			this.$store.commit('setAppHide', false)
 			this.$ls.remove('geoPositionsUploading')
+			util.releaseWakeLock()
 			if (this.$ls.get('token')) {
 				var user = this.$store.state.user
 				let geoWatchId = this.$store.state.geoWatchId
@@ -51,6 +53,7 @@
 		onHide: function () {
 			console.log('App Hide')
 			this.$store.commit('setAppHide', true)
+			util.wakeLock()
 		}
 	}
 </script>

@@ -164,6 +164,10 @@ export default {
 									    title: '行程已开始',
 									    icon: 'none'
 									});
+									// 保持屏幕常亮
+									uni.setKeepScreenOn({
+										keepScreenOn: true
+									});
 									this.$ajax.watchGeoPositionAndSave(this.id)
 								} else {
 								    uni.showToast({

@@ -87,7 +87,7 @@
 			},
 			watchPosition() {
 				if (this.transport_sub_id) {
-					this.$ajax.watchGeoPositionAndSave(this.transport_sub_id,true,(p) => {
+					this.$ajax.watchGeoPositionAndSave(this.transport_sub_id,false,(p) => {
 						if (p.coordsType != 'gcj02') {
 							var coordsType = gcoord.GCJ02
 							var toCoordsType = gcoord.GCJ02
@@ -137,6 +137,10 @@
 					} else if (this.transport_sub_id) {
 						if (res.data.transport_sub_status == 1) {
 							console.log('tabBar index onLoad and watch position')
+							// 保持屏幕常亮
+							uni.setKeepScreenOn({
+								keepScreenOn: true
+							});
 							this.watchPosition()
 						}
 						uni.navigateTo({
