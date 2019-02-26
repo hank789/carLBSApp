@@ -53,7 +53,11 @@
 		onHide: function () {
 			console.log('App Hide')
 			this.$store.commit('setAppHide', true)
-			util.wakeLock()
+			var user = this.$store.state.user
+			if (user && user.transport_sub_status == 1) {
+				console.log('App Hide and wakeLock')
+				util.wakeLock()
+			}
 		}
 	}
 </script>
