@@ -13,7 +13,7 @@
 </template>
 <script>
 	export default {
-		name: "uni-countdown",
+		name: "uni-countup",
 		props: {
 			label: {
 				type: String,

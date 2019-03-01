@@ -9,6 +9,7 @@
                     </view>
 					<view class="grace-items">
 					    <view class="grace-label">车牌号</view>
+						<tki-float-keyboard ref="keyb" mode="car" type="0" title="车牌号" @del="carNumberDel" @val="carNumberVal" @show="carNumberShow" @hide="carNumberHide"></tki-float-keyboard>
 					    <input type="text" class="input" v-model.trim="car_number" placeholder="本次行程的车辆车牌号码"></input>
 					</view>
 					
@@ -22,9 +23,9 @@
 					    <text class="input">{{transport_contact_phone}}</text>
 					</view>
 					
-					<view class="grace-items">
+					<view class="grace-items" @tap.stop.prevent="chooseLocation">
 					    <view class="grace-label">目的地</view>
-					    <input type="text" class="input" @focus="chooseLocation" v-model.trim="transport_end_place" placeholder="本次行程的目的地"></input>
+					    <input type="text" class="input" v-model.trim="transport_end_place" placeholder="本次行程的目的地"></input>
 					</view>
                     <view class="grace-items grace-noborder">
 						<view class="uni-textarea">
@@ -71,6 +72,8 @@
 <script>
 import util from '../../lib/util.js'
 import uniIcon from '../../components/uni-icon.vue'
+import tkiFloatKeyboard from "@/components/tki-float-keyboard/tki-float-keyboard.vue"
+
 export default {
     data() {
         return {
@@ -95,7 +98,8 @@ export default {
 	    this.get_data();
 	},
 	components: {
-		uniIcon
+		uniIcon,
+		tkiFloatKeyboard
 	},
 	onShow() {
 		var choosePosition = this.$store.state.choosePosition
@@ -109,6 +113,31 @@ export default {
 		}
 	},
     methods:{
+		// 显示键盘
+		showKey(){
+			this.$refs.keyb._keyShow()
+		},
+		// 隐藏键盘
+		hideKey(){
+			this.$refs.keyb._keyHide()
+		},
+		// 键盘退格
+		carNumberDel(){
+			let d = this.car_number
+			this.car_number = d.substring(0,d.length-1)
+		},
+		// 键盘输入值
+		carNumberVal(v){
+			this.car_number = this.car_number + v
+		},
+		// 显示键盘后的回调
+		carNumberShow(h){
+			console.log(h)
+		},
+		// 隐藏键盘后的回调
+		carNumberHide(){
+		
+		},
 		chooseLocation: function () {
 			uni.navigateTo({
 				url: '/pages/map/chooseLocation'
