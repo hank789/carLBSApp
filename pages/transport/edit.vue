@@ -150,7 +150,7 @@ export default {
 						this.transport_sub_id = res.data.id
 		            } else {
 		                uni.showToast({
-		                    title: res.msg,
+		                    title: res.message,
 		                    icon: 'none'
 		                });
 		            }

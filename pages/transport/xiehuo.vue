@@ -172,7 +172,7 @@ export default {
 						//#endif
 		            } else {
 		                uni.showToast({
-		                    title: res.msg,
+		                    title: res.message,
 		                    icon: 'none'
 		                });
 		            }

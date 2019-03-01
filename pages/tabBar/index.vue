@@ -162,6 +162,7 @@
 			console.log('tabBar index show')
 			var user = this.$store.state.user
 			if (user && user.transport_sub_id) {
+				this.transport_sub_id = user.transport_sub_id
 				this.btnLabel = '查看行程'
 				this.btnIcon = 'info'
 				if (!this.isWatched && user.transport_sub_status == 1) {

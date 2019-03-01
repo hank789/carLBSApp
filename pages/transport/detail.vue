@@ -168,10 +168,11 @@ export default {
 									uni.setKeepScreenOn({
 										keepScreenOn: true
 									});
+									this.$ajax.getUserInfo().then(res => {})
 									this.$ajax.watchGeoPositionAndSave(this.id)
 								} else {
 								    uni.showToast({
-								        title: res.msg,
+								        title: res.message,
 								        icon: 'none'
 								    });
 								}
@@ -194,6 +195,7 @@ export default {
 			});
 		},
         get_data() {
+			console.log(this.id)
             this.$ajax
                 .get('car/transport/subDetail/'+this.id)
                 .then(res => {
@@ -220,7 +222,7 @@ export default {
 						}
                     } else {
                         uni.showToast({
-                            title: res.msg,
+                            title: res.message,
                             icon: 'none'
                         });
                     }

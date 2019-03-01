@@ -133,7 +133,7 @@ export default {
 					this.msgContents = res.data;
 				} else {
 					uni.showToast({
-						title: res.msg,
+						title: res.message,
 						icon: 'none'
 					});
 				}
