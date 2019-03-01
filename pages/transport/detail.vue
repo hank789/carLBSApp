@@ -83,12 +83,12 @@
 					修改
 				</view>
 				<view v-if="detail.transport_status == 0" class="detail-footer-btn" style="background-color: #09BB07;width: 70%;" @tap.stop.prevent='startTransport'>
-					<uni-icon size="18" :type="'navigate'"></uni-icon>  开始行程
+					<uni-icon size="19" :type="'navigate'"></uni-icon>  开始行程
 				</view>
 				
 				<view v-if="detail.transport_status == 1" class="detail-footer-btn" style="background-color: #FF4343;width: 40%;" @tap.stop.prevent='eventReport'>事件上报</view>
 				<view v-if="detail.transport_status == 1" class="detail-footer-btn" style="background-color: #09BB07;width: 60%;" @tap.stop.prevent='finishTransport'>
-					<uni-icon size="18" :type="'flag'"></uni-icon> 卸货
+					<uni-icon size="19" :type="'flag'"></uni-icon> 卸货
 				</view>
 			</view>
 		</view>

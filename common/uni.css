@@ -9,6 +9,7 @@
 view{
 	font-size:32upx; 
 	line-height:1.8;
+	font-weight: 400;
 }
 progress, checkbox-group{
 	width: 100%;
