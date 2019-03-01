@@ -248,20 +248,6 @@ export default {
 </script>
 
 <style>
-	button {
-		margin-top: 30upx;
-		margin-bottom: 30upx;
-	}
-	
-.detail-footer-btn {
-    width: 50%;
-    height: 90upx;
-    line-height: 90upx;
-    font-size: 30upx;
-    color: #FFF;
-    text-align: center;
-    background: #FF7900;
-}
 .container {
 	background-color: #F8F8F8;
     background: #f5f5f5;
@@ -381,7 +367,6 @@ export default {
 
 .ads_fa .ads_xx {
     color: #a6a6a6;
-    font-size: 26upx;
 }
 
 .ads_shou_left {
@@ -446,7 +431,6 @@ export default {
 
 .huo_color {
     color: #a6a6a6;
-    font-size: 26upx;
     line-height: 50upx;
 }
 

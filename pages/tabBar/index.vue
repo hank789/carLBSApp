@@ -175,18 +175,3 @@
 		}
 	}
 </script>
-
-<style>
-	.detail-footer-btn {
-	    width: 50%;
-	    height: 90upx;
-	    line-height: 90upx;
-	    font-size: 30upx;
-	    color: #FFF;
-	    text-align: center;
-	    background: #FF7900;
-	}
-	map {
-		width: 100%;
-	}
-</style>

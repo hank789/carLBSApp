@@ -68,10 +68,13 @@
 	
 	
 	/* 以下样式用于 hello uni-app 演示所需 */
+	map {
+		width: 100%;
+	}
 	page {
 		background-color:#fff;
 		height: 100%;
-		font-size:28upx;
+		font-size:32upx;
 		line-height: 1.8;
 	}
 	.uni-header-logo{

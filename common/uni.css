@@ -7,7 +7,7 @@
 
 /*通用 */
 view{
-	font-size:28upx; 
+	font-size:32upx; 
 	line-height:1.8;
 }
 progress, checkbox-group{
@@ -84,7 +84,7 @@ form {
 	line-height:1.5;
 }
 .uni-text{
-	font-size:28upx;
+	font-size:32upx;
 }
 .uni-title text{
 	font-size:24upx; 
@@ -156,7 +156,7 @@ form {
 	height: 50upx;
 	padding: 15upx 25upx;
 	line-height:50upx;
-	font-size:28upx;
+	font-size:32upx;
 	background:#FFF;
 	flex: 1;
 }
@@ -802,7 +802,7 @@ radio-group label, checkbox-group label{
 	position: relative;
 	display: flex;
 	flex-direction: row;
-	font-size:28upx;
+	font-size:32upx;
 	padding: 22upx 30upx;
 	justify-content: space-between;
 }
@@ -831,7 +831,6 @@ radio-group label, checkbox-group label{
 	width:96%;
 	padding:18upx 2%;
 	line-height:1.6;
-	font-size:28upx;
 	height:150upx;
 }
 

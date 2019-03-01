@@ -7,10 +7,10 @@
                         <view class="grace-label">行程号</view>
 						<text class="input">{{transport_number}}</text>
                     </view>
-					<view class="grace-items">
+					<view class="grace-items" @tap.stop.prevent="showKey">
 					    <view class="grace-label">车牌号</view>
 						<tki-float-keyboard ref="keyb" mode="car" type="0" title="车牌号" @del="carNumberDel" @val="carNumberVal" @show="carNumberShow" @hide="carNumberHide"></tki-float-keyboard>
-					    <input type="text" class="input" v-model.trim="car_number" placeholder="本次行程的车辆车牌号码"></input>
+					    <input type="text" disabled class="input" v-model.trim="car_number" placeholder="本次行程的车辆车牌号码"></input>
 					</view>
 					
 					<view class="grace-items">
