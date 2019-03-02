@@ -13,7 +13,7 @@
 		</view>
 		<view class="feedback-title"><text>事件地点</text></view>
 		<view class="feedback-body" @tap.stop.prevent="chooseLocation">
-			<input type="text" class="feedback-input" v-model.trim="sendDate.event_place" placeholder="事件发生地"></input>
+			<input type="text" disabled class="feedback-input" v-model.trim="sendDate.event_place" placeholder="事件发生地"></input>
 		</view>
 		<view class="feedback-title">
 			<button type="primary" @tap="startRecognize">

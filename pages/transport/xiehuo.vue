@@ -25,7 +25,7 @@
 					
 					<view class="grace-items" @tap.stop.prevent="chooseLocation">
 					    <view class="grace-label">目的地</view>
-					    <input type="text" class="input" v-model.trim="transport_end_place" placeholder="本次行程的目的地"></input>
+					    <input type="text" disabled class="input" v-model.trim="transport_end_place" placeholder="本次行程的目的地"></input>
 					</view>
                     <view class="grace-items grace-noborder">
 						<view class="uni-textarea">
