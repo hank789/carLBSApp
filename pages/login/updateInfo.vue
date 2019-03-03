@@ -39,7 +39,7 @@ export default {
 				console.log(res);
 				this.btnDisabled = false
 				if (res.code == 1000) {
-					uni.redirectTo({
+					uni.reLaunch({
 						url: '/pages/tabBar/index'
 					})
 				} else {

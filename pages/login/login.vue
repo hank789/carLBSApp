@@ -16,7 +16,7 @@
 						</view>
 						<view class="grace-space-between" style="margin-top:28upx;border-bottom: 2upx solid #f1f1f1;">
 							<view class="grace-items grace-items-wbg" style="width:66%;">
-								<input type="number" class="input" v-model.trim="yzm" placeholder="请输入验证码" style="margin-left: 0;"></input>
+								<input type="number" class="input" :focus="yzmFocus" v-model.trim="yzm" placeholder="请输入验证码" style="margin-left: 0;"></input>
 							</view>
 							<view style="width: 36%;">
 								<button class="thisBtn" @tap.stop.prevent="entryYzm">{{get_msg_btn}}</button>
@@ -45,7 +45,8 @@
 			  yzm: '',
 			  get_msg_btn: '获取验证码',
 			  can_send_msg: true,
-			  btnDisabled: false
+			  btnDisabled: false,
+			  yzmFocus: false
 			}
 		},
 		created() {
@@ -78,7 +79,7 @@
 						});
 						this.can_send_msg = false;
 						this.get_msg_btn = 59;
-			
+						this.yzmFocus = true;
 						let timer = setInterval(() => {
 							this.get_msg_btn--;
 							if (this.get_msg_btn == 0) {
@@ -122,13 +123,15 @@
 						this.setUser(res.data)
 						this.setToken(res.data.token)
 						this.$ls.set('token',res.data.token)
-						let url = '/pages/tabBar/index'
 						if (!res.data.name) {
-							url = '/pages/login/updateInfo'
+							uni.reLaunch({
+								url: '/pages/login/updateInfo'
+							})
+						} else {
+							uni.reLaunch({
+								url: '/pages/tabBar/index'
+							})
 						}
-						uni.redirectTo({
-							url: url
-						})
 					}else{
 						uni.showToast({
 							title:res.message,
