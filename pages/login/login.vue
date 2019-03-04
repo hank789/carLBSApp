@@ -84,6 +84,7 @@
 							this.get_msg_btn--;
 							if (this.get_msg_btn == 0) {
 								this.get_msg_btn = "获取验证码";
+								this.can_send_msg = true;
 								clearInterval(timer)
 							}
 						}, 1000)

@@ -86,15 +86,7 @@ export default {
 		tkiFloatKeyboard
 	},
 	onShow() {
-		var choosePosition = this.$store.state.choosePosition
-		console.log("xiehuoShow:"+JSON.stringify(choosePosition))
-		if (choosePosition) {
-			this.transport_end_place = choosePosition.addressName
-			this.transport_end_place_latitude = choosePosition.lat
-			this.transport_end_place_longitude = choosePosition.lng
-			this.transport_end_place_coordsType = choosePosition.coordsType
-			this.$store.commit('setChoosePosition','')
-		}
+		
 	},
     methods:{
 		// 显示键盘
@@ -123,8 +115,13 @@ export default {
 		
 		},
 		chooseLocation: function () {
-			uni.navigateTo({
-				url: '/pages/map/chooseLocation'
+			uni.chooseLocation({
+				success: (res) => {
+					this.transport_end_place = res.name + res.address
+					this.transport_end_place_latitude = res.latitude
+					this.transport_end_place_longitude = res.longitude
+					this.transport_end_place_coordsType = 'gcj02'
+				},
 			})
 		},
 		bindDateChange: function(e) {

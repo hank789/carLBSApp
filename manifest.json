@@ -6,12 +6,12 @@
     "versionCode" : "100",
     "transformPx" : false,
     "app-plus" : {
-		"splashscreen" : {
-		    "alwaysShowBeforeRender" : true,
-		    "waiting" : true,
-		    "autoclose" : true,
-		    "delay" : 0
-		},
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : true,
+            "autoclose" : true,
+            "delay" : 0
+        },
         /* 5+App特有相关 */
         "modules" : {
             "Maps" : {},
@@ -71,10 +71,9 @@
                     "ifly" : {}
                 },
                 "maps" : {
-                    // 地图只能选一个，这里选的是百度。
-                    "baidu" : {
-                        "appkey_ios" : "HEMNYUQlPrkilhpzGcL5fkiDqW156eFQ",
-                        "appkey_android" : "O7U4UT5ouaj6LkZDD5ADtSBSh3CZESkS"
+                    "amap" : {
+                        "appkey_ios" : "d1c5b7af8ae3105fc355b71ce250c632",
+                        "appkey_android" : "2be8cdddceda4bb712d07f2167c470eb"
                     }
                 }
             },

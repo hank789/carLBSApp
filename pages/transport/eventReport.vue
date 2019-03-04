@@ -87,15 +87,7 @@ export default {
 		uniIcon
 	},
 	onShow() {
-		var choosePosition = this.$store.state.choosePosition
-		console.log("eventReportShow:"+JSON.stringify(choosePosition))
-		if (choosePosition) {
-			this.sendDate.event_place = choosePosition.addressName
-			this.sendDate.event_place_latitude = choosePosition.lat
-			this.sendDate.event_place_longitude = choosePosition.lng
-			this.sendDate.event_place_coordsType = choosePosition.coordsType
-			this.$store.commit('setChoosePosition','')
-		}
+		
 	},
 	onLoad(option) {
 		this.sendDate.transport_sub_id = option.id;
@@ -122,8 +114,14 @@ export default {
 	},
 	methods: {
 		chooseLocation: function () {
-			uni.navigateTo({
-				url: '/pages/map/chooseLocation'
+			uni.chooseLocation({
+				success: (res) => {
+					console.log(JSON.stringify(res))
+					this.sendDate.event_place = res.name + res.address
+					this.sendDate.event_place_latitude = res.latitude
+					this.sendDate.event_place_longitude = res.longitude
+					this.sendDate.event_place_coordsType = 'gcj02'
+				}
 			})
 		},
 		getEventType() {
