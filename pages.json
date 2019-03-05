@@ -5,7 +5,18 @@
             "path" : "pages/tabBar/index",
             "style" : {
                 "enablePullDownRefresh" : false,
-                "navigationBarTitleText" : "行程管理"
+                "navigationBarTitleText" : "行程管理",
+				"app-plus" : {
+				    "titleNView" : {
+				        "buttons" : [
+				            {
+				                "text" : "退出 ",
+				                "fontSize" : "14",
+				                "width" : "auto"
+				            }
+				        ]
+				    }
+				}
             }
         },
         {

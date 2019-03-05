@@ -60,6 +60,24 @@
 		computed: {
 			
 		},
+		onNavigationBarButtonTap(e) {
+			uni.showModal({
+				title: '提示',
+				content: '确认退出当前登录？',
+				success: (res) => {
+					if (res.confirm) {
+						console.log('用户点击确定');
+						this.$ls.set('token','');
+						this.$store.commit('setUser','');
+						uni.reLaunch({
+							url: '/pages/login/login'
+						});
+					} else if (res.cancel) {
+						console.log('用户点击取消');
+					}
+				}
+			});
+		},
 		methods: {
 			getCurrentPosition() {
 				util.getGeoPosition((p) => {
@@ -126,7 +144,6 @@
 			this.mapHeight = (appInfo.windowHeight - appInfo.statusBarHeight - 90) + 'px'
 			console.log('mapHeight:' + this.mapHeight)
 			this.mapWidth = appInfo.windowWidth + 'px'
-			
 			if (this.$ls.get('token')) {
 				this.$ajax.getUserInfo().then(res => {
 					this.transport_sub_id = res.data.transport_sub_id
@@ -170,7 +187,7 @@
 					this.watchPosition()
 				}
 			}
-			if (!this.transport_sub_id) {
+			if (!this.transport_sub_id || !this.isWatched) {
 				this.getCurrentPosition()
 			}
 		}
