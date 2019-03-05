@@ -226,7 +226,6 @@ export default {
 							delta: 1
 						});
 					} else {
-						this.transport_number_ok = false;
 						uni.showToast({
 							title: res.message,
 							icon: 'none'

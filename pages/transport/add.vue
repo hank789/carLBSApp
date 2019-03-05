@@ -197,7 +197,6 @@ export default {
 						})
 						
 					} else {
-						this.transport_number_ok = false;
 						uni.showToast({
 							title: res.message,
 							icon: 'none'

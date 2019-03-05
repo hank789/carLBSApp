@@ -51,11 +51,6 @@
 		},
 		created() {
 			console.log(this.$ls.get('token'))
-			if (this.$ls.get('token')) {
-				uni.redirectTo({
-					url: '/pages/tabBar/index',
-				})
-			}
 		},
 		methods: {
 			...mapMutations(['setUser', 'setToken']),
