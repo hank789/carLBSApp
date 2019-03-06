@@ -150,7 +150,7 @@ export default {
 						util.getGeoPosition((position) => {
 							this.$ajax.post('car/transport/start', {transport_sub_id: this.id, position: position}).then(res => {
 								console.log(JSON.stringify(res));
-								this.detail.transport_start_place = position.address.city + position.address.district + position.address.street + position.address.streetNum
+								this.detail.transport_start_place = position.address.city + position.address.district + (position.address.street?position.address.street:'') + (position.address.streetNum?position.address.streetNum:'')
 								this.detail.transport_goods.transport_start_place_longitude = position.coords.longitude
 								this.detail.transport_goods.transport_start_place_latitude = position.coords.latitude
 								if (res.code == 1000) {
@@ -203,7 +203,7 @@ export default {
 						if (this.detail.transport_status == 0) {
 							//#ifdef APP-PLUS
 							util.getGeoPosition((position) => {
-								this.detail.transport_start_place = position.address.city + position.address.district + position.address.street + position.address.streetNum
+								this.detail.transport_start_place = position.address.city + position.address.district + (position.address.street?position.address.street:'') + (position.address.streetNum?position.address.streetNum:'')
 								this.detail.transport_goods.transport_start_place_longitude = position.coords.longitude
 								this.detail.transport_goods.transport_start_place_latitude = position.coords.latitude
 							})

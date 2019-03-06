@@ -105,7 +105,7 @@ export default {
 		};
 		this.sendDate = Object.assign(deviceInfo, this.sendDate);
 		util.getGeoPosition((position) => {
-			this.sendDate.event_place = position.address.city + position.address.district + position.address.street + position.address.streetNum
+			this.sendDate.event_place = position.address.city + position.address.district + (position.address.street?position.address.street:'') + (position.address.streetNum?position.address.streetNum:'')
 			this.sendDate.event_place_longitude = position.coords.longitude
 			this.sendDate.event_place_latitude = position.coords.latitude
 			this.sendDate.event_place_coordsType = position.coordsType

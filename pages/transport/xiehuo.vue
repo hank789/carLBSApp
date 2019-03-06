@@ -160,7 +160,7 @@ export default {
 						this.transport_contact_people = res.data.transport_contact_people
 						//#ifdef APP-PLUS
 						util.getGeoPosition((position) => {
-							this.transport_end_place = position.address.city + position.address.district + position.address.street + position.address.streetNum
+							this.transport_end_place = position.address.city + position.address.district + (position.address.street?position.address.street:'') + (position.address.streetNum?position.address.streetNum:'')
 							this.transport_end_place_longitude = position.coords.longitude
 							this.transport_end_place_latitude = position.coords.latitude
 							this.transport_end_place_coordsType = position.coordsType

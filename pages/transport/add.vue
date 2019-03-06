@@ -174,7 +174,7 @@ export default {
 					car_number: this.car_number,
 					transport_start_time: this.transport_start_date + ' ' + this.transport_start_time,
 					transport_goods: this.transport_goods,
-					transport_start_place: position.address.city + position.address.district + position.address.street + position.address.streetNum,
+					transport_start_place: position.address.city + position.address.district + (position.address.street?position.address.street:'') + (position.address.streetNum?position.address.streetNum:''),
 					transport_start_place_longitude: position.coords.longitude,
 					transport_start_place_latitude: position.coords.latitude,
 					transport_start_place_coordsType: position.coordsType,
