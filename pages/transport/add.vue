@@ -4,28 +4,28 @@
             <view class="grace-form">
                 <form>
                     <view class="grace-items">
-                        <view class="grace-label">行程号</view>
+                        <view class="grace-label form-label">行程号</view>
                         <input type="text" class="input" focus v-model.trim="transport_number" @blur="blurTransportNumber" placeholder="由管理员提供"></input>
                     </view>
 					<view class="grace-items" @tap.stop.prevent="showKey">
-					    <view class="grace-label">车牌号</view>
+					    <view class="grace-label form-label">车牌号</view>
 						<tki-float-keyboard ref="keyb" mode="car" type="0" title="车牌号" @del="carNumberDel" @val="carNumberVal" @show="carNumberShow" @hide="carNumberHide"></tki-float-keyboard>
 					    <input type="text" class="input" disabled v-model.trim="car_number" placeholder="本次行程的车辆车牌号码"></input>
 					</view>
 					<view class="grace-items">
-					    <view class="grace-label">出发日期</view>
+					    <view class="grace-label form-label">出发日期</view>
 						<picker mode="date" :value="transport_start_date" :start="startDate" :end="endDate" @change="bindDateChange">
 							<view class="uni-input">{{transport_start_date}}</view>
 						</picker>
 					</view>
 					<view class="grace-items">
-					    <view class="grace-label">出发时间</view>
+					    <view class="grace-label form-label">出发时间</view>
 						<picker mode="time" :value="transport_start_time" @change="bindTimeChange">
 							<view class="uni-input">{{transport_start_time}}</view>
 						</picker>
 					</view>
 					<view class="grace-items" @tap.stop.prevent="chooseLocation">
-					    <view class="grace-label">目的地</view>
+					    <view class="grace-label form-label">目的地</view>
 					    <input type="text" disabled class="input" v-model.trim="transport_end_place" placeholder="本次行程的目的地"></input>
 					</view>
                     <view class="grace-items grace-noborder">

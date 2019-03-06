@@ -4,39 +4,38 @@
             <view class="grace-form">
                 <form>
                     <view class="grace-items">
-                        <view class="grace-label">行程号</view>
+                        <view class="grace-label form-label">行程号</view>
 						<text class="input">{{transport_number}}</text>
                     </view>
 					<view class="grace-items" @tap.stop.prevent="showKey">
-					    <view class="grace-label">车牌号</view>
+					    <view class="grace-label form-label">车牌号</view>
 						<tki-float-keyboard ref="keyb" mode="car" type="0" title="车牌号" @del="carNumberDel" @val="carNumberVal" @show="carNumberShow" @hide="carNumberHide"></tki-float-keyboard>
 					    <input type="text" disabled class="input" v-model.trim="car_number" placeholder="本次行程的车辆车牌号码"></input>
 					</view>
 					
 					<view class="grace-items">
-					    <view class="grace-label">联系人</view>
+					    <view class="grace-label form-label">联系人</view>
 					    <text class="input">{{transport_contact_people}}</text>
 					</view>
 					
 					<view class="grace-items" @tap.stop.prevent="take_phone()">
-					    <view class="grace-label">联系电话</view>
+					    <view class="grace-label form-label">联系电话</view>
 					    <text class="input">{{transport_contact_phone}}</text>
 					</view>
 					
 					<view class="grace-items" @tap.stop.prevent="chooseLocation">
-					    <view class="grace-label">目的地</view>
+					    <view class="grace-label form-label">目的地</view>
 					    <input type="text" disabled class="input" v-model.trim="transport_end_place" placeholder="本次行程的目的地"></input>
 					</view>
-                    <view class="grace-items grace-noborder">
+                    <view class="grace-items">
 						<view class="uni-textarea">
 							<textarea style="height: 460upx;" maxlength=-1 v-model.trim="transport_goods" placeholder="本次行程运输的货物描述" />
 						</view>
                     </view>
-					<view class="feedback-title"><text>验收单(选填,提供验收截图,总大小10M以下)</text></view>
 					<view class="feedback-body feedback-uploader">
 						<view class="uni-uploader">
 							<view class="uni-uploader-head">
-								<view class="uni-uploader-title">点击预览图片</view>
+								<view class="uni-uploader-title" style="color: #a6a6a6;">上传验收单(选填)</view>
 								<view class="uni-uploader-info">{{ imageList.length }}/8</view>
 							</view>
 							<view class="uni-uploader-body">

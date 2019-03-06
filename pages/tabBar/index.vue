@@ -7,7 +7,7 @@
         </view>
 		<view class="grace-footer">
 			<view class="detail-footer-btn" style="background-color: #09BB07;width: 100%;" @tap.stop.prevent='addTransport'>
-				<uni-icon size="19" :type="btnIcon"></uni-icon> <text> {{btnLabel}} </text>
+				<uni-icon size="18" :type="btnIcon"></uni-icon> <text> {{btnLabel}} </text>
 			</view>
 		</view>
 	</view>

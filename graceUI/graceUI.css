@@ -1,3 +1,17 @@
+body{
+  font-family: "Helvetica Neue", "Helvetica", PingFang SC,STHeitiSC-Light,Helvetica-Light,arial,sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  /*background: transparent !important;*/
+}
+
+.font-family-medium{
+  font-family: PingFangSC-Medium, sans-serif;
+}
 /* 通用样式 */
 .detail-footer-btn {
     width: 50%;

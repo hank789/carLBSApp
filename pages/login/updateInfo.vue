@@ -4,7 +4,7 @@
             <view class="grace-form">
                 <form @submit="formSubmit">
                     <view class="grace-items">
-                        <view class="grace-label">姓名</view>
+                        <view class="grace-label form-label">姓名</view>
                         <input type="text" class="input" focus v-model.trim="name" placeholder="您的姓名"></input>
                     </view>
                     <view style="padding:22upx 0;">

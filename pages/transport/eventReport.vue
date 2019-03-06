@@ -16,8 +16,8 @@
 			<input type="text" disabled class="feedback-input" v-model.trim="sendDate.event_place" placeholder="事件发生地"></input>
 		</view>
 		<view class="feedback-title">
-			<button type="primary" @tap="startRecognize">
-				<uni-icon :type="'mic'"></uni-icon>
+			<button type="default" @tap="startRecognize">
+				<uni-icon size="18" :type="'mic'"></uni-icon>
 				语音输入
 			</button>
 		</view>
@@ -30,7 +30,7 @@
 				class="feedback-textare"
 			/>
 		</view>
-		<view class="feedback-title"><text>图片(选填,提供事件截图,总大小10M以下)</text></view>
+		<view class="feedback-title"><text>图片(选填，提供事件截图)</text></view>
 		<view class="feedback-body feedback-uploader">
 			<view class="uni-uploader">
 				<view class="uni-uploader-head">
@@ -57,7 +57,7 @@
 			</view>
 		</view>
 
-		<button :disabled="btnDisabled" type="default" class="feedback-submit" @tap.stop.prevent="send">提交</button>
+		<button :disabled="btnDisabled" type="primary" class="feedback-submit" @tap.stop.prevent="send">提交</button>
 	</view>
 </template>
 

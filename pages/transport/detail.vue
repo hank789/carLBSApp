@@ -38,7 +38,7 @@
 				</view>
 			</view>
 			<view class='all_goods'>
-				<text class='roaddeil_title'>行程信息</text>
+				<text class='roaddeil_title font-family-medium'>行程信息</text>
 				<view class='all_goods_li'>
 					<text class='name'>行程号</text>
 					<text class='mi'>{{detail.transport_number}}</text>
@@ -53,11 +53,8 @@
 				</view>
 			</view>
 			
-			<view class='all_user all_goods'>
-				<view class='all_user_top'>
-					<text class='user_top_title'>行程联系人</text>
-				</view>
-
+			<view class='all_goods'>
+				<text class='roaddeil_title huo_title'>行程联系人</text>
 				<view class='all_user_bottom' @tap.stop.prevent="take_phone(detail.transport_contact_phone)">
 					<view class='user_bottom_left'>
 						<image class='icon' src='../../static/images/home-active.png'></image>
@@ -83,12 +80,12 @@
 					修改
 				</view>
 				<view v-if="detail.transport_status == 0" class="detail-footer-btn" style="background-color: #09BB07;width: 70%;" @tap.stop.prevent='startTransport'>
-					<uni-icon size="19" :type="'navigate'"></uni-icon>  开始行程
+					<uni-icon size="18" :type="'navigate'"></uni-icon>  开始行程
 				</view>
 				
 				<view v-if="detail.transport_status == 1" class="detail-footer-btn" style="background-color: #FF4343;width: 40%;" @tap.stop.prevent='eventReport'>事件上报</view>
 				<view v-if="detail.transport_status == 1" class="detail-footer-btn" style="background-color: #09BB07;width: 60%;" @tap.stop.prevent='finishTransport'>
-					<uni-icon size="19" :type="'flag'"></uni-icon> 卸货
+					<uni-icon size="18" :type="'flag'"></uni-icon> 卸货
 				</view>
 			</view>
 		</view>
@@ -350,7 +347,8 @@ export default {
     align-items: center;
     padding-right: 40upx;
     color: #13bf6c;
-    font-size: 22upx;
+    font-size: 24upx;
+	font-weight: 500;
 }
 
 .ads_fa_left image {
@@ -360,8 +358,7 @@ export default {
 
 .ads_fa {
     display: flex;
-    margin: 0 30upx;
-    padding: 20upx 10upx;
+    padding: 16upx 30upx;
     background: #fff;
     border-bottom: 1px solid #ececec;
     align-items: center;
@@ -385,6 +382,7 @@ export default {
     color: #13bf6c;
     margin: 0 30upx;
     display: block;
+	font-weight: 500;
 }
 
 .huo_title {
@@ -407,13 +405,10 @@ export default {
     align-items: center;
 }
 
-.all_goods_li .mi {
-    color: #a6a6a6;
-}
-
 .all_goods_li .name {
     width: 220upx;
     display: inline-block;
+	color: #a6a6a6;
 }
 
 /* 货物信息 */
@@ -429,11 +424,6 @@ export default {
     display: flex;
     flex-direction: column;
     padding-bottom: 20upx;
-}
-
-.huo_color {
-    color: #a6a6a6;
-    line-height: 50upx;
 }
 
 /* 截单 */
@@ -459,10 +449,6 @@ export default {
     line-height: 80upx;
     align-items: center;
     border-bottom: 1px solid #ececec;
-}
-
-.user_top_title {
-    color: #13bf6c;
 }
 
 .user_bottom_right image {
@@ -492,6 +478,7 @@ export default {
 .user_bottom_left .phone {
     height: 50upx;
     width: 50upx;
+	padding-left: 20upx;
 }
 
 .user_bottom_left {
@@ -503,7 +490,7 @@ export default {
     display: flex;
     justify-content: space-between;
     width: 100%;
-	padding: 20upx;
+	padding: 16upx 30upx;
 	box-sizing: border-box;
 }
 

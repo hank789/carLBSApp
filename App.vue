@@ -66,36 +66,10 @@
 	@import "./common/uni.css";
 	@import "./graceUI/graceUI.css";
 	
-	
-	/* 以下样式用于 hello uni-app 演示所需 */
 	map {
 		width: 100%;
 	}
-	page {
-		background-color:#fff;
-		height: 100%;
-		font-size:32upx;
-		line-height: 1.8;
-	}
-	.uni-header-logo{
-		padding:30upx;
-		text-align:center;
-		margin-top:10upx;
-	}
-	.uni-header-logo image{
-		width: 140upx;
-		height: 140upx;
-	}
-	.uni-hello-text{
-		color:#7A7E83;
-	}
-	.uni-hello-addfile{
-		text-align:center; 
-		line-height:300upx;
-		background:#FFF;
-		padding:50upx;
-		margin-top:10px;
-		font-size:38upx;
-		color:#808080;
+	.form-label {
+		color: #a6a6a6;
 	}
 </style>
