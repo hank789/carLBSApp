@@ -89,7 +89,6 @@
 						callout: this.mapCallout,
 						label: this.mapLabel
 					}
-					console.log(JSON.stringify(this.position))
 				})
 			},
 			addTransport() {
@@ -160,9 +159,6 @@
 							});
 							this.watchPosition()
 						}
-						uni.navigateTo({
-							url: '/pages/transport/detail?id=' + res.data.transport_sub_id
-						});
 						this.showMap = true
 					} else {
 						this.showMap = true
@@ -182,6 +178,7 @@
 				this.transport_sub_id = user.transport_sub_id
 				this.btnLabel = '查看行程'
 				this.btnIcon = 'info'
+				this.showMap = true
 				if (!this.isWatched && user.transport_sub_status == 1) {
 					console.log('tabBar index show and watch position')
 					this.watchPosition()

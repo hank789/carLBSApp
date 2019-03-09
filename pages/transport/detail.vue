@@ -59,8 +59,9 @@
 					<view class='user_bottom_left'>
 						<image class='icon' src='../../static/images/home-active.png'></image>
 						<text>{{detail.transport_contact_people}}</text>
-						<image class='phone' src='../../static/images/options_01.png'></image>
+						
 						<text>{{detail.transport_contact_phone}}</text>
+						<image class='phone' src='../../static/images/options_01.png'></image>
 					</view>
 				</view>
 

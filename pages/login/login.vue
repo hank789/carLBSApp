@@ -3,11 +3,11 @@
 		<view class="">
 			<image src="../../static/images/loginbj.jpg" mode="widthFix" style="width: 100%;"></image>
 		</view>
-		<view class="" style="overflow: hidden;">
-			<image src="../../static/images/location.png" mode="widthFix" style="position: absolute;top: 120upx;width: 270upx;height: 89upx;left: 50%;transform: translate(-50%, -50%);"></image>
+		<view class="" style="overflow: hidden;position: absolute;top: 140upx;left: 50%;transform: translate(-50%, -50%);">
 		</view>
-		<view class="" style="position: absolute;top: 260upx;left:5%;width: 90%;box-shadow:0 0 0.16rem rgba(7, 138, 255, 0.5);background: #FFFFFF;border-radius: 16upx;padding: 60upx 0">
-			<view class="titleName">手机登陆</view>
+		<view class="" style="position: absolute;top: 200upx;left:5%;width: 90%;box-shadow:0 0 0.16rem rgba(7, 138, 255, 0.5);background: #FFFFFF;border-radius: 16upx;padding: 60upx 0">
+			<view style="text-align: center;"><image src="../../static/images/logo.png" mode="widthFix" style="width: 130upx;height: 130upx;"></image></view>
+			<view class="titleName">车辆管理系统</view>
 			<view class="content">
 				<view class="grace-form" style="margin-top:50upx;width: 90%;">
 					<form @submit="submitLogin">
@@ -187,5 +187,6 @@
 		color: #076DD4;
 		font-size: 36upx;
 		font-weight: bold;
+		padding-bottom: 40upx;
 	}
 </style>
