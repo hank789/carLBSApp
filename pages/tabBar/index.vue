@@ -159,7 +159,9 @@
 							});
 							this.watchPosition()
 						}
-						this.showMap = true
+						uni.navigateTo({
+							url: '/pages/transport/detail?id=' + res.data.transport_sub_id
+						});
 					} else {
 						this.showMap = true
 					}

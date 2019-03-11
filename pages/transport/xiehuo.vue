@@ -45,13 +45,13 @@
 											<image
 												class="uni-uploader__img"
 												:src="image"
-												@tap="previewImage"
+												@tap.stop.prevent="previewImage"
 											></image>
-											<view class="close-view" @click="close(index)">x</view>
+											<view class="close-view" @tap.stop.prevent="close(index)">x</view>
 										</view>
 									</block>
 									<view class="uni-uploader__input-box" v-show="imageList.length < 8">
-										<view class="uni-uploader__input" @tap="chooseImg"></view>
+										<view class="uni-uploader__input" @tap.stop.prevent="chooseImg"></view>
 									</view>
 								</view>
 							</view>
@@ -128,6 +128,26 @@ export default {
 		// 隐藏键盘后的回调
 		carNumberHide(){
 		
+		},
+		chooseImg() {
+			//选择图片
+			uni.chooseImage({
+				sourceType: ['camera', 'album'],
+				sizeType: ['compressed'],
+				count: 8 - this.imageList.length,
+				success: res => {
+					this.imageList = this.imageList.concat(res.tempFilePaths);
+				}
+			});
+		},
+		previewImage() {
+			//预览图片
+			uni.previewImage({
+				urls: this.imageList
+			});
+		},
+		close(e) {
+			this.imageList.splice(e, 1);
 		},
 		chooseLocation: function () {
 			uni.chooseLocation({

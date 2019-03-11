@@ -242,17 +242,4 @@ page {
 .input-view {
 	font-size: 28upx;
 }
-.close-view {
-	text-align: center;
-	line-height: 14px;
-	height: 16px;
-	width: 16px;
-	border-radius: 50%;
-	background: #ff5053;
-	color: #ffffff;
-	position: absolute;
-	top: -6px;
-	right: -4px;
-	font-size: 12px;
-}
 </style>

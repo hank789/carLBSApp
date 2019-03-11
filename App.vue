@@ -72,4 +72,17 @@
 	.form-label {
 		color: #a6a6a6;
 	}
+	.close-view {
+		text-align: center;
+		line-height: 44upx;
+		height: 48upx;
+		width: 48upx;
+		border-radius: 50%;
+		background: #ff5053;
+		color: #ffffff;
+		position: absolute;
+		top: -12upx;
+		right: -8upx;
+		font-size: 40upx;
+	}
 </style>
