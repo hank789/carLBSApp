@@ -117,7 +117,7 @@ export default {
 			uni.chooseLocation({
 				success: (res) => {
 					console.log(JSON.stringify(res))
-					this.sendDate.event_place = res.name + res.address
+					this.sendDate.event_place = (res.name!=res.address?res.name + res.address:res.name)
 					this.sendDate.event_place_latitude = res.latitude
 					this.sendDate.event_place_longitude = res.longitude
 					this.sendDate.event_place_coordsType = 'gcj02'
@@ -225,6 +225,11 @@ export default {
 								uni.redirectTo({
 									url: '/pages/transport/detail?id=' + this.sendDate.transport_sub_id
 								});
+							} else {
+								uni.showToast({
+									title: res.message,
+									icon: 'none'
+								})
 							}
 						});
 				}

@@ -72,14 +72,14 @@
                 },
                 "maps" : {
                     "amap" : {
-                        "appkey_ios" : "d1c5b7af8ae3105fc355b71ce250c632",
-                        "appkey_android" : "2be8cdddceda4bb712d07f2167c470eb"
+                        "appkey_ios" : "25fa73ab850ed3b69c8d7200a8422b6b",
+                        "appkey_android" : "4084f810c659ceccdc4b85877de8b1ff"
                     }
                 }
             },
             "icons" : {
                 "ios" : {
-                    "appstore" : "/Users/wanghui/soho/carlbs/xcgj.png",
+                    "appstore" : "/Users/wanghui/soho/carlbs/xcgj1.png",
                     "ipad" : {
                         "app" : "unpackage/res/icons/76x76.png",
                         "app@2x" : "unpackage/res/icons/152x152.png",

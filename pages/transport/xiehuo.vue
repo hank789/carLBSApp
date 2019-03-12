@@ -267,6 +267,11 @@ export default {
 												});
 											}
 											
+										} else {
+											uni.showToast({
+												title: res.message,
+												icon: 'none'
+											})
 										}
 									});
 							} else {
