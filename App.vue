@@ -8,31 +8,35 @@
 			/* 5+环境锁定屏幕方向 */
 			plus.screen.lockOrientation('portrait-primary'); //锁定
 			/* 5+环境升级提示 */
-			var server = "https://uniapp.dcloud.io/update"; //检查更新地址
-			var req = { //升级检测数据
-				"appid": plus.runtime.appid,
-				"version": plus.runtime.version,
-				"imei": plus.device.imei
-			};
-			uni.request({
-				url: server,
-				data: req,
-				success: (res) => {
-					console.log("success", res);
-					if (res.statusCode == 200 && res.data.isUpdate) {
-						let openUrl = plus.os.name === 'iOS' ? res.data.iOS : res.data.Android;
-						uni.showModal({ //提醒用户更新
-							title: '更新提示',
-							content: res.data.note ? res.data.note : '是否选择更新',
-							success: (res) => {
-								if (res.confirm) {
-									plus.runtime.openURL(openUrl);
-								}
-							}
-						})
-					}
-				}
-			})
+			plus.runtime.getProperty(plus.runtime.appid, function(widgetInfo) {  
+				uni.request({  
+					url: 'http://www.example.com/update/',  
+					data: {  
+						version: widgetInfo.version,  
+						name: widgetInfo.name  
+					},  
+					success: (result) => {  
+						var data = result.data;  
+						if (data.update && data.wgtUrl) {  
+							uni.downloadFile({  
+								url: data.wgtUrl,  
+								success: (downloadResult) => {  
+									if (downloadResult.statusCode === 200) {  
+										plus.runtime.install(downloadResult.tempFilePath, {  
+											force: false  
+										}, function() {  
+											console.log('install success...');  
+											plus.runtime.restart();  
+										}, function(e) {  
+											console.error('install fail...');  
+										});  
+									}  
+								}  
+							});  
+						}  
+					}  
+				});  
+			});
 			//#endif
 		},
 		onShow: function () {
@@ -55,7 +59,8 @@
 			this.$store.commit('setAppHide', true)
 			var user = this.$store.state.user
 			if (user && user.transport_sub_status == 1) {
-				console.log('App Hide and wakeLock')
+				console.log('App Hide and wakeLock:' + user.transport_sub_id)
+				this.$ajax.watchGeoPositionAndSave(user.transport_sub_id)
 				util.wakeLock()
 			}
 		}

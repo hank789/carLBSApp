@@ -135,14 +135,17 @@
 					})
 					this.isWatched = true
 				}
+			},
+			setMapHeight() {
+				var appInfo = this.$ls.get('appDeviceInfo')
+				console.log(JSON.stringify(appInfo));
+				this.mapHeight = (appInfo.windowHeight - appInfo.statusBarHeight - 90) + 'px'
+				console.log('mapHeight:' + this.mapHeight)
+				this.mapWidth = appInfo.windowWidth + 'px'
 			}
 		},
 		onLoad() {
-			var appInfo = this.$ls.get('appDeviceInfo')
-			console.log(JSON.stringify(appInfo));
-			this.mapHeight = (appInfo.windowHeight - appInfo.statusBarHeight - 90) + 'px'
-			console.log('mapHeight:' + this.mapHeight)
-			this.mapWidth = appInfo.windowWidth + 'px'
+			this.setMapHeight()
 			if (this.$ls.get('token')) {
 				this.$ajax.getUserInfo().then(res => {
 					this.transport_sub_id = res.data.transport_sub_id
@@ -181,6 +184,7 @@
 				this.btnLabel = '查看行程'
 				this.btnIcon = 'info'
 				this.showMap = true
+				this.setMapHeight()
 				if (!this.isWatched && user.transport_sub_status == 1) {
 					console.log('tabBar index show and watch position')
 					this.watchPosition()
