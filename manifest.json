@@ -53,12 +53,12 @@
                 "targetSdkVersion" : "23"
             },
             "ios" : {
-                "UIBackgroundModes" : [ "location", "audio" ],
+                "UIBackgroundModes" : [ "location" ],
                 "devices" : "iphone",
                 "privacyDescription" : {
-                    "NSLocationWhenInUseUsageDescription" : "我们需要通过您的地理位置信息让管理员了解车辆驾驶情况",
-                    "NSLocationAlwaysUsageDescription" : "我们需要通过您的地理位置信息让管理员了解车辆驾驶情况",
-                    "NSLocationAlwaysAndWhenInUseUsageDescription" : "我们需要通过您的地理位置信息让管理员了解车辆驾驶情况",
+                    "NSLocationWhenInUseUsageDescription" : "为确保行程安全可靠，在您打开客户端运送货物至行程结束期间收集位置信息。",
+                    "NSLocationAlwaysUsageDescription" : "为确保行程安全可靠，在您打开客户端运送货物至行程结束期间收集位置信息，切换至后台时，仍会保持GPS连接，相比其他操作会消耗更多的电量。GPS在后台持续运行会影响电池续航时间",
+                    "NSLocationAlwaysAndWhenInUseUsageDescription" : "为确保行程安全可靠，在您打开客户端运送货物至行程结束期间收集位置信息。",
                     "NSSpeechRecognitionUsageDescription" : "用来快速输入文字内容",
                     "NSPhotoLibraryUsageDescription" : "我们需要使用您的相册上传图片",
                     "NSPhotoLibraryAddUsageDescription" : "我们需要使用您的相册上传图片",

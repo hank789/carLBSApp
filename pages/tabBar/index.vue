@@ -2,7 +2,7 @@
 	<view>
 		<view class="uni-common-mt">
 			<view v-if="showMap">
-				<map :style="{height: mapHeight}" show-location="true" @callouttap="getCurrentPosition" :latitude="position.coords.latitude" :longitude="position.coords.longitude" :markers="covers"></map>
+				<map :style="{height: mapHeight}" show-location @callouttap="getCurrentPosition" @markertap="getCurrentPosition" @controltap="getCurrentPosition" :latitude="position.coords.latitude" :longitude="position.coords.longitude" :markers="covers" :polyline="polylines"></map>
 			</view>
         </view>
 		<view class="grace-footer">
@@ -37,6 +37,14 @@
 					longitude: 116.39742,
 					iconPath: '../../static/images/location.png',
 				}],
+				polylines: [
+					{
+						points: [],
+						color: '#09BB07',
+						width: 5,
+						dottedLine: false
+					}
+				],
 				mapLabel: {
 					content: '当前位置'
 				},
@@ -89,6 +97,7 @@
 						callout: this.mapCallout,
 						label: this.mapLabel
 					}
+					this.polylines[0].points.push({longitude: this.position.coords.longitude,latitude: this.position.coords.latitude})
 				})
 			},
 			addTransport() {
@@ -132,6 +141,7 @@
 							callout: this.mapCallout,
 							label: this.mapLabel
 						}
+						this.polylines[0].points.push({longitude: this.position.coords.longitude,latitude: this.position.coords.latitude})
 					})
 					this.isWatched = true
 				}
