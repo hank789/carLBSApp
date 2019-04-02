@@ -35,7 +35,7 @@
 				covers: [{
 					latitude: 39.909,
 					longitude: 116.39742,
-					iconPath: '../../static/images/location.png',
+					iconPath: '../../static/images/runnigpoint.png',
 				}],
 				polylines: [
 					{
@@ -93,9 +93,8 @@
 					this.covers[0] = {
 						latitude: this.position.coords.latitude,
 						longitude: this.position.coords.longitude,
-						iconPath: '../../static/images/location.png',
-						callout: this.mapCallout,
-						label: this.mapLabel
+						iconPath: '../../static/images/runnigpoint.png',
+						callout: this.mapCallout
 					}
 					this.polylines[0].points.push({longitude: this.position.coords.longitude,latitude: this.position.coords.latitude})
 				})
@@ -137,9 +136,8 @@
 						this.covers[0] = {
 							latitude: this.position.coords.latitude,
 							longitude: this.position.coords.longitude,
-							iconPath: '../../static/images/location.png',
-							callout: this.mapCallout,
-							label: this.mapLabel
+							iconPath: '../../static/images/runnigpoint.png',
+							callout: this.mapCallout
 						}
 						this.polylines[0].points.push({longitude: this.position.coords.longitude,latitude: this.position.coords.latitude})
 					})
