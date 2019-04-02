@@ -2,7 +2,7 @@
 	<view>
 		<view class="uni-common-mt">
 			<view v-if="showMap">
-				<map :style="{height: mapHeight}" show-location @callouttap="getCurrentPosition" @markertap="getCurrentPosition" @controltap="getCurrentPosition" :latitude="position.coords.latitude" :longitude="position.coords.longitude" :markers="covers" :polyline="polylines"></map>
+				<map :style="{height: mapHeight}" scale=18 show-location @callouttap="getCurrentPosition" @markertap="getCurrentPosition" @controltap="getCurrentPosition" :latitude="position.coords.latitude" :longitude="position.coords.longitude" :markers="covers" :polyline="polylines"></map>
 			</view>
         </view>
 		<view class="grace-footer">
@@ -40,8 +40,8 @@
 				polylines: [
 					{
 						points: [],
-						color: '#09BB07',
-						width: 5,
+						color: '#007aff',
+						width: 8,
 						dottedLine: false
 					}
 				],

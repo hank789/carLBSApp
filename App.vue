@@ -28,7 +28,8 @@
 			console.log('App Hide')
 			this.$store.commit('setAppHide', true)
 			var user = this.$store.state.user
-			if (user && user.transport_sub_status == 1) {
+			let geoWatchId = this.$store.state.geoWatchId
+			if (user && user.transport_sub_status == 1 && !geoWatchId) {
 				console.log('App Hide and wakeLock:' + user.transport_sub_id)
 				this.$ajax.watchGeoPositionAndSave(user.transport_sub_id)
 				util.wakeLock()
