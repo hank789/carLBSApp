@@ -54,7 +54,20 @@
 			</view>
 			
 			<view class='all_goods'>
-				<text class='roaddeil_title huo_title'>行程联系人</text>
+				<text class='roaddeil_title huo_title'>供应商联系人</text>
+				<view class='all_user_bottom' @tap.stop.prevent="take_phone(detail.transport_contact_vendor_phone)">
+					<view class='user_bottom_left'>
+						<image class='icon' src='../../static/images/home-active.png'></image>
+						<text>{{detail.transport_contact_vendor_people}}</text>
+						
+						<text>{{detail.transport_contact_vendor_phone}}</text>
+						<image class='phone' src='../../static/images/options_01.png'></image>
+					</view>
+				</view>
+			</view>
+			
+			<view class='all_goods'>
+				<text class='roaddeil_title huo_title'>目的地联系人</text>
 				<view class='all_user_bottom' @tap.stop.prevent="take_phone(detail.transport_contact_phone)">
 					<view class='user_bottom_left'>
 						<image class='icon' src='../../static/images/home-active.png'></image>
@@ -64,8 +77,9 @@
 						<image class='phone' src='../../static/images/options_01.png'></image>
 					</view>
 				</view>
-
+			
 			</view>
+			
 			<view class='all_goods' style="margin-bottom: 20upx;">
 				<text class='roaddeil_title huo_title'>货物信息</text>
 				<view class='huowu_ul'>
