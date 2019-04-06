@@ -70,10 +70,10 @@
 		    }
 		},
 		{
-		    "path" : "pages/map/chooseLocation",
+		    "path" : "pages/transport/start",
 		    "style" : {
 		        "enablePullDownRefresh" : false,
-		        "navigationBarTitleText" : "位置选择"
+		        "navigationBarTitleText" : "行程开始"
 		    }
 		}
     ],

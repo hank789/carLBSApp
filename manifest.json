@@ -21,6 +21,9 @@
         "distribute" : {
             /* 应用发布信息 */
             "android" : {
+				"schemes": [
+                    "carlbs_chjzhl_app"
+                ],
                 /* android打包配置 */
                 "permissions" : [
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
@@ -55,6 +58,14 @@
             "ios" : {
                 "UIBackgroundModes" : [ "location" ],
                 "devices" : "iphone",
+				"urltypes": [
+					{
+						"urlschemes": [
+							"carlbs_chjzhl_app"
+						],
+						"id": "com.zioe.carlbs.chjzhl"
+					}
+                ],
                 "privacyDescription" : {
                     "NSLocationWhenInUseUsageDescription" : "为确保行程安全可靠，在您打开客户端运送货物至行程结束期间收集位置信息。",
                     "NSLocationAlwaysUsageDescription" : "为确保行程安全可靠，在您打开客户端运送货物至行程结束期间收集位置信息，切换至后台时，仍会保持GPS连接，相比其他操作会消耗更多的电量。GPS在后台持续运行会影响电池续航时间",

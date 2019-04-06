@@ -154,46 +154,8 @@ export default {
 			});
 		},
 		startTransport() {
-			uni.showModal({
-				content: '确定开始此行程？',
-				confirmText: "确定",
-				cancelText: "取消",
-				showCancel: true,
-				success: (res) => {
-					if (res.confirm) {
-						console.log('用户点击确定');
-						util.getGeoPosition((position) => {
-							this.$ajax.post('car/transport/start', {transport_sub_id: this.id, position: position}).then(res => {
-								console.log(JSON.stringify(res));
-								this.detail.transport_start_place = position.address.city + position.address.district + (position.address.street?position.address.street:'') + (position.address.streetNum?position.address.streetNum:'')
-								this.detail.transport_goods.transport_start_place_longitude = position.coords.longitude
-								this.detail.transport_goods.transport_start_place_latitude = position.coords.latitude
-								if (res.code == 1000) {
-									var currentTime = (new Date()).getTime()
-									this.countTimerUp = util.formatDateTime((currentTime + 1000*1))
-								    this.detail.transport_status = 1
-									uni.showToast({
-									    title: '行程已开始',
-									    icon: 'none'
-									});
-									// 保持屏幕常亮
-									uni.setKeepScreenOn({
-										keepScreenOn: true
-									});
-									this.$ajax.getUserInfo().then(res => {})
-									this.$ajax.watchGeoPositionAndSave(this.id)
-								} else {
-								    uni.showToast({
-								        title: res.message,
-								        icon: 'none'
-								    });
-								}
-							})
-						})
-					} else if (res.cancel) {
-						console.log('用户点击取消');
-					}
-				}
+			uni.navigateTo({
+				url: '/pages/transport/start?id=' + this.id
 			});
 		},
 		eventReport() {
@@ -226,6 +188,13 @@ export default {
 						} else if (this.detail.transport_status == 1) {
 							//进行中
 							this.countTimerUp = res.data.transport_goods.transport_start_real_time
+							if (!this.$store.state.geoWatchId) {
+								// 保持屏幕常亮
+								uni.setKeepScreenOn({
+									keepScreenOn: true
+								});
+								this.$ajax.watchGeoPositionAndSave(this.id)
+							}
 						} else if (this.detail.transport_status == 2) {
 							//已结束
 							uni.redirectTo({
