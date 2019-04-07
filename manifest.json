@@ -2,7 +2,7 @@
     "name" : "长江智链",
     "appid" : "__UNI__F14E6D5",
     "description" : "",
-    "versionName" : "1.0.2",
+    "versionName" : "1.0.3",
     "versionCode" : "100",
     "transformPx" : false,
     "app-plus" : {
@@ -21,9 +21,7 @@
         "distribute" : {
             /* 应用发布信息 */
             "android" : {
-				"schemes": [
-                    "carlbs_chjzhl_app"
-                ],
+                "schemes" : [ "carlbs_chjzhl_app" ],
                 /* android打包配置 */
                 "permissions" : [
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
@@ -58,13 +56,11 @@
             "ios" : {
                 "UIBackgroundModes" : [ "location" ],
                 "devices" : "iphone",
-				"urltypes": [
-					{
-						"urlschemes": [
-							"carlbs_chjzhl_app"
-						],
-						"id": "com.zioe.carlbs.chjzhl"
-					}
+                "urltypes" : [
+                    {
+                        "urlschemes" : [ "carlbs_chjzhl_app" ],
+                        "id" : "com.zioe.carlbs.chjzhl"
+                    }
                 ],
                 "privacyDescription" : {
                     "NSLocationWhenInUseUsageDescription" : "为确保行程安全可靠，在您打开客户端运送货物至行程结束期间收集位置信息。",
