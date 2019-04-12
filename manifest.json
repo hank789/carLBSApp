@@ -21,7 +21,7 @@
         "distribute" : {
             /* 应用发布信息 */
             "android" : {
-                "schemes" : [ "carlbs_chjzhl_app" ],
+                "schemes" : [ "carlbschjzhlapp" ],
                 /* android打包配置 */
                 "permissions" : [
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
@@ -58,7 +58,7 @@
                 "devices" : "iphone",
                 "urltypes" : [
                     {
-                        "urlschemes" : [ "carlbs_chjzhl_app" ],
+                        "urlschemes" : [ "carlbschjzhlapp" ],
                         "id" : "com.zioe.carlbs.chjzhl"
                     }
                 ],
