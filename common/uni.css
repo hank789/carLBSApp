@@ -98,6 +98,9 @@ form {
 .uni-text-small {
 	font-size:24upx;
 }
+.uni-text-middle {
+	font-size:28upx;
+}
 .uni-common-mb{
 	margin-bottom:30upx;
 }
@@ -530,7 +533,7 @@ radio-group label, checkbox-group label{
 .uni-triplex-left .uni-title{
 	padding:8upx 0;
 }
-.uni-triplex-left .uni-text, .uni-triplex-left .uni-text-small{color:#999999;}
+.uni-triplex-left .uni-text, .uni-triplex-left .uni-text-small, .uni-triplex-left .uni-text-middle{color:#999999;}
 .uni-triplex-right {
 	width: 16%;
 	text-align: right;
@@ -992,7 +995,7 @@ radio-group label, checkbox-group label{
 	}
 
 	.uni-timeline-item .uni-timeline-item-keynode {
-		width: 160upx;
+		width: 320upx;
 		flex-shrink: 0;
 		box-sizing: border-box;
 		padding-right: 20upx;

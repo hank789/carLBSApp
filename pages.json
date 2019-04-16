@@ -10,9 +10,9 @@
 				    "titleNView" : {
 				        "buttons" : [
 				            {
-				                "text" : "退出 ",
-				                "fontSize" : "14",
-				                "width" : "auto"
+								"text": "\ue130",
+								"fontSrc": "/static/fonts/uni.ttf",
+								"fontSize": "24px"
 				            }
 				        ]
 				    }
@@ -74,6 +74,36 @@
 		    "style" : {
 		        "enablePullDownRefresh" : false,
 		        "navigationBarTitleText" : "行程开始"
+		    }
+		},
+		{
+		    "path" : "pages/transport/carList",
+		    "style" : {
+		        "enablePullDownRefresh" : true,
+		        "navigationBarTitleText" : "车辆管理",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "全部",
+							"fontSize": "14",
+							"select": true,
+							"width": "auto"
+						}],
+						"searchInput": {
+							"backgroundColor": "#fff",
+							"borderRadius": "6px",
+							"placeholder": "请输入车牌号 如：苏E274SQ",
+							"autoFocus": false
+						}
+					}
+				}
+		    }
+		},
+		{
+		    "path" : "pages/transport/timeline",
+		    "style" : {
+		        "enablePullDownRefresh" : false,
+		        "navigationBarTitleText" : "行程信息"
 		    }
 		}
     ],

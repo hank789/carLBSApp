@@ -298,11 +298,13 @@ margin:0; color:#000;}
 .grace-timeline .rows{padding:20upx; display:flex; flex-wrap:nowrap; justify-content:space-between; position:relative;}
 .grace-timeline-time{width:130upx; flex-shrink:0; overflow:hidden;}
 .grace-timeline-time view{font-size:22upx; color:#ccc; text-align:right; overflow:hidden; line-height:1.5em;}
-.grace-timeline-time view:last-child{font-size:32upx; color:#46A4DA;}
+.grace-timeline-time view:last-child{font-size:28upx; color:#46A4DA;}
 .grace-timeline-tips{width:70upx; height:100%; margin:0 15upx; flex-shrink:0; position:relative;}
 .grace-timeline-circular{width:50upx; height:50upx; border:10upx solid #AFDCF8; border-radius:100%; line-height:50upx; text-align:center; background:#46A4DA; color:#FFF; position:absolute; left:0; top:0; z-index:2}
 .grace-timeline-circular image{border-radius:100%; font-size:0; width:100%;}
 .grace-timeline-content{width:100%; background:#46A4DA; color:#FFF; padding:18upx; border-radius:12upx;}
+.grace-timeline-content view{font-size:28upx;}
+.grace-timeline-content view:first-child{font-size:32upx;}
 .grace-timeline-line{width:8upx; height:100%; background:#AFDCF8; position:absolute; z-index:1; left:195upx; top:30upx;}
 
 /* 全屏分类 */

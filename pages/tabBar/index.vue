@@ -69,22 +69,43 @@
 			
 		},
 		onNavigationBarButtonTap(e) {
-			uni.showModal({
-				title: '提示',
-				content: '确认退出当前登录？',
-				success: (res) => {
-					if (res.confirm) {
-						console.log('用户点击确定');
-						this.$ls.set('token','');
-						this.$store.commit('setUser','');
-						uni.reLaunch({
-							url: '/pages/login/login'
-						});
-					} else if (res.cancel) {
-						console.log('用户点击取消');
+			var itemList = []
+			if (this.$store.state.user.isManager) {
+				itemList = ['车辆管理', '退出登录']
+			} else {
+				itemList = ['退出登录']
+			}
+			uni.showActionSheet({
+				title:'标题',
+				itemList: itemList,
+				success: (e) => {
+					switch (itemList[e.tapIndex]) {
+						case '车辆管理':
+							uni.navigateTo({
+								url: '/pages/transport/carList'
+							});
+							break;
+						case '退出登录':
+							uni.showModal({
+								title: '提示',
+								content: '确认退出当前登录？',
+								success: (res) => {
+									if (res.confirm) {
+										console.log('用户点击确定');
+										this.$ls.set('token','');
+										this.$store.commit('setUser','');
+										uni.reLaunch({
+											url: '/pages/login/login'
+										});
+									} else if (res.cancel) {
+										console.log('用户点击取消');
+									}
+								}
+							});
+							break;
 					}
 				}
-			});
+			})
 		},
 		methods: {
 			getCurrentPosition() {
@@ -127,7 +148,7 @@
 							}
 							
 							var formatP = gcoord.transform([p.coords.longitude,p.coords.latitude],coordsType,toCoordsType)
-							console.log(formatP)
+							//console.log(formatP)
 							p.coords.longitude = formatP[0]
 							p.coords.latitude = formatP[1]
 							p.coordsType = 'gcj02'
