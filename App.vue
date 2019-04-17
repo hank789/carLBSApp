@@ -18,9 +18,11 @@
 				var user = this.$store.state.user
 				let geoWatchId = this.$store.state.geoWatchId
 				console.log('geoWatchId: '+geoWatchId)
-				if (user && user.transport_sub_status == 1 && !geoWatchId) {
-					console.log('App Show and watch position')
-					this.$ajax.watchGeoPositionAndSave(user.transport_sub_id)
+				if (user && user.transport_sub_status == 1) {
+					if (!geoWatchId) {
+						console.log('App Show and watch position')
+						this.$ajax.watchGeoPositionAndSave(user.transport_sub_id)
+					}
 				}
 			}
 		},

@@ -214,9 +214,11 @@
 				this.btnIcon = 'info'
 				this.showMap = true
 				this.setMapHeight()
-				if (!this.isWatched && user.transport_sub_status == 1) {
-					console.log('tabBar index show and watch position')
-					this.watchPosition()
+				if (user.transport_sub_status == 1) {
+					if (!this.isWatched || (new Date()).getTime() - this.$store.state.lastPositionUploadTime >= 1000*300) {
+						console.log('tabBar index show and watch position')
+						this.watchPosition()
+					}
 				}
 			}
 			if (!this.transport_sub_id || !this.isWatched) {

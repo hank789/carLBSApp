@@ -9,6 +9,7 @@ const store = new Vuex.Store({
 		baseApiUrl: "",
 		token: "",
 		geoWatchId: "",
+		geoWatchId2: "",
 		lastPositionUploadTime: 0,
 		isAppHide: false,
 		choosePosition: ''
@@ -29,6 +30,9 @@ const store = new Vuex.Store({
 		},
 		setGeoWatchId(state, geoWatchId) {
 			state.geoWatchId = geoWatchId
+		},
+		setGeoWatchId2(state, geoWatchId) {
+			state.geoWatchId2 = geoWatchId
 		},
 		setLastPositionUploadTime(state, datetime) {
 			state.lastPositionUploadTime = datetime
