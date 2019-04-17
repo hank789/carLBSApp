@@ -6,9 +6,9 @@
                     <view class="uni-triplex-row">
                         <view class="uni-triplex-left">
                             <text class="uni-title uni-ellipsis">{{item.entity_name + ' ' + item.entity_owner}}</text>
-                            <text class="uni-text-middle uni-ellipsis">{{item.latest_location.formatted_address}}</text>
-                            <text class="uni-text-small uni-ellipsis">{{item.distance}}</text>
-							<text class="uni-text-small uni-ellipsis">{{item.entity_desc}}</text>
+                            <text class="uni-text-middle uni-ellipsis">{{item.distance}}</text>
+                            <text class="uni-text-small uni-ellipsis">{{"最后定位地："+item.latest_location.formatted_address}}</text>
+							<text class="uni-text-small uni-ellipsis">{{"货物："+item.entity_desc}}</text>
                         </view>
                         <view class="uni-triplex-right">
                             <text class="uni-h5">{{item.modify_time}}</text>

@@ -13,7 +13,7 @@
 					<view class='bg'>
 					</view>
 					<view class='bg_zi'>
-						<view class='lc_num'>里程约
+						<view class='lc_num' v-show="distance">里程约
 							<text>{{distance}}</text></view>
 						<view class='button_di'>
 							<text>查看地图
@@ -137,7 +137,7 @@ export default {
 	computed: {
 		distance() {
 			var distance = 0
-			if (this.detail.transport_start_place) {
+			if (this.detail.transport_goods && this.detail.transport_goods.transport_start_place_longitude && this.detail.transport_goods.transport_end_place_latitude) {
 				distance = util.getDistance(this.detail.transport_goods.transport_start_place_latitude,
 				this.detail.transport_goods.transport_start_place_longitude,
 				this.detail.transport_goods.transport_end_place_latitude,
@@ -188,7 +188,9 @@ export default {
 						} else if (this.detail.transport_status == 1) {
 							//进行中
 							this.countTimerUp = res.data.transport_goods.transport_start_real_time
+							console.log('456:'+this.$store.state.geoWatchId)
 							if (!this.$store.state.geoWatchId) {
+								console.log('保持屏幕常亮')
 								// 保持屏幕常亮
 								uni.setKeepScreenOn({
 									keepScreenOn: true
