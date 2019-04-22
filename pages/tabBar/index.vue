@@ -94,6 +94,7 @@
 										console.log('用户点击确定');
 										this.$ls.set('token','');
 										this.$store.commit('setUser','');
+										this.$ajax.stopWatchGeoPosition('',this.transport_sub_id)
 										uni.reLaunch({
 											url: '/pages/login/login'
 										});
@@ -215,7 +216,7 @@
 				this.showMap = true
 				this.setMapHeight()
 				if (user.transport_sub_status == 1) {
-					if (!this.isWatched || (new Date()).getTime() - this.$store.state.lastPositionUploadTime >= 1000*300) {
+					if (!this.isWatched || ((new Date()).getTime() - this.$store.state.lastPositionUploadTime >= 1000*160)) {
 						console.log('tabBar index show and watch position')
 						this.watchPosition()
 					}

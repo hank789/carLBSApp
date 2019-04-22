@@ -189,7 +189,7 @@ export default {
 							//进行中
 							this.countTimerUp = res.data.transport_goods.transport_start_real_time
 							console.log('456:'+this.$store.state.geoWatchId)
-							if (!this.$store.state.geoWatchId) {
+							if (!this.$store.state.geoWatchId || ((new Date()).getTime() - this.$store.state.lastPositionUploadTime >= 1000*160)) {
 								console.log('保持屏幕常亮')
 								// 保持屏幕常亮
 								uni.setKeepScreenOn({
