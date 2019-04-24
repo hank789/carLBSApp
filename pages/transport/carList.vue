@@ -1,22 +1,33 @@
 <template>
-    <view class="page">
-        <view class="uni-list">
-            <block v-for="item in lists" :key="item.id">
-                <view class="uni-list-cell" hover-class="uni-list-cell-hover" @tap.stop.prevent="go_timeline(item.id)">
-                    <view class="uni-triplex-row">
-                        <view class="uni-triplex-left">
-                            <text class="uni-title uni-ellipsis">{{item.entity_name + ' ' + item.entity_owner}}</text>
-                            <text class="uni-text-middle uni-ellipsis">{{item.distance}}</text>
-                            <text class="uni-text-small uni-ellipsis">{{"最后定位地："+item.latest_location.formatted_address}}</text>
-							<text class="uni-text-small uni-ellipsis">{{"货物："+item.entity_desc}}</text>
-                        </view>
-                        <view class="uni-triplex-right">
-                            <text class="uni-h5">{{item.modify_time}}</text>
-                        </view>
-                    </view>
-                </view>
-            </block>
-        </view>
+	<view class="uni-tab-bar">
+		<scroll-view id="tab-bar" class="uni-swiper-tab" scroll-x :scroll-left="scrollLeft">
+			<view v-for="(tab,index) in tabBars" :key="tab.id" class="swiper-tab-list" :class="tabIndex==index ? 'active' : ''"
+			 :id="tab.id" :data-current="index" @click="tapTab">{{tab.name}}</view>
+		</scroll-view>
+		<swiper :current="tabIndex" class="swiper-box" :style="{height: swiperHeight}" :duration="300" @change="changeTab">
+			<swiper-item v-for="(tab,index1) in lists" :key="index1">
+				<scroll-view class="list" scroll-y @scrolltolower="loadMore(index1)">
+					<block v-for="item in tab.data" :key="item.id">
+						<view class="uni-list-cell" hover-class="uni-list-cell-hover" @tap.stop.prevent="go_timeline(item.id)">
+						    <view class="uni-triplex-row">
+						        <view class="uni-triplex-left">
+						            <text class="uni-title uni-ellipsis">{{item.entity_name + ' ' + item.entity_owner}}</text>
+						            <text class="uni-text-middle uni-ellipsis">{{item.distance}}</text>
+						            <text class="uni-text-small uni-ellipsis">{{"最后定位地："+item.latest_location.formatted_address}}</text>
+									<text class="uni-text-small uni-ellipsis">{{"货物："+item.entity_desc}}</text>
+						        </view>
+						        <view class="uni-triplex-right">
+						            <text class="uni-h5">{{item.modify_time}}</text>
+						        </view>
+						    </view>
+						</view>
+					</block>
+					<view class="uni-tab-bar-loading">
+						{{tab.loadingText}}
+					</view>
+				</scroll-view>
+			</swiper-item>
+		</swiper>
 		<mpvue-picker
 			:themeColor="themeColor"
 			ref="mpvuePicker"
@@ -27,17 +38,35 @@
 			@onCancel="onCancel"
 			:pickerValueArray="pickerValueArray"
 		></mpvue-picker>
-    </view>
+	</view>
 </template>
 
 <script>
 	// https://github.com/zhetengbiji/mpvue-picker
-	import mpvuePicker from '../../components/mpvue-picker/mpvuePicker.vue'
+	import mpvuePicker from '@/components/mpvue-picker/mpvuePicker.vue'
     export default {
         data() {
             return {
-                lists: [],
-				page: 1,
+				scrollLeft: 0,
+				refreshing: false,
+				isClickChange: false,
+				refreshText: "下拉可以刷新",
+				tabIndex: 0,
+				swiperHeight: '800upx',
+                lists: [
+					{
+						data: [],
+						page: 1,
+						isMore: true,
+						loadingText: ''
+					},
+					{
+						data: [],
+						page: 1,
+						isMore: true,
+						loadingText: ''
+					}
+				],
 				isMore: true,
 				searchWord: '',
 				searchFilter: '',
@@ -58,27 +87,33 @@
 						label: '离线',
 						value: 'inactive_time:'
 					}
-				]
+				],
+				tabBars: [{
+					name: '运输中',
+					id: 'process'
+				}, {
+					name: '已完成',
+					id: 'finish'
+				}]
             }
         },
 		components: {
 			mpvuePicker
 		},
 		onPullDownRefresh() {
-			this.page = 1;
+			this.lists[this.tabIndex].page = 1;
 			this.getList(1);
 			uni.stopPullDownRefresh();
 		},
 		onReachBottom() {
-			if (this.isMore) {
-			  this.loadList(this.page);
-			}
-		},
-		onReady() {
-			this.setStyle(0, '全部');
+			
 		},
         onLoad() {
+			this.setStyle(0, '全部');
             this.getList(1);
+			var appInfo = this.$ls.get('appDeviceInfo')
+			this.swiperHeight = (appInfo.windowHeight - appInfo.statusBarHeight - 50) + 'px'
+			console.log('swiperHeight:' + this.swiperHeight)
         },
 		methods: {
 			go_timeline(id) {
@@ -86,19 +121,84 @@
 					url: '/pages/transport/timeline?id='+id
 				});
 			},
+			getElSize(id) { //得到元素的size
+				return new Promise((res, rej) => {
+					uni.createSelectorQuery().select("#" + id).fields({
+						size: true,
+						scrollOffset: true
+					}, (data) => {
+						res(data);
+					}).exec();
+				})
+			},
+			async tapTab(e) { //点击tab-bar
+				let tabIndex = e.target.dataset.current;
+				
+				if (this.tabIndex === tabIndex) {
+					return false;
+				} else {
+					this.tabIndex = tabIndex;
+					if (this.lists[tabIndex].data.length === 0) {
+						this.getList(1)
+					}
+					let tabBar = await this.getElSize("tab-bar"),
+						tabBarScrollLeft = tabBar.scrollLeft; //点击的时候记录并设置scrollLeft
+					this.scrollLeft = tabBarScrollLeft;
+					this.isClickChange = true;
+					this.tabIndex = tabIndex;
+				}
+			},
+			async changeTab(e) {
+				let index = e.target.current;
+				this.tabIndex = index; //一旦访问data就会出问题
+				if (this.lists[index].data.length === 0) {
+					this.getList(1)
+				}
+				if (this.isClickChange) {
+					this.tabIndex = index;
+					this.isClickChange = false;
+					return;
+				}
+				let tabBar = await this.getElSize("tab-bar"),
+					tabBarScrollLeft = tabBar.scrollLeft;
+				let width = 0;
+				
+				for (let i = 0; i < index; i++) {
+					let result = await this.getElSize(this.tabBars[i].id);
+					width += result.width;
+				}
+				let winWidth = uni.getSystemInfoSync().windowWidth,
+					nowElement = await this.getElSize(this.tabBars[index].id),
+					nowWidth = nowElement.width;
+				if (width + nowWidth - tabBarScrollLeft > winWidth) {
+					this.scrollLeft = width + nowWidth - winWidth;
+				}
+				if (width < tabBarScrollLeft) {
+					this.scrollLeft = width;
+				}
+				this.isClickChange = false;
+			},
+			loadMore(e) {
+				console.log('loadMore')
+				if (this.lists[e].isMore) {
+				  this.getList(this.lists[e].page);
+				}
+			},
 			getList(page) {
 				console.log(page)
-				this.$ajax.post('car/transport/searchCar', {page: page, filter: this.searchFilter, word: this.searchWord}).then(res_data => {
-					console.log(JSON.stringify(res_data));
+				this.$ajax.post('car/transport/searchCar', {page: page, filter: this.searchFilter, word: this.searchWord, status: this.tabBars[this.tabIndex].id}).then(res_data => {
 					if (res_data.code == 1000) {
-						this.page = page + 1;
+						this.lists[this.tabIndex].page = page + 1;
 						if (page === 1) {
-							this.lists = res_data.data.data;
+							this.lists[this.tabIndex].data = res_data.data.data;
 						} else {
-							this.lists = this.lists.concat(res_data.data.data);
+							this.lists[this.tabIndex].data = this.lists[this.tabIndex].data.concat(res_data.data.data);
 						}
+						this.lists[this.tabIndex].loadingText = '加载更多...'
+						this.lists[this.tabIndex].isMore = true
 						if (!res_data.data.next_page_url) {
-							this.isMore = false;
+							this.lists[this.tabIndex].isMore = false;
+							this.lists[this.tabIndex].loadingText = '没有更多了'
 						}
 					} else {
 					    uni.showToast({
@@ -106,6 +206,7 @@
 					        icon: 'none'
 					    });
 					}
+					this.refreshing = false
 				})
 			},
 			onCancel(e) {
@@ -200,9 +301,34 @@
 				this.searchWord = text
 				this.getList(1)
 			}
+		},
+		onrefresh(event) {
+			uni.showToast({
+				title: "refresh",
+				icon: "none"
+			});
+			this.refreshText = "正在刷新...";
+			this.refreshing = true;
+			this.lists[this.tabIndex].page = 1
+			this.getList(1)
+		},
+		onpullingdown(event) {
+			if (this.refreshing) {
+				return;
+			}
+			if (Math.abs(event.pullingDistance) > Math.abs(event.viewHeight)) {
+				this.refreshText = "释放立即刷新";
+			} else {
+				this.refreshText = "下拉可以刷新";
+			}
 		}
     }
 </script>
 
 <style>
+	.uni-tab-bar-loading {
+		text-align: center;
+		font-size: 28upx;
+		color: #999;
+	}
 </style>
