@@ -79,7 +79,7 @@
 		{
 		    "path" : "pages/transport/carList",
 		    "style" : {
-		        "enablePullDownRefresh" : true,
+		        "enablePullDownRefresh" : false,
 		        "navigationBarTitleText" : "车辆管理",
 				"app-plus": {
 					"titleNView": {

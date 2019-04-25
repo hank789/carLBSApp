@@ -6,7 +6,7 @@
 		</scroll-view>
 		<swiper :current="tabIndex" class="swiper-box" :style="{height: swiperHeight}" :duration="300" @change="changeTab">
 			<swiper-item v-for="(tab,index1) in lists" :key="index1">
-				<scroll-view class="list" style="background-color: #f5f5f5;" scroll-y @scrolltolower="loadMore(index1)">
+				<scroll-view class="list" style="background-color: #f5f5f5;" scroll-y @scrolltoupper="pullDownRefresh(index1)" @scrolltolower="loadMore(index1)">
 					<block v-for="item in tab.data" :key="item.id">
 						<view class='my-unit' hover-class="uni-list-cell-hover" @tap.stop.prevent="go_timeline(item.id)">
 						    <view class="unit-head">
@@ -15,10 +15,10 @@
 						    <view class="unit-body">
 								<text class="uni-ellipsis" style="width: 50%;">司机：<text>{{item.entity_owner}}</text></text>
 								<text class="uni-ellipsis" style="width: 50%;" @tap.stop.prevent="take_phone(item.contact_mobile)">联系方式：<text>{{item.contact_mobile}}</text></text>
-								<text class="uni-ellipsis">出发地：<text>{{item.start_place}}</text></text>
-								<text class="uni-ellipsis">目的地：<text>{{item.end_place}}</text></text>
-						    	<text class="uni-ellipsis">最后定位地址：<text>{{item.latest_location.formatted_address}}</text></text>
-								<text class="uni-ellipsis">货物：<text>{{item.entity_desc}}</text></text>
+								<text class="uni-ellipsis" style="width: 100%;">出发地：<text>{{item.start_place}}</text></text>
+								<text class="uni-ellipsis" style="width: 100%;">目的地：<text>{{item.end_place}}</text></text>
+						    	<text class="uni-ellipsis" style="width: 100%;">最后定位地址：<text>{{item.latest_location.formatted_address}}</text></text>
+								<text class="uni-ellipsis" style="width: 100%;">货物：<text>{{item.entity_desc}}</text></text>
 						    </view>
 						    <view class="unit-foot">
 						    	<text class="color-999">{{item.distance}}</text>
@@ -130,6 +130,11 @@
 			    uni.makePhoneCall({
 			        phoneNumber: phone
 			    });
+			},
+			pullDownRefresh(tabIndex) {
+				console.log('pullDownRefresh')
+				this.lists[tabIndex].page = 1;
+				this.getList(1);
 			},
 			getElSize(id) { //得到元素的size
 				return new Promise((res, rej) => {
