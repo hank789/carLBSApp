@@ -1,7 +1,7 @@
 <template>
 	<view class="uni-tab-bar">
 		<scroll-view id="tab-bar" class="uni-swiper-tab" scroll-x :scroll-left="scrollLeft">
-			<view v-for="(tab,index) in tabBars" :key="tab.id" class="swiper-tab-list" :class="tabIndex==index ? 'active' : ''"
+			<view v-for="(tab,index) in tabBars" :key="tab.id" class="swiper-tab-list" :style="{width: swiperWidth}" :class="tabIndex==index ? 'active' : ''"
 			 :id="tab.id" :data-current="index" @click="tapTab">{{tab.name}}</view>
 		</scroll-view>
 		<swiper :current="tabIndex" class="swiper-box" :style="{height: swiperHeight}" :duration="300" @change="changeTab">
@@ -53,6 +53,7 @@
 				refreshText: "下拉可以刷新",
 				tabIndex: 0,
 				swiperHeight: '800upx',
+				swiperWidth: '150upx',
                 lists: [
 					{
 						data: [],
@@ -113,6 +114,7 @@
             this.getList(1);
 			var appInfo = this.$ls.get('appDeviceInfo')
 			this.swiperHeight = (appInfo.windowHeight - appInfo.statusBarHeight - 50) + 'px'
+			this.swiperWidth = appInfo.windowWidth/2 + 'px'
 			console.log('swiperHeight:' + this.swiperHeight)
         },
 		methods: {
