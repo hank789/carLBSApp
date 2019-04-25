@@ -13,8 +13,8 @@
 						    	<text>{{item.entity_name}}</text><text class="fr color-999 uni-text-middle">最后定位{{item.modify_time}}</text>
 						    </view>
 						    <view class="unit-body">
-								<text class="uni-ellipsis" style="width: 45%;">司机：<text>{{item.entity_owner}}</text></text>
-								<text class="uni-ellipsis" style="width: 55%;" @tap.stop.prevent="take_phone(item.contact_mobile)">联系方式：<text>{{item.contact_mobile}}</text><image class='phone' src='../../static/images/options_01.png'></image></text>
+								<text class="uni-ellipsis" style="width: 50%;">司机：<text>{{item.entity_owner}}</text></text>
+								<text class="uni-ellipsis" style="width: 50%;" @tap.stop.prevent="take_phone(item.contact_mobile)">联系方式：<text>{{item.contact_mobile}}</text></text>
 								<text class="uni-ellipsis">出发地：<text>{{item.start_place}}</text></text>
 								<text class="uni-ellipsis">目的地：<text>{{item.end_place}}</text></text>
 						    	<text class="uni-ellipsis">最后定位地址：<text>{{item.latest_location.formatted_address}}</text></text>
