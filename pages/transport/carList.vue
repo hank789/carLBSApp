@@ -6,19 +6,22 @@
 		</scroll-view>
 		<swiper :current="tabIndex" class="swiper-box" :style="{height: swiperHeight}" :duration="300" @change="changeTab">
 			<swiper-item v-for="(tab,index1) in lists" :key="index1">
-				<scroll-view class="list" scroll-y @scrolltolower="loadMore(index1)">
+				<scroll-view class="list" style="background-color: #f5f5f5;" scroll-y @scrolltolower="loadMore(index1)">
 					<block v-for="item in tab.data" :key="item.id">
-						<view class="uni-list-cell" hover-class="uni-list-cell-hover" @tap.stop.prevent="go_timeline(item.id)">
-						    <view class="uni-triplex-row">
-						        <view class="uni-triplex-left">
-						            <text class="uni-title uni-ellipsis">{{item.entity_name + ' ' + item.entity_owner}}</text>
-						            <text class="uni-text-middle uni-ellipsis">{{item.distance}}</text>
-						            <text class="uni-text-small uni-ellipsis">{{"最后定位地："+item.latest_location.formatted_address}}</text>
-									<text class="uni-text-small uni-ellipsis">{{"货物："+item.entity_desc}}</text>
-						        </view>
-						        <view class="uni-triplex-right">
-						            <text class="uni-h5">{{item.modify_time}}</text>
-						        </view>
+						<view class='my-unit' hover-class="uni-list-cell-hover" @tap.stop.prevent="go_timeline(item.id)">
+						    <view class="unit-head">
+						    	<text>{{item.entity_name}}</text><text class="fr color-999 uni-text-middle">最后定位{{item.modify_time}}</text>
+						    </view>
+						    <view class="unit-body">
+								<text class="uni-ellipsis" style="width: 45%;">司机：<text>{{item.entity_owner}}</text></text>
+								<text class="uni-ellipsis" style="width: 55%;" @tap.stop.prevent="take_phone(item.contact_mobile)">联系方式：<text>{{item.contact_mobile}}</text><image class='phone' src='../../static/images/options_01.png'></image></text>
+								
+								<text class="uni-ellipsis">目的地：<text>{{item.end_place}}</text></text>
+						    	<text class="uni-ellipsis">最后定位地址：<text>{{item.latest_location.formatted_address}}</text></text>
+								<text class="uni-ellipsis">货物：<text>{{item.entity_desc}}</text></text>
+						    </view>
+						    <view class="unit-foot">
+						    	<text class="color-999">{{item.distance}}</text>
 						    </view>
 						</view>
 					</block>
@@ -122,6 +125,11 @@
 				uni.navigateTo({
 					url: '/pages/transport/timeline?id='+id
 				});
+			},
+		    take_phone(phone) {
+			    uni.makePhoneCall({
+			        phoneNumber: phone
+			    });
 			},
 			getElSize(id) { //得到元素的size
 				return new Promise((res, rej) => {
@@ -327,10 +335,59 @@
     }
 </script>
 
-<style>
+<style lang='scss'>
 	.uni-tab-bar-loading {
 		text-align: center;
 		font-size: 28upx;
 		color: #999;
+	}
+	.fr{
+		float: right;
+	}
+	.color-999 {
+		color: #999;
+	}
+	.my-unit{
+		margin: 20upx 0;
+		background-color: #ffffff;
+		font-size: 28upx;
+		transform: all 1s;
+		
+		.unit-head{
+			padding: 20upx;
+			height: 80upx;
+			box-sizing: border-box;
+			border-bottom: 2upx solid #f5f5f5;
+		}
+		.unit-body{
+			padding: 20upx;
+			display: flex;
+			flex-wrap: wrap;
+			
+			text{
+				font-size: 28upx;
+				line-height: 55upx;
+			}
+			.phone {
+			    height: 28upx;
+			    width: 28upx;
+				padding-left: 20upx;
+			}
+		}
+		.unit-foot{
+			height: 88upx;
+			padding: 0 20upx;
+			border-top: 2upx solid #f5f5f5;
+			border-bottom: none;
+			line-height: 88upx;
+			font-size: 28upx;
+			
+			.btn{
+				height: 60upx;
+				font-size: 28upx;
+				line-height: 60upx;
+				margin: 14upx 0;
+			}
+		}
 	}
 </style>

@@ -201,8 +201,8 @@ export default {
 				uni.showToast({title:"车牌号有误", icon:"none"});
 				return;
 			}
-			if (!this.transport_end_place) {
-				uni.showToast({title:"目的地有误", icon:"none"});
+			if (!this.transport_end_place_longitude) {
+				uni.showToast({title:"请填写目的地", icon:"none"});
 				return;
 			}
 			
