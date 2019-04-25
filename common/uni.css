@@ -870,6 +870,18 @@ radio-group label, checkbox-group label{
 
 .uni-tab-bar .active {
 	color: #007AFF;
+	position: relative;
+}
+
+.swiper-tab-list.active::after{
+	content: "";
+	position: absolute;
+	bottom: -24upx;
+	left:50%;
+	transform: translateX(-50%);
+	width: 100%;
+	border-bottom: 4upx solid #3682FF;
+	animation: test ease 1 1.5s;
 }
 
 .uni-tab-bar .swiper-box {
