@@ -4,10 +4,10 @@
 		onLaunch: function () {
 			console.log('App Launch');
 			this.$ls.set('appDeviceInfo',uni.getSystemInfoSync())
-			/* 5+环境锁定屏幕方向 */
-			plus.screen.lockOrientation('portrait-primary'); //锁定
-			/* 5+环境升级提示 */
+			//#ifdef APP-PLUS
+			plus.screen.lockOrientation('portrait-primary');
 			util.checkUpdate(this)
+			//#endif
 		},
 		onShow: function () {
 			console.log('App Show')
