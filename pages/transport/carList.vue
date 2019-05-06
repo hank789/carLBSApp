@@ -113,13 +113,15 @@
 			
 		},
         onLoad() {
-			this.setStyle(0, '全部');
             this.getList(1);
 			var appInfo = this.$ls.get('appDeviceInfo')
 			this.swiperHeight = (appInfo.windowHeight - appInfo.statusBarHeight - 50) + 'px'
 			this.swiperWidth = appInfo.windowWidth/2 + 'px'
 			console.log('swiperHeight:' + this.swiperHeight)
         },
+		onReady() {
+			this.setStyle(0, '全部');
+		},
 		methods: {
 			go_timeline(id) {
 				uni.navigateTo({

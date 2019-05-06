@@ -29,7 +29,7 @@
 								
 							</view>
 						</view>
-						<view class="grace-timeline-line"></view>
+						<view v-if="item.bg_color != 'blue-bg'" class="grace-timeline-line"></view>
 					</view>
 				</block>
 			</view>
