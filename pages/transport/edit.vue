@@ -232,7 +232,7 @@ export default {
 						})
 					}
 				})
-			})
+			},()=>{this.btnDisabled = false})
         },
 		blurTransportNumber() {
 			console.log(this.transport_number)
