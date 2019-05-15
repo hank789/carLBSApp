@@ -2,7 +2,7 @@
     "name" : "长江智链",
     "appid" : "__UNI__F14E6D5",
     "description" : "",
-    "versionName" : "1.0.92",
+    "versionName" : "1.0.93",
     "versionCode" : "100",
     "transformPx" : false,
     "app-plus" : {
@@ -122,25 +122,25 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "/Users/wanghui/soho/carlbs/长江智链/安卓开机画面/1.png",
-                    "xhdpi" : "/Users/wanghui/soho/carlbs/长江智链/安卓开机画面/2.png",
-                    "xxhdpi" : "/Users/wanghui/soho/carlbs/长江智链/安卓开机画面/3.png"
+                    "hdpi" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/安卓开机画面/1.png",
+                    "xhdpi" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/安卓开机画面/2.png",
+                    "xxhdpi" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/安卓开机画面/3.png"
                 },
                 "ios" : {
                     "iphone" : {
-                        "retina35" : "/Users/wanghui/soho/carlbs/长江智链/ios开机画面/1.png",
-                        "retina40" : "/Users/wanghui/soho/carlbs/长江智链/ios开机画面/2.png",
-                        "retina40l" : "/Users/wanghui/soho/carlbs/长江智链/ios开机画面/3.png",
-                        "retina47" : "/Users/wanghui/soho/carlbs/长江智链/ios开机画面/4.png",
-                        "retina47l" : "/Users/wanghui/soho/carlbs/长江智链/ios开机画面/5.png",
-                        "retina55" : "/Users/wanghui/soho/carlbs/长江智链/ios开机画面/6.png",
-                        "retina55l" : "/Users/wanghui/soho/carlbs/长江智链/ios开机画面/7.png",
-                        "iphonex" : "/Users/wanghui/soho/carlbs/长江智链/ios开机画面/8.png",
-                        "iphonexl" : "/Users/wanghui/soho/carlbs/长江智链/ios开机画面/9.png",
-                        "portrait-896h@2x" : "/Users/wanghui/soho/carlbs/长江智链/ios开机画面/10.png",
-                        "landscape-896h@2x" : "/Users/wanghui/soho/carlbs/长江智链/ios开机画面/11.png",
-                        "portrait-896h@3x" : "/Users/wanghui/soho/carlbs/长江智链/ios开机画面/12.png",
-                        "landscape-896h@3x" : "/Users/wanghui/soho/carlbs/长江智链/ios开机画面/13.png"
+                        "retina35" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/1.png",
+                        "retina40" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/2.png",
+                        "retina40l" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/3.png",
+                        "retina47" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/4.png",
+                        "retina47l" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/5.png",
+                        "retina55" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/6.png",
+                        "retina55l" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/7.png",
+                        "iphonex" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/8.png",
+                        "iphonexl" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/9.png",
+                        "portrait-896h@2x" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/10.png",
+                        "landscape-896h@2x" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/11.png",
+                        "portrait-896h@3x" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/12.png",
+                        "landscape-896h@3x" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/13.png"
                     }
                 }
             }
