@@ -1,8 +1,8 @@
 {
-    "name" : "长江智链",
+    "name" : "车百讯",
     "appid" : "__UNI__F14E6D5",
     "description" : "",
-    "versionName" : "1.0.94",
+    "versionName" : "1.0.0",
     "versionCode" : "100",
     "transformPx" : false,
     "app-plus" : {
@@ -21,7 +21,7 @@
         "distribute" : {
             /* 应用发布信息 */
             "android" : {
-                "schemes" : [ "carlbschjzhlapp" ],
+                "schemes" : [ "carlbschbxapp" ],
                 /* android打包配置 */
                 "permissions" : [
                     "<uses-feature android:name=\"android.hardware.camera\"/>",
@@ -59,8 +59,8 @@
                 "urlschemewhitelist" : [ "baidumap", "iosamap", "qqmap" ],
                 "urltypes" : [
                     {
-                        "urlschemes" : [ "carlbschjzhlapp" ],
-                        "id" : "com.zioe.carlbs.chjzhl"
+                        "urlschemes" : [ "carlbschbxapp" ],
+                        "id" : "com.zioe.carlbs"
                     }
                 ],
                 "privacyDescription" : {
@@ -81,14 +81,15 @@
                 },
                 "maps" : {
                     "amap" : {
-                        "appkey_ios" : "848fcab488b473dd937ec4aee0f4db2d",
-                        "appkey_android" : "0f038e2c06cecea26d67da10c68e7b55"
+                        "appkey_ios" : "51200f09d6a988bde278fc6f437f620e",
+                        "appkey_android" : "8681ad087fa09c0d4ca80aa784642bf7"
                     }
-                }
+                },
+                "oauth" : {}
             },
             "icons" : {
                 "ios" : {
-                    "appstore" : "/Users/wanghui/soho/carlbs/长江智链/1024-方.png",
+                    "appstore" : "/Users/wanghui/soho/carlbs/车百讯/xcgj-方.png",
                     "ipad" : {
                         "app" : "unpackage/res/icons/76x76.png",
                         "app@2x" : "unpackage/res/icons/152x152.png",
@@ -122,25 +123,25 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/安卓开机画面/1.png",
-                    "xhdpi" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/安卓开机画面/2.png",
-                    "xxhdpi" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/安卓开机画面/3.png"
+                    "hdpi" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/安卓开机画面/1.png",
+                    "xhdpi" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/安卓开机画面/2.png",
+                    "xxhdpi" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/安卓开机画面/3.png"
                 },
                 "ios" : {
                     "iphone" : {
-                        "retina35" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/1.png",
-                        "retina40" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/2.png",
-                        "retina40l" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/3.png",
-                        "retina47" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/4.png",
-                        "retina47l" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/5.png",
-                        "retina55" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/6.png",
-                        "retina55l" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/7.png",
-                        "iphonex" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/8.png",
-                        "iphonexl" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/9.png",
-                        "portrait-896h@2x" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/10.png",
-                        "landscape-896h@2x" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/11.png",
-                        "portrait-896h@3x" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/12.png",
-                        "landscape-896h@3x" : "/Users/wanghui/soho/carlbs/长江智链/长江智链-开机画面/ios开机画面/13.png"
+                        "retina35" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/ios开机画面/1.png",
+                        "retina40" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/ios开机画面/2.png",
+                        "retina40l" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/ios开机画面/3.png",
+                        "retina47" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/ios开机画面/4.png",
+                        "retina47l" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/ios开机画面/5.png",
+                        "retina55" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/ios开机画面/6.png",
+                        "retina55l" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/ios开机画面/7.png",
+                        "iphonex" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/ios开机画面/8.png",
+                        "iphonexl" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/ios开机画面/9.png",
+                        "portrait-896h@2x" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/ios开机画面/10.png",
+                        "landscape-896h@2x" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/ios开机画面/11.png",
+                        "portrait-896h@3x" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/ios开机画面/12.png",
+                        "landscape-896h@3x" : "/Users/wanghui/soho/carlbs/车百讯/运输轨迹logo/ios开机画面/13.png"
                     }
                 }
             }
