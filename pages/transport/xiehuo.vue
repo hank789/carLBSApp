@@ -88,7 +88,8 @@ export default {
 			transport_contact_people: '',
 			transport_contact_phone: '',
 			imageList: [],
-			btnDisabled: false
+			btnDisabled: false,
+			position: {}
         }
     },
 	onLoad: function(option) {
@@ -180,6 +181,7 @@ export default {
 						this.transport_contact_people = res.data.transport_contact_people
 						//#ifdef APP-PLUS
 						util.getGeoPosition((position) => {
+							this.position = position
 							this.transport_end_place = position.address.city + position.address.district + (position.address.street?position.address.street:'') + (position.address.streetNum?position.address.streetNum:'')
 							this.transport_end_place_longitude = position.coords.longitude
 							this.transport_end_place_latitude = position.coords.latitude
@@ -225,65 +227,34 @@ export default {
 				success: (res) => {
 					if (res.confirm) {
 						console.log('用户点击确定');
-						util.getGeoPosition((position) => {
-							var formData = {
-								transport_sub_id: this.transport_sub_id,
-								xiehuo_type: type,
-								car_number: this.car_number,
-								transport_goods: this.transport_goods,
-								transport_end_place: this.transport_end_place,
-								transport_end_place_longitude: this.transport_end_place_longitude,
-								transport_end_place_latitude: this.transport_end_place_latitude,
-								transport_end_place_coordsType: this.transport_end_place_coordsType
-							}
-							if (this.imageList.length > 0) {
-								let imgs = this.imageList.map((value, index) => {
-									return {
-										name: 'image' + index,
-										uri: value
-									};
-								});
-								formData.position = JSON.stringify(position)
-								this.$ajax
-									.upload_file('car/transport/finish', imgs, formData, true)
-									.then(res => {
-										this.btnDisabled = false
-										console.log(JSON.stringify(res));
-										if (res.code === 1000) {
-											uni.showToast({
-												title: '卸货成功!'
-											});
-											this.imageList = [];
-											if (type == 1) {
-												this.$ajax.stopWatchGeoPosition('', this.transport_sub_id)
-												this.$ajax.getUserInfo().then(res => {
-													uni.reLaunch({
-														url: redirectUrl
-													});
-												})
-											} else {
-												uni.navigateBack({
-													delta: 1
-												});
-											}
-											
-										} else {
-											uni.showToast({
-												title: res.message,
-												icon: 'none'
-											})
-										}
-									});
-							} else {
-								formData.position = position
-								this.$ajax.post('car/transport/finish', formData, true).then(res => {
-									console.log(res);
+						var formData = {
+							transport_sub_id: this.transport_sub_id,
+							xiehuo_type: type,
+							car_number: this.car_number,
+							transport_goods: this.transport_goods,
+							transport_end_place: this.transport_end_place,
+							transport_end_place_longitude: this.transport_end_place_longitude,
+							transport_end_place_latitude: this.transport_end_place_latitude,
+							transport_end_place_coordsType: this.transport_end_place_coordsType
+						}
+						if (this.imageList.length > 0) {
+							let imgs = this.imageList.map((value, index) => {
+								return {
+									name: 'image' + index,
+									uri: value
+								};
+							});
+							formData.position = JSON.stringify(this.position)
+							this.$ajax
+								.upload_file('car/transport/finish', imgs, formData, true)
+								.then(res => {
 									this.btnDisabled = false
-									if (res.code == 1000) {
+									console.log(JSON.stringify(res));
+									if (res.code === 1000) {
 										uni.showToast({
-											title: '卸货成功',
-											icon: 'none'
-										})
+											title: '卸货成功!'
+										});
+										this.imageList = [];
 										if (type == 1) {
 											this.$ajax.stopWatchGeoPosition('', this.transport_sub_id)
 											this.$ajax.getUserInfo().then(res => {
@@ -296,17 +267,45 @@ export default {
 												delta: 1
 											});
 										}
+										
 									} else {
-										this.transport_number_ok = false;
 										uni.showToast({
 											title: res.message,
 											icon: 'none'
 										})
 									}
-								})
-							}
-						})
-						
+								});
+						} else {
+							formData.position = this.position
+							this.$ajax.post('car/transport/finish', formData, true).then(res => {
+								console.log(res);
+								this.btnDisabled = false
+								if (res.code == 1000) {
+									uni.showToast({
+										title: '卸货成功',
+										icon: 'none'
+									})
+									if (type == 1) {
+										this.$ajax.stopWatchGeoPosition('', this.transport_sub_id)
+										this.$ajax.getUserInfo().then(res => {
+											uni.reLaunch({
+												url: redirectUrl
+											});
+										})
+									} else {
+										uni.navigateBack({
+											delta: 1
+										});
+									}
+								} else {
+									this.transport_number_ok = false;
+									uni.showToast({
+										title: res.message,
+										icon: 'none'
+									})
+								}
+							})
+						}
 					} else if (res.cancel) {
 						this.btnDisabled = false
 						console.log('用户点击取消');
