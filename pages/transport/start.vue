@@ -150,6 +150,7 @@ export default {
 											    icon: 'none'
 											});
 											this.$ajax.getUserInfo().then(res => {})
+											this.$store.commit('setAlertTransportStart', true)
 											uni.navigateBack({
 												delta: 1
 											});
@@ -171,6 +172,7 @@ export default {
 										    icon: 'none'
 										});
 										this.$ajax.getUserInfo().then(res => {})
+										this.$store.commit('setAlertTransportStart', true)
 										uni.navigateBack({
 											delta: 1
 										});

@@ -12,7 +12,8 @@ const store = new Vuex.Store({
 		geoWatchId2: "",
 		lastPositionUploadTime: 0,
 		isAppHide: false,
-		choosePosition: ''
+		choosePosition: '',
+		needAlertWhenTransportStart: false
     },
     mutations: {
         setUser(state, user) {
@@ -42,6 +43,9 @@ const store = new Vuex.Store({
 		},
 		setChoosePosition(state, position) {
 			state.choosePosition = position
+		},
+		setAlertTransportStart(state, needAlert) {
+			state.needAlertWhenTransportStart = needAlert
 		}
     }
 })

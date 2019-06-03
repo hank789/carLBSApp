@@ -189,6 +189,23 @@ export default {
 							//进行中
 							this.countTimerUp = res.data.transport_goods.transport_start_real_time
 							console.log('456:'+this.$store.state.geoWatchId)
+							console.log('789:' + this.$store.state.needAlertWhenTransportStart)
+							if (this.$store.state.needAlertWhenTransportStart || this.detail.needAlertTransportEnd) {
+								uni.vibrateLong({
+										success: function () {
+												console.log('success');
+										}
+								});
+								this.$store.commit('setAlertTransportStart', false)
+								uni.showModal({
+										title: '温馨提示',
+										content: '亲，别忘了行程结束后打开App，上传您的出库单并点击“行程结束”哦~',
+										showCancel: false,
+										success: function (res) {
+												
+										}
+								});
+							}
 							if (!this.$store.state.geoWatchId || ((new Date()).getTime() - this.$store.state.lastPositionUploadTime >= 1000*160)) {
 								console.log('保持屏幕常亮')
 								// 保持屏幕常亮
