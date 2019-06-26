@@ -5,7 +5,7 @@
                 <form>
                     <view class="grace-items">
                         <view class="grace-label form-label">行程号</view>
-                        <input type="text" class="input" focus v-model.trim="transport_number" @blur="blurTransportNumber" placeholder="由管理员提供"></input>
+                        <input type="text" class="input" focus v-model.trim="transport_number" @blur="blurTransportNumber" placeholder="已收到的短信为准"></input>
                     </view>
 					<view class="grace-items" @tap.stop.prevent="showKey">
 					    <view class="grace-label form-label">车牌号</view>
@@ -63,7 +63,8 @@ export default {
 			transport_end_place_longitude: '',
 			transport_end_place_latitude: '',
 			transport_end_place_coordsType: '',
-			btnDisabled: false
+			btnDisabled: false,
+			position: {address: {},coords: {}}
         }
     },
 	computed: {
@@ -77,8 +78,10 @@ export default {
 	components: {
 		tkiFloatKeyboard
 	},
-	onShow() {
-
+	onLoad() {
+		util.getGeoPosition((position) => {
+			this.position = position
+		})
 	},
     methods:{
 		// 显示键盘
@@ -141,8 +144,8 @@ export default {
 		
 			return `${year}-${month}-${day}`;
 		},
-        formSubmit : function(e){
-            console.log('formSubmit');
+    formSubmit : function(e){
+      console.log('formSubmit');
 			if (!this.transport_number_ok || this.transport_number.length < 9) {
 				uni.showToast({title:"行程号有误", icon:"none"});
 				return;
@@ -168,43 +171,42 @@ export default {
 				return;
 			}
 			this.btnDisabled = true
-			util.getGeoPosition((position) => {
-				this.$ajax.post('car/transport/add',{
-					transport_number: this.transport_number,
-					car_number: this.car_number,
-					transport_start_time: this.transport_start_date + ' ' + this.transport_start_time,
-					transport_goods: this.transport_goods,
-					transport_start_place: position.address.city + position.address.district + (position.address.street?position.address.street:'') + (position.address.streetNum?position.address.streetNum:''),
-					transport_start_place_longitude: position.coords.longitude,
-					transport_start_place_latitude: position.coords.latitude,
-					transport_start_place_coordsType: position.coordsType,
-					transport_end_place: this.transport_end_place,
-					transport_end_place_longitude: this.transport_end_place_longitude,
-					transport_end_place_latitude: this.transport_end_place_latitude,
-					transport_end_place_coordsType: this.transport_end_place_coordsType
-				}, true).then(res => {
-					console.log(res);
-					this.btnDisabled = false
-					if (res.code == 1000) {
-						uni.showToast({
-							title: '行程创建成功',
-							icon: 'none'
-						})
-						this.$ajax.getUserInfo().then(user => {
-							uni.redirectTo({
-								url: '/pages/transport/detail?id=' + res.data.id
-							});
-						})
-						
-					} else {
-						uni.showToast({
-							title: res.message,
-							icon: 'none'
-						})
-					}
-				})
-			},()=>{this.btnDisabled = false})
-        },
+			var position = this.position
+			this.$ajax.post('car/transport/add',{
+				transport_number: this.transport_number,
+				car_number: this.car_number,
+				transport_start_time: this.transport_start_date + ' ' + this.transport_start_time,
+				transport_goods: this.transport_goods,
+				transport_start_place: position.address.city + position.address.district + (position.address.street?position.address.street:'') + (position.address.streetNum?position.address.streetNum:''),
+				transport_start_place_longitude: position.coords.longitude,
+				transport_start_place_latitude: position.coords.latitude,
+				transport_start_place_coordsType: position.coordsType,
+				transport_end_place: this.transport_end_place,
+				transport_end_place_longitude: this.transport_end_place_longitude,
+				transport_end_place_latitude: this.transport_end_place_latitude,
+				transport_end_place_coordsType: this.transport_end_place_coordsType
+			}, true).then(res => {
+				console.log(res);
+				this.btnDisabled = false
+				if (res.code == 1000) {
+					uni.showToast({
+						title: '行程创建成功',
+						icon: 'none'
+					})
+					this.$ajax.getUserInfo().then(user => {
+						uni.redirectTo({
+							url: '/pages/transport/detail?id=' + res.data.id
+						});
+					})
+					
+				} else {
+					uni.showToast({
+						title: res.message,
+						icon: 'none'
+					})
+				}
+			})
+    },
 		blurTransportNumber() {
 			console.log(this.transport_number)
 			if (!this.transport_number) return;

@@ -5,7 +5,7 @@
                 <form>
                     <view class="grace-items">
                         <view class="grace-label form-label">行程号</view>
-                        <input type="text" class="input" v-model="transport_number" @blur="blurTransportNumber" placeholder="由管理员提供"></input>
+                        <input type="text" class="input" v-model="transport_number" @blur="blurTransportNumber" placeholder="以收到的短信为准"></input>
                     </view>
 					<view class="grace-items" @tap.stop.prevent="showKey">
 					    <view class="grace-label form-label">车牌号</view>
