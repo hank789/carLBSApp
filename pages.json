@@ -105,6 +105,13 @@
 		        "enablePullDownRefresh" : false,
 		        "navigationBarTitleText" : "行程信息"
 		    }
+		},
+		{
+		    "path" : "pages/transport/backend",
+		    "style" : {
+		        "enablePullDownRefresh" : false,
+		        "navigationBarTitleText" : "行程管理"
+		    }
 		}
     ],
     "globalStyle" : {

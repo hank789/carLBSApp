@@ -91,7 +91,7 @@
             },
             "icons" : {
                 "ios" : {
-                    "appstore" : "/Users/wanghui/soho/carlbs/长江智链/1024-方.png",
+                    "appstore" : "unpackage/res/icons/1024x1024.png",
                     "ipad" : {
                         "app" : "unpackage/res/icons/76x76.png",
                         "app@2x" : "unpackage/res/icons/152x152.png",

@@ -70,16 +70,26 @@
 		},
 		onNavigationBarButtonTap(e) {
 			var itemList = []
+			var appInfo = this.$ls.get('appDeviceInfo')
 			if (this.$store.state.user.isManager) {
-				itemList = ['车辆管理', '退出登录']
+				if (this.$store.state.user.id == 1 && appInfo.platform == 'ios') {
+					itemList = ['车辆管理', '退出登录']
+				} else {
+					itemList = ['行程管理', '车辆管理', '退出登录']
+				}
 			} else {
 				itemList = ['退出登录']
 			}
 			uni.showActionSheet({
-				title:'标题',
+				title:'管理',
 				itemList: itemList,
 				success: (e) => {
 					switch (itemList[e.tapIndex]) {
+						case '行程管理':
+							uni.navigateTo({
+								url: '/pages/transport/backend'
+							});
+							break;
 						case '车辆管理':
 							uni.navigateTo({
 								url: '/pages/transport/carList'
